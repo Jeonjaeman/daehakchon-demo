@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>대학촌 메인페이지 초안 5종</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root { --o: #eb6100; --p: #f29b87; --iv: #fff6e9; --ink: #1a0f08; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Pretendard Variable", Pretendard, sans-serif; background: var(--iv); color: var(--ink); letter-spacing: -0.02em; }
+  header { padding: 56px 6vw 24px; }
+  header h1 { margin: 0; font-size: clamp(28px, 3.2vw, 52px); font-weight: 800; }
+  header h1 b { color: var(--o); }
+  header p { margin: 12px 0 0; opacity: .7; max-width: 60ch; line-height: 1.7; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 16px 6vw 80px; }
+  .card { display: block; background: #fff; border-radius: 18px; overflow: hidden; text-decoration: none; color: inherit; box-shadow: 0 16px 40px rgba(26, 15, 8, .08); transition: transform .3s, box-shadow .3s; }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 26px 60px rgba(26, 15, 8, .14); }
+  .card .th { aspect-ratio: 16/10; background: var(--ink) center/cover no-repeat; position: relative; }
+  .card .th i { position: absolute; left: 16px; top: 14px; font-style: normal; font-weight: 800; color: #fff; background: var(--o); padding: 4px 10px; border-radius: 999px; font-size: 13px; letter-spacing: .04em; }
+  .card .b { padding: 18px 20px 22px; }
+  .card h2 { margin: 0; font-size: 20px; font-weight: 800; }
+  .card h2 small { display: block; font-weight: 500; font-size: 12px; color: var(--o); letter-spacing: .12em; margin-bottom: 6px; }
+  .card p { margin: 10px 0 0; font-size: 14px; line-height: 1.65; opacity: .72; }
+  .card .ref { margin-top: 12px; font-size: 12px; opacity: .55; }
+  footer { padding: 24px 6vw 60px; font-size: 13px; opacity: .55; }
+  code { background: rgba(0,0,0,.06); padding: 2px 6px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>대학촌 <b>메인페이지 초안</b> 5종</h1>
+  <p>경북과학대학교 식품공장 '대학촌' 홈페이지 리뉴얼 초안입니다. 메인페이지만 구성했고, 메뉴는 링크 없이 이름과 hover 효과만 있습니다. 이미지·영상은 AI로 생성한 임시 소재이며 실제 제작 시 촬영본으로 교체됩니다. PC와 모바일 모두 확인해 보세요.</p>
+</header>
+<section class="grid">
+  <a class="card" href="01-editorial/index.html"><div class="th" style="background-image:url(assets/img/f3_bottling.webp)"><i>A</i></div><div class="b"><h2><small>BROCHURE EDITORIAL</small>매거진 화보형</h2><p>브로슈어 "30년의 신뢰, 100년의 미래"를 화보처럼 넘기는 구성. 공장 영상 히어로 → 연구·공장·품질 3챕터 → 제품 360° 턴테이블 → OEM·ODM.</p><div class="ref">레퍼런스: a-magazine 화보 구조</div></div></a>
+  <a class="card" href="02-depth/index.html"><div class="th" style="background-image:url(assets/img/pr5_fiber_dark_hero.webp);background-position:center 40%"><i>B</i></div><div class="b"><h2><small>DEPTH PRODUCT</small>제품 깊이감</h2><p>다크 프리미엄 톤. 마우스에 반응하는 깊이맵 히어로, 원료가 떠오르는 레이어, 스크롤 줌 제품 소개, 인증 스티커.</p><div class="ref">레퍼런스: lusion 깊이맵 패럴랙스 · soijeong 로딩 게이트</div></div></a>
+  <a class="card" href="03-film/index.html"><div class="th" style="background-image:url(assets/img/h1_factory_wide.webp)"><i>C</i></div><div class="b"><h2><small>FACTORY FILM + 30 YEARS</small>기업 영상 + 30년 연혁</h2><p>글자 없는 영상 7컷 위에 실시간 한글 타이포(KR/EN 즉시 전환) 브랜드 필름 → 카드 확장 → 1996→2026 연혁 스크롤 → 제품 라인업 → 뉴스.</p><div class="ref">레퍼런스: gigavis 메인·연혁 핀</div></div></a>
+  <a class="card" href="04-sticker/index.html"><div class="th" style="background-image:url(assets/img/pr7_group.webp)"><i>D</i></div><div class="b"><h2><small>PLAYFUL ORANGE</small>브랜드 스티커</h2><p>거대 타이포 사이 제품, 랜덤 회전 스티커, 기울어진 마키 띠, 재료가 쌓이는 스크롤, 수출 점선 여정.</p><div class="ref">레퍼런스: cravburgers · soijeong 마키</div></div></a>
+  <a class="card" href="05-clean/index.html"><div class="th" style="background-image:url(assets/img/iso_factory.webp)"><i>E</i></div><div class="b"><h2><small>CAMPUS CLEAN</small>신뢰·수치 클린</h2><p>아이보리·오렌지·핑크 색 블록, 수치 카운터(30년·12인증·15파트너·300만불), 제품 탭, 인증 롤링, 아이소메트릭 캠퍼스, 퀵메뉴.</p><div class="ref">레퍼런스: umburger 색 블록 · 브로슈어</div></div></a>
+</section>
+<footer>로컬 확인: <code>python serve.py</code> → <code>http://localhost:8780/</code> · 연출 끄기 <code>?nomotion=1</code> · 필름 정지 <code>03-film/?t=12.5</code></footer>
+</body>
+</html>

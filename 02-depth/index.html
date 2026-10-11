@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>대학촌 | 경북과학대학교 식품공장 — 감 한 알에서 건강한 한 병까지</title>
+<meta name="description" content="경북과학대학교 식품공장 대학촌. 1996년 설립 이후 대학 연구소의 성과를 기반으로 감식초·홍삼 음료를 연구·개발·제조하는 학교기업입니다. 국내 액상 제품 1호 GMP 지정 공장.">
+<meta name="theme-color" content="#1a0f08">
+<link rel="icon" type="image/svg+xml" href="../shared/ci.svg">
+<script>
+  /* 로딩 게이트·모션 여부를 첫 페인트 전에 결정한다 (main.js가 못 뜨면 12초 뒤 게이트를 스스로 푼다) */
+  (function (d) {
+    var c = d.documentElement.classList, q = location.search;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    c.add('js');
+    if (reduce || /[?&]nomotion=1/.test(q)) { c.add('no-motion'); return; }
+    if (/[?&]noloader=1/.test(q)) return;
+    c.add('has-loader', 'is-loading');
+    setTimeout(function () {
+      if (window.__loader) return;
+      c.remove('has-loader', 'is-loading');
+      var img = d.getElementById('heroImg');
+      if (img && !img.getAttribute('src')) img.src = img.getAttribute('data-src');
+    }, 12000);
+  })(document);
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ───────── LOADER (진행바 + %) ───────── -->
+<div class="loader" id="loader" role="progressbar" aria-label="페이지를 불러오는 중" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+  <div class="loader__bar"><i id="loaderBar"></i></div>
+  <div class="loader__center">
+    <img class="loader__ci" src="../shared/ci.svg" alt="" width="44" height="49">
+    <p class="loader__pct"><b id="loaderNum">0</b><span>%</span></p>
+    <p class="en-label loader__label">TRUSTED BY THE UNIVERSITY · SINCE 1996</p>
+  </div>
+  <div class="loader__foot">
+    <p class="en-label">FROM LAB TO BOTTLE</p>
+    <p class="en-label">KYONGBUK SCIENCE UNIVERSITY FOOD FACTORY</p>
+  </div>
+</div>
+
+<!-- ───────── HEADER ───────── -->
+<header class="hd is-light" id="hd">
+  <div class="hd__brand" aria-label="대학촌 경북과학대학교 식품공장">
+    <img class="hd__ci" src="../shared/ci.svg" alt="" width="36" height="40">
+    <p class="hd__word"><b>대학촌</b><small>경북과학대학교 식품공장</small></p>
+  </div>
+  <nav class="hd__nav" aria-label="주요 메뉴">
+    <button type="button">회사소개</button>
+    <button type="button">생산역량</button>
+    <button type="button">제품소개</button>
+    <button type="button">고객지원</button>
+  </nav>
+  <div class="hd__util">
+    <div class="hd__lang" role="group" aria-label="언어 선택 (표시용)">
+      <button type="button" class="is-on" aria-pressed="true">KR</button><i aria-hidden="true">/</i><button type="button" aria-pressed="false">EN</button><i aria-hidden="true">/</i><button type="button" aria-pressed="false">CN</button>
+    </div>
+    <button type="button" class="hd__cta" data-goto="#contact">OEM 문의</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ───────── 01 HERO — 깊이맵 패럴랙스 ───────── -->
+<section class="hero" id="hero" data-dark>
+  <div class="hero__stage">
+    <div class="hero__media" id="heroMedia">
+      <img class="hero__img" id="heroImg" data-src="../assets/img/pr5_fiber_dark_hero.webp" alt="다크 슬레이트 위에 놓인 감식초 화이바 병과 감, 감 조각" width="1792" height="2400" decoding="async">
+      <noscript><img class="hero__img" src="../assets/img/pr5_fiber_dark_hero.webp" alt="다크 슬레이트 위에 놓인 감식초 화이바 병과 감, 감 조각" width="1792" height="2400"></noscript>
+      <canvas class="hero__gl" id="heroGL" aria-hidden="true"></canvas>
+    </div>
+    <div class="hero__shade" aria-hidden="true"></div>
+
+    <div class="hero__body">
+      <p class="en-label hero__label"><span>PERSIMMON VINEGAR FIBER · SINCE 1996</span></p>
+      <h1 class="hero__title">
+        <span class="ln"><span>감 한 알에서</span></span>
+        <span class="ln"><span><strong>건강한 한 병까지</strong></span></span>
+      </h1>
+      <p class="hero__sub">국내 유일 감식초 음료. <br>대학 연구소가 만들고, GMP 1호 공장이 채웁니다.</p>
+    </div>
+
+    <div class="hero__foot">
+      <i class="cross" aria-hidden="true"></i>
+      <i class="cross" aria-hidden="true"></i>
+      <p class="en-label hero__scroll"><span class="hero__scroll-line" aria-hidden="true"></span>SCROLL TO EXPLORE</p>
+      <i class="cross" aria-hidden="true"></i>
+      <i class="cross" aria-hidden="true"></i>
+    </div>
+    <div class="hero__veil" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ───────── 02 ORIGIN — 원료 떠오름 ───────── -->
+<section class="origin" id="origin" data-dark>
+  <div class="wrap origin__head">
+    <p class="en-label" data-reveal><em>01</em> ORIGIN</p>
+    <h2 class="title" data-reveal>연구에서 생산까지,<br><strong>한 캠퍼스 안에서</strong></h2>
+    <p class="origin__desc" data-reveal>경북과학대학교 식품공장은 1996년 설립 이후 대학 연구소의 성과를 기반으로 감식초 등 전통식품을 상품화하여 지역 유통 및 대형 식품업체에 공급하고 있습니다.</p>
+  </div>
+
+  <div class="origin__stage" id="originStage">
+    <p class="origin__word" aria-hidden="true">ORIGIN</p>
+    <figure class="float float--onggi" data-speed="1" data-depth=".5">
+      <div class="float__m"><img src="../assets/img/c5_onggi.webp" alt="발효에 쓰는 옹기 항아리" width="2048" height="2048" loading="lazy" decoding="async"></div>
+    </figure>
+    <figure class="float float--persimmon" data-speed="2.4" data-depth="1">
+      <div class="float__m"><img src="../assets/img/c1_persimmon.webp" alt="잘 익은 감 한 알" width="2048" height="2048" loading="lazy" decoding="async"></div>
+    </figure>
+    <figure class="float float--splash" data-speed="3.2" data-depth=".9">
+      <div class="float__m"><img src="../assets/img/c4_splash.webp" alt="" width="2048" height="2048" loading="lazy" decoding="async"></div>
+    </figure>
+    <figure class="float float--half" data-speed="1.8" data-depth=".8">
+      <div class="float__m"><img src="../assets/img/c2_persimmon_half.webp" alt="반으로 자른 감 두 조각" width="2048" height="2048" loading="lazy" decoding="async"></div>
+    </figure>
+    <figure class="float float--ginseng" data-speed="1.3" data-depth=".6">
+      <div class="float__m"><img src="../assets/img/c3_ginseng_root.webp" alt="6년근 홍삼 뿌리" width="2048" height="2048" loading="lazy" decoding="async"></div>
+    </figure>
+  </div>
+
+  <ol class="wrap origin__list" data-reveal-group>
+    <li>
+      <em>01</em>
+      <h3>청도·경북의 감</h3>
+      <p>발효 균주 특허 2건</p>
+    </li>
+    <li>
+      <em>02</em>
+      <h3>항아리에서 탱크로</h3>
+      <p>30년 발효 노하우</p>
+    </li>
+    <li>
+      <em>03</em>
+      <h3>6년근 홍삼</h3>
+      <p>진세노사이드 10mg</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ───────── 03 ZOOM SCRUB — 다크 → 아이보리 ───────── -->
+<section class="zoom" id="zoom" data-dark>
+  <div class="zoom__stage" id="zoomStage">
+    <div class="zoom__layer zoom__layer--dark" aria-hidden="true">
+      <div class="zoom__intro">
+        <p class="en-label">FIBER BEVERAGE · 100ml</p>
+        <h2 class="zoom__title">감식초 <strong>화이바</strong></h2>
+        <p class="zoom__desc">국내 유일 감식초 음료, 식이섬유 2,500mg.<br>식후 가볍게 즐기는 건강한 습관.</p>
+      </div>
+    </div>
+    <div class="zoom__layer zoom__layer--light" id="zoomLight">
+      <div class="zoom__intro">
+        <p class="en-label">FIBER BEVERAGE · 100ml</p>
+        <h2 class="zoom__title">감식초 <strong>화이바</strong></h2>
+        <p class="zoom__desc">국내 유일 감식초 음료, 식이섬유 2,500mg.<br>식후 가볍게 즐기는 건강한 습관.</p>
+      </div>
+    </div>
+
+    <div class="zoom__product" id="zoomProduct">
+      <span class="zoom__shadow" aria-hidden="true"></span>
+      <img src="../assets/img/pr1_fiber_bottle_cut.webp" alt="감식초 화이바 100ml 유리병" width="2048" height="2048" loading="lazy" decoding="async">
+    </div>
+
+    <ol class="zoom__callouts">
+      <li class="co co--1">
+        <p class="en-label"><em>01</em> DIETARY FIBER</p>
+        <p class="co__num"><b>2,500</b><span>mg</span></p>
+        <p class="co__txt">식이섬유 · 100ml 기준</p>
+        <i class="co__line" aria-hidden="true"></i>
+      </li>
+      <li class="co co--2">
+        <p class="en-label"><em>02</em> CALORIES</p>
+        <p class="co__num"><b>55</b><span>kcal</span></p>
+        <p class="co__txt">한 병 열량</p>
+        <i class="co__line" aria-hidden="true"></i>
+      </li>
+      <li class="co co--3">
+        <p class="en-label"><em>03</em> PACKAGE</p>
+        <p class="co__num"><b>100ml</b><span>× 50입</span></p>
+        <p class="co__txt">한 상자 구성</p>
+        <i class="co__line" aria-hidden="true"></i>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ───────── 04 CERTIFIED — 스티커 리빌 ───────── -->
+<section class="cert" id="cert">
+  <div class="wrap">
+    <div class="cert__head">
+      <p class="en-label" data-reveal><em>02</em> CERTIFIED</p>
+      <h2 class="title" data-reveal>대학이<br><strong>품질을 보증합니다</strong></h2>
+      <p class="cert__desc" data-reveal>식품의약품안전처로부터 우수건강기능식품제조기준(GMP) 적용업소로 지정되었습니다. GMP, HACCP, ISO 9001:2015, 미국 FDA 식품시설 등록까지 체계적으로 관리합니다.</p>
+    </div>
+
+    <ul class="cert__board" id="certBoard">
+      <li class="sticker sticker--orange">
+        <div class="sticker__tilt"><div class="sticker__in">
+          <span class="en-label sticker__top">KFDA · 2005</span>
+          <b class="sticker__main">GMP 지정</b>
+          <span class="sticker__sub">국내 액상 제품 1호 공장</span>
+        </div></div>
+      </li>
+      <li class="sticker sticker--ivory">
+        <div class="sticker__tilt"><div class="sticker__in">
+          <span class="en-label sticker__top">6 ITEMS · 2017</span>
+          <b class="sticker__main">HACCP</b>
+          <span class="sticker__sub">발효식초 · 인삼홍삼음료 외 6개 품목</span>
+        </div></div>
+      </li>
+      <li class="sticker sticker--dark">
+        <div class="sticker__tilt"><div class="sticker__in">
+          <span class="en-label sticker__top">QUALITY · 2018</span>
+          <b class="sticker__main sticker__main--sm">ISO 9001:2015</b>
+          <span class="sticker__sub">품질경영시스템 인증</span>
+        </div></div>
+      </li>
+      <li class="sticker sticker--pink">
+        <div class="sticker__tilt"><div class="sticker__in">
+          <span class="en-label sticker__top">U.S. FDA · 2013</span>
+          <b class="sticker__main">FDA 등록</b>
+          <span class="sticker__sub">미국 FDA 식품시설 등록</span>
+        </div></div>
+      </li>
+      <li class="sticker sticker--ivory">
+        <div class="sticker__tilt"><div class="sticker__in">
+          <span class="en-label sticker__top">PATENT</span>
+          <b class="sticker__main">특허 5건</b>
+          <span class="sticker__sub">대학 연구소 기반 R&amp;D</span>
+        </div></div>
+      </li>
+      <li class="sticker sticker--orange">
+        <div class="sticker__tilt"><div class="sticker__in">
+          <span class="en-label sticker__top">EXPORT</span>
+          <b class="sticker__main">수출 7개국+</b>
+          <span class="sticker__sub">베트남 · 일본 · 중국 · 미국 외</span>
+        </div></div>
+      </li>
+      <li class="sticker sticker--pink">
+        <div class="sticker__tilt"><div class="sticker__in">
+          <span class="en-label sticker__top">2026.05</span>
+          <b class="sticker__main">학교기업 1위</b>
+          <span class="sticker__sub">전국 학교기업 매출</span>
+        </div></div>
+      </li>
+      <li class="sticker sticker--dark">
+        <div class="sticker__tilt"><div class="sticker__in">
+          <span class="en-label sticker__top">ESTABLISHED</span>
+          <b class="sticker__main">Since 1996</b>
+          <span class="sticker__sub">30년의 신뢰, 100년의 미래</span>
+        </div></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ───────── 05 LINE-UP ───────── -->
+<section class="lineup" id="lineup" data-dark>
+  <div class="wrap">
+    <div class="lineup__head">
+      <div>
+        <p class="en-label" data-reveal><em>03</em> LINE-UP</p>
+        <h2 class="title" data-reveal>대학촌<br><strong>대표 제품</strong></h2>
+      </div>
+      <button type="button" class="link-arrow" data-goto="#contact" data-reveal>
+        <span>OEM · ODM 문의</span><i aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <ul class="lineup__grid" data-reveal-group>
+      <li class="card" style="--glow: 235, 97, 0">
+        <div class="card__media">
+          <img src="../assets/img/pr1_fiber_bottle_cut.webp" alt="감식초 화이바 100ml 병" width="2048" height="2048" loading="lazy" decoding="async">
+        </div>
+        <div class="card__body">
+          <p class="card__cat"><span class="en-label">FIBER BEVERAGE</span>화이바 음료</p>
+          <h3 class="card__name">감식초 화이바</h3>
+          <p class="card__desc">국내 유일 감식초 음료, 식이섬유 2,500mg. 식후 가볍게 즐기는 건강한 습관</p>
+          <p class="card__spec">100ml × 50입</p>
+          <div class="card__btns">
+            <button type="button" class="btn btn--line">더 알아보기</button>
+            <button type="button" class="btn btn--fill">스마트스토어</button>
+          </div>
+        </div>
+      </li>
+      <li class="card" style="--glow: 242, 155, 135">
+        <div class="card__media">
+          <img src="../assets/img/pr2_vermont_pouch_cut.webp" alt="감발효 버몬트 주황 스파우트 파우치" width="2048" height="2048" loading="lazy" decoding="async">
+        </div>
+        <div class="card__body">
+          <p class="card__cat"><span class="en-label">DRINKING POUCH</span>드링킹 음료</p>
+          <h3 class="card__name">감발효 버몬트</h3>
+          <p class="card__desc">감발효초의 깊은 풍미에 타우린 1,000mg. 휴대가 간편한 파우치</p>
+          <p class="card__spec">100ml × 50입</p>
+          <div class="card__btns">
+            <button type="button" class="btn btn--line">더 알아보기</button>
+            <button type="button" class="btn btn--fill">스마트스토어</button>
+          </div>
+        </div>
+      </li>
+      <li class="card" style="--glow: 214, 160, 72">
+        <div class="card__media">
+          <img src="../assets/img/pr3_jinhongsam_pouch_cut.webp" alt="6년근 진홍삼 프리미엄 블랙·골드 파우치" width="2048" height="2048" loading="lazy" decoding="async">
+        </div>
+        <div class="card__body">
+          <p class="card__cat"><span class="en-label">RED GINSENG</span>홍삼 음료</p>
+          <h3 class="card__name">6년근 진홍삼 프리미엄</h3>
+          <p class="card__desc">국내산 6년근 홍삼 농축액 350mg, 남녀노소 즐기는 프리미엄 홍삼음료</p>
+          <p class="card__spec">70ml × 30입</p>
+          <div class="card__btns">
+            <button type="button" class="btn btn--line">더 알아보기</button>
+            <button type="button" class="btn btn--fill">스마트스토어</button>
+          </div>
+        </div>
+      </li>
+      <li class="card" style="--glow: 215, 38, 46">
+        <div class="card__media">
+          <img src="../assets/img/pr4_hongsam_pouch_cut.webp" alt="6년근 홍삼진액 레드 파우치" width="2048" height="2048" loading="lazy" decoding="async">
+        </div>
+        <div class="card__body">
+          <p class="card__cat"><span class="en-label">HEALTH FUNCTIONAL FOOD</span>건강기능식품</p>
+          <h3 class="card__name">6년근 홍삼진액</h3>
+          <p class="card__desc">한 포(50ml)당 진세노사이드 10mg. 면역력 증진·피로 개선에 도움</p>
+          <p class="card__spec">50ml × 30입</p>
+          <div class="card__btns">
+            <button type="button" class="btn btn--line">더 알아보기</button>
+            <button type="button" class="btn btn--fill">스마트스토어</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="lineup__oem" data-reveal>
+      <p class="en-label">OEM · ODM CATEGORY</p>
+      <ul>
+        <li>숙취 해소</li>
+        <li>건강기능식품</li>
+        <li>홍삼</li>
+        <li>비타민</li>
+        <li>기타 음료</li>
+      </ul>
+      <p class="lineup__pack">병 · PET · 이중캡 · 스파우트 파우치 · 모양 파우치 · 스탠딩 파우치</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 06 PARTNERS ───────── -->
+<section class="partners" id="partners">
+  <div class="wrap partners__head">
+    <p class="en-label" data-reveal><em>04</em> PARTNERS</p>
+    <h2 class="title" data-reveal>검증된<br><strong>OEM·ODM 파트너</strong></h2>
+    <p class="partners__desc" data-reveal>CJ웰케어, HK이노엔, 한국콜마, 롯데칠성음료, 광동제약 등 국내 대기업과 OEM·ODM 파트너십을 이어 오고 있습니다.</p>
+  </div>
+
+  <div class="marquee" aria-label="주요 파트너 15개사">
+    <div class="marquee__row">
+      <div class="marquee__track">
+        <ul class="marquee__list">
+          <li>CJ웰케어</li><li>HK이노엔</li><li>한국콜마</li><li>롯데칠성음료</li><li>광동제약</li><li>일동제약</li><li>유한양행</li><li>농협홍삼</li>
+        </ul>
+        <ul class="marquee__list" aria-hidden="true">
+          <li>CJ웰케어</li><li>HK이노엔</li><li>한국콜마</li><li>롯데칠성음료</li><li>광동제약</li><li>일동제약</li><li>유한양행</li><li>농협홍삼</li>
+        </ul>
+      </div>
+    </div>
+    <div class="marquee__row marquee__row--rev">
+      <div class="marquee__track">
+        <ul class="marquee__list">
+          <li>천지개벽</li><li>현대약품</li><li>보해양조</li><li>샘표</li><li>올네이처</li><li>CJ제일제당</li><li>대상</li>
+        </ul>
+        <ul class="marquee__list" aria-hidden="true">
+          <li>천지개벽</li><li>현대약품</li><li>보해양조</li><li>샘표</li><li>올네이처</li><li>CJ제일제당</li><li>대상</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <ul class="wrap stats" id="stats" data-reveal-group>
+    <li>
+      <p class="stats__num"><b data-count="30">30</b><span>년</span></p>
+      <p class="stats__k">Since 1996</p>
+      <p class="stats__d">1996년 12월 설립</p>
+    </li>
+    <li>
+      <p class="stats__num"><b data-count="12">12</b><span>종 인증</span></p>
+      <p class="stats__k">CERTIFICATION</p>
+      <p class="stats__d">ISO 9001:2015 · GMP · HACCP 6개 품목 외</p>
+    </li>
+    <li>
+      <p class="stats__num"><b data-count="15">15</b><span>개사</span></p>
+      <p class="stats__k">PARTNERS</p>
+      <p class="stats__d">국내 식품·제약 OEM·ODM 파트너</p>
+    </li>
+    <li>
+      <p class="stats__num"><b data-count="300">300</b><span>만불</span></p>
+      <p class="stats__k">EXPORT</p>
+      <p class="stats__d">해외 수출 달성 · 2026.06</p>
+    </li>
+  </ul>
+</section>
+
+<!-- ───────── 07 CONTACT + FOOTER ───────── -->
+<section class="contact" id="contact" data-dark>
+  <div class="wrap contact__grid">
+    <div class="contact__info">
+      <p class="en-label" data-reveal><em>05</em> CONTACT</p>
+      <h2 class="title" data-reveal>원료 연구부터 수출까지,<br><strong>대학촌과 함께</strong></h2>
+      <p class="contact__desc" data-reveal>식품 관련 학과의 전문성과 연구 역량을 바탕으로 건강기능식품 연구·개발·제조를 수행하는 학교기업입니다.</p>
+      <p class="contact__tel" data-reveal>054-972-9721</p>
+      <dl class="contact__dl" data-reveal>
+        <div><dt>FAX</dt><dd>054-972-9725</dd></div>
+        <div><dt>ADDRESS</dt><dd>경북 칠곡군 기산면 지산로 520</dd></div>
+      </dl>
+      <div class="contact__btns" data-reveal>
+        <button type="button" class="btn btn--line">카탈로그 보기</button>
+        <button type="button" class="btn btn--line">스마트스토어 바로가기</button>
+      </div>
+    </div>
+
+    <form class="form" id="inquiry" novalidate data-reveal>
+      <p class="form__title">OEM·ODM 문의</p>
+      <fieldset class="form__type">
+        <legend>문의 유형</legend>
+        <label><input type="radio" name="type" value="oem" checked><span>OEM</span></label>
+        <label><input type="radio" name="type" value="odm"><span>ODM</span></label>
+        <label><input type="radio" name="type" value="buy"><span>제품 구매</span></label>
+        <label><input type="radio" name="type" value="etc"><span>기타</span></label>
+      </fieldset>
+      <label class="form__f"><span>회사명</span><input type="text" name="company" placeholder="예) ○○식품" autocomplete="off"></label>
+      <label class="form__f"><span>담당자</span><input type="text" name="name" placeholder="성함 / 직책" autocomplete="off"></label>
+      <label class="form__f"><span>연락처</span><input type="tel" name="tel" placeholder="010-0000-0000" autocomplete="off"></label>
+      <label class="form__f"><span>이메일</span><input type="email" name="email" placeholder="name@company.com" autocomplete="off"></label>
+      <label class="form__f form__f--full"><span>문의 내용</span><textarea name="msg" rows="3" placeholder="제품 형태(병·파우치), 예상 수량, 일정을 적어 주세요."></textarea></label>
+      <div class="form__foot">
+        <label class="form__agree"><input type="checkbox" name="agree"><span>개인정보 수집·이용에 동의합니다</span></label>
+        <button type="submit" class="btn btn--fill btn--lg">OEM·ODM 문의하기</button>
+        <p class="form__msg" id="formMsg" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </div>
+
+  <footer class="ft wrap">
+    <div class="ft__brand">
+      <img src="../shared/ci.svg" alt="" width="36" height="40" loading="lazy">
+      <p class="hd__word"><b>대학촌</b><small>경북과학대학교 식품공장</small></p>
+    </div>
+    <p class="ft__biz">
+      <span>경북과학대학교 식품공장 대학촌</span><span>대표 정은재</span><span>경북 칠곡군 기산면 지산로 520</span><span>TEL 054-972-9721</span><span>FAX 054-972-9725</span><span>사업자등록번호 504-82-06818</span><span>통신판매업신고 제04-24호</span>
+    </p>
+    <p class="ft__copy en-label">© 2026 KYONGBUK SCIENCE UNIVERSITY FOOD FACTORY</p>
+  </footer>
+</section>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+<script src="main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>대학촌 | 경북과학대학교 식품공장 — 30년의 신뢰, 100년의 미래</title>
+<meta name="description" content="경북과학대학교 식품공장 대학촌. 1996년 설립된 대학 학교기업으로 감식초·홍삼 음료를 직접 생산하고 국내 대기업의 OEM·ODM을 맡습니다. 대학이 품질을 보증합니다.">
+<meta name="theme-color" content="#eb6100">
+<link rel="icon" href="../shared/ci.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500..900&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.css">
+<link rel="stylesheet" href="style.css">
+<script>
+  /* 연출이 켜질 환경이면 첫 페인트 전에 히어로 등장 요소를 숨겨 깜빡임을 막는다. main.js가 못 뜨면 3.5초 뒤 자동 해제 */
+  (function (d) {
+    var off = /[?&]nomotion=1/.test(location.search) || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (off) { d.documentElement.classList.add('no-motion'); return; }
+    d.documentElement.classList.add('js-pre');
+    setTimeout(function () { d.documentElement.classList.remove('js-pre'); }, 3500);
+  })(document);
+</script>
+</head>
+<body>
+
+<!-- ───────── 고정 UI ───────── -->
+<header class="hd" id="hd">
+  <div class="logo" aria-label="대학촌 경북과학대학교 식품공장">
+    <img class="logo__ci" src="../shared/ci.svg" alt="" width="100" height="112">
+    <span class="logo__word"><b>대학촌</b><small>경북과학대학교 식품공장</small></span>
+  </div>
+
+  <div class="hd__right">
+    <div class="lang" role="group" aria-label="언어 선택(표시만)">
+      <button type="button" aria-pressed="true">KR</button>
+      <button type="button" aria-pressed="false">EN</button>
+      <button type="button" aria-pressed="false">CN</button>
+    </div>
+    <button type="button" class="pill pill--ghost hd__oem" data-goto="#cta">OEM 문의</button>
+    <button type="button" class="pill pill--orange hd__shop" data-goto="#lineup">제품 보기</button>
+    <div class="menu" id="menu">
+      <button type="button" class="pill pill--menu" id="menuBtn" aria-expanded="false" aria-controls="menuPanel">
+        <span>MENU</span><i class="burger" aria-hidden="true"><b></b><b></b><b></b></i>
+      </button>
+      <div class="menu__panel" id="menuPanel">
+        <div class="menu__card">
+          <p class="menu__label en">DAEHAKCHON</p>
+          <nav class="menu__nav" aria-label="주요 메뉴">
+            <button type="button">회사소개</button>
+            <button type="button">생산역량</button>
+            <button type="button">제품소개</button>
+            <button type="button">고객지원</button>
+          </nav>
+          <div class="menu__foot">
+            <div class="lang lang--menu" role="group" aria-label="언어 선택(표시만)">
+              <button type="button" aria-pressed="true">KR</button>
+              <button type="button" aria-pressed="false">EN</button>
+              <button type="button" aria-pressed="false">CN</button>
+            </div>
+            <button type="button" class="pill pill--orange menu__oem" data-goto="#cta">OEM 문의</button>
+          </div>
+          <p class="menu__tel">TEL <b>054-972-9721</b></p>
+          <span class="stk stk--pink menu__stk" style="--r:8deg">SINCE 1996</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<button type="button" class="buy" id="buy" data-demo aria-label="구매하기 — 네이버 스마트스토어(데모)">
+  <svg class="buy__ring" viewBox="0 0 120 120" aria-hidden="true">
+    <defs><path id="buyRing" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/></defs>
+    <text><textPath href="#buyRing" textLength="280">SMART STORE · BUY NOW · SMART STORE · BUY NOW · </textPath></text>
+  </svg>
+  <span class="buy__txt">구매<br>하기</span>
+</button>
+
+<nav class="mbar" aria-label="빠른 메뉴">
+  <button type="button" class="mbar__buy" data-demo>구매하기 <small>스마트스토어</small></button>
+  <button type="button" class="mbar__oem" data-goto="#cta">OEM 문의</button>
+</nav>
+
+<p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+<main>
+
+<!-- ───────── 01 HERO ───────── -->
+<section class="hero" id="top" aria-label="대학촌">
+  <div class="hero__stage">
+    <img class="hero__acc hero__acc--back" src="../assets/img/c2_persimmon_half.webp" alt="" decoding="async" data-speed="6">
+
+    <h1 class="hero__word">
+      <span class="sr-only">대학촌 — 경북과학대학교 식품공장</span>
+      <span class="hero__chars" aria-hidden="true"><span class="ch ol ch--1" data-text="대">대</span><span class="ch ol ch--2" data-text="학">학</span><span class="hero__slot"><span class="hero__prod" id="heroProd"><span class="hero__prod-in"><img class="hero__bottle" src="../assets/img/pr1_fiber_bottle_cut.webp" alt="" fetchpriority="high" decoding="async"></span></span></span><span class="ch ol ch--3" data-text="촌">촌</span></span>
+    </h1>
+
+    <p class="hero__en ol" data-text="DAEHAKCHON" aria-hidden="true">DAEHAKCHON</p>
+
+    <img class="hero__acc hero__acc--front" src="../assets/img/c1_persimmon.webp" alt="" decoding="async" data-speed="-10">
+
+    <ul class="hero__stks" aria-label="대학촌 인증과 기록">
+      <li class="stk stk--oval hero__stk hero__stk--1" style="--r:-11deg" data-speed="4"><span class="en">SINCE 1996</span></li>
+      <li class="stk stk--round stk--ivory hero__stk hero__stk--2" style="--r:9deg" data-speed="-6"><small>국내 액상 제품</small><b>GMP 1호</b></li>
+      <li class="stk stk--dark hero__stk hero__stk--3" style="--r:-6deg" data-speed="8"><span class="en">HACCP</span></li>
+      <li class="stk stk--pink stk--rect hero__stk hero__stk--4" style="--r:7deg" data-speed="-4">수출 <b>300만불</b></li>
+    </ul>
+  </div>
+
+  <div class="hero__foot">
+    <p class="hero__copy"><em class="en">FIBER BEVERAGE</em>감식초 특허 원료로 만든<br>국내 유일 감식초 음료.</p>
+    <p class="hero__copy hero__copy--r"><em class="en">6-YEAR RED GINSENG</em>6년근 홍삼의 깊이를 한 포에.<br>대학이 품질을 보증합니다.</p>
+  </div>
+</section>
+
+<!-- ───────── 02 MARQUEE ───────── -->
+<section class="mq" aria-label="대학촌 핵심 메시지">
+  <p class="mq__ghost" aria-hidden="true">SINCE 1996</p>
+  <div class="mq__bands">
+  <div class="mq__band mq__band--dark">
+    <div class="mq__move"><div class="mq__track">
+      <p class="mq__seq">대학이 품질을 보증합니다 <i>✦</i> 30년의 신뢰 <i>✦</i> 100년의 미래 <i>✦</i> 국내 액상 제품 1호 GMP <i>✦</i></p>
+      <p class="mq__seq" aria-hidden="true">대학이 품질을 보증합니다 <i>✦</i> 30년의 신뢰 <i>✦</i> 100년의 미래 <i>✦</i> 국내 액상 제품 1호 GMP <i>✦</i></p>
+      <p class="mq__seq" aria-hidden="true">대학이 품질을 보증합니다 <i>✦</i> 30년의 신뢰 <i>✦</i> 100년의 미래 <i>✦</i> 국내 액상 제품 1호 GMP <i>✦</i></p>
+      <p class="mq__seq" aria-hidden="true">대학이 품질을 보증합니다 <i>✦</i> 30년의 신뢰 <i>✦</i> 100년의 미래 <i>✦</i> 국내 액상 제품 1호 GMP <i>✦</i></p>
+    </div></div>
+  </div>
+  <div class="mq__band mq__band--orange">
+    <div class="mq__move"><div class="mq__track mq__track--rev">
+      <p class="mq__seq">감식초 화이바 <i>✦</i> 감발효 버몬트 <i>✦</i> 6년근 진홍삼 <i>✦</i> 홍삼진액 <i>✦</i> OEM · ODM <i>✦</i></p>
+      <p class="mq__seq" aria-hidden="true">감식초 화이바 <i>✦</i> 감발효 버몬트 <i>✦</i> 6년근 진홍삼 <i>✦</i> 홍삼진액 <i>✦</i> OEM · ODM <i>✦</i></p>
+      <p class="mq__seq" aria-hidden="true">감식초 화이바 <i>✦</i> 감발효 버몬트 <i>✦</i> 6년근 진홍삼 <i>✦</i> 홍삼진액 <i>✦</i> OEM · ODM <i>✦</i></p>
+      <p class="mq__seq" aria-hidden="true">감식초 화이바 <i>✦</i> 감발효 버몬트 <i>✦</i> 6년근 진홍삼 <i>✦</i> 홍삼진액 <i>✦</i> OEM · ODM <i>✦</i></p>
+    </div></div>
+  </div>
+    <span class="mq__ci stk stk--round stk--ivory" style="--r:-8deg" data-sticker aria-hidden="true"><img src="../shared/ci.svg" alt="" width="100" height="112"></span>
+  </div>
+  <span class="mq__stk stk stk--pink" style="--r:6deg" data-sticker>30 YEARS</span>
+  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path fill="#eb6100" d="M0,64 C180,10 360,8 540,50 C720,92 900,118 1080,84 C1260,50 1350,24 1440,32 L1440,121 L0,121 Z"/></svg>
+</section>
+
+<!-- ───────── 03 EVERY LAYER ───────── -->
+<section class="layer" id="layer" aria-labelledby="layerTitle">
+  <div class="layer__track">
+    <div class="layer__stage">
+      <span class="stk stk--ivory layer__label" style="--r:-6deg" data-sticker><span class="en">PURE QUALITY</span></span>
+      <h2 class="layer__title" id="layerTitle"><span class="ol ln" data-text="한 병이">한 병이</span><span class="ol ln" data-text="되기까지">되기까지</span></h2>
+
+      <div class="stack">
+        <figure class="lyr lyr--onggi" data-step="2" style="--r:-3deg"><img src="../assets/img/c5_onggi.webp" alt="발효용 옹기 항아리" loading="lazy" decoding="async"></figure>
+        <figure class="lyr lyr--splash" data-step="3" style="--r:0deg"><img src="../assets/img/c4_splash.webp" alt="호박색 감식초 원액이 튀어 오르는 모습" loading="lazy" decoding="async"></figure>
+        <figure class="lyr lyr--ginseng" data-step="4" style="--r:14deg"><img src="../assets/img/c3_ginseng_root.webp" alt="6년근 홍삼 뿌리" loading="lazy" decoding="async"></figure>
+        <figure class="lyr lyr--bottle" data-step="5" style="--r:0deg"><img src="../assets/img/pr1_fiber_bottle_cut.webp" alt="감식초 화이바 100ml 병" loading="lazy" decoding="async"></figure>
+        <figure class="lyr lyr--persimmon" data-step="1" style="--r:-6deg"><img src="../assets/img/c1_persimmon.webp" alt="잘 익은 감 한 알" loading="lazy" decoding="async"></figure>
+      </div>
+
+      <ol class="steps">
+        <li class="step step--1"><b class="en">01</b><span>청도 감 수확</span></li>
+        <li class="step step--2"><b class="en">02</b><span>항아리 발효 — 특허 균주</span></li>
+        <li class="step step--3"><b class="en">03</b><span>감식초 원액</span></li>
+        <li class="step step--4"><b class="en">04</b><span>6년근 홍삼</span></li>
+        <li class="step step--5"><b class="en">05</b><span>한 병에 담다</span></li>
+      </ol>
+
+      <p class="layer__count en" aria-hidden="true"><span>LAYER</span> <b id="layerNow">05</b><i>/ 05</i></p>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path fill="#fff6e9" d="M0,30 C200,90 420,112 640,72 C860,32 1080,8 1260,44 C1350,62 1400,78 1440,84 L1440,121 L0,121 Z"/></svg>
+</section>
+
+<!-- ───────── 04 LINE-UP ───────── -->
+<section class="lineup" id="lineup" aria-labelledby="lineupTitle">
+  <div class="lineup__head">
+    <span class="stk stk--oval lineup__label" style="--r:-7deg" data-sticker><span class="en">LINE-UP</span></span>
+    <h2 class="lineup__title" id="lineupTitle"><span class="ol ln" data-text="대표 제품">대표 제품</span></h2>
+    <p class="lineup__lead">대학 식품연구소의 성과로 만든 자사 제품 4종. <br>제품 정보와 네이버 스마트스토어로 안내합니다.</p>
+  </div>
+
+  <div class="cards">
+    <article class="card card--1" data-reveal>
+      <p class="card__cat"><span class="en">01</span> 화이바 음료 · FIBER BEVERAGE</p>
+      <span class="stk stk--ivory card__stk" style="--r:-8deg">식이섬유 <b>2,500mg</b></span>
+      <div class="card__media"><img src="../assets/img/pr1_fiber_bottle_cut.webp" alt="감식초 화이바 100ml 병" loading="lazy" decoding="async"></div>
+      <h3 class="card__t"><span class="ol" data-text="감식초 화이바">감식초 화이바</span></h3>
+      <p class="card__d">국내 유일 감식초 음료, 식이섬유 2,500mg. 식후 가볍게 즐기는 건강한 습관.</p>
+      <p class="card__spec">100ml × 50입</p>
+      <div class="card__btns">
+        <button type="button" class="pill pill--line" data-demo>더 알아보기</button>
+        <button type="button" class="pill pill--dark" data-demo>구매하기 (스마트스토어)</button>
+      </div>
+    </article>
+
+    <article class="card card--2" data-reveal>
+      <p class="card__cat"><span class="en">02</span> 드링킹 음료 · POUCH</p>
+      <span class="stk stk--pink card__stk" style="--r:7deg">타우린 <b>1,000mg</b></span>
+      <div class="card__media"><img src="../assets/img/pr2_vermont_pouch_cut.webp" alt="감발효 버몬트 스파우트 파우치" loading="lazy" decoding="async"></div>
+      <h3 class="card__t"><span class="ol" data-text="감발효 버몬트">감발효 버몬트</span></h3>
+      <p class="card__d">감발효초의 깊은 풍미에 타우린 1,000mg. 휴대가 간편한 파우치.</p>
+      <p class="card__spec">100ml × 50입</p>
+      <div class="card__btns">
+        <button type="button" class="pill pill--line" data-demo>더 알아보기</button>
+        <button type="button" class="pill pill--dark" data-demo>구매하기 (스마트스토어)</button>
+      </div>
+    </article>
+
+    <article class="card card--3" data-reveal>
+      <p class="card__cat"><span class="en">03</span> 홍삼 음료 · RED GINSENG</p>
+      <span class="stk card__stk" style="--r:-6deg">6년근 홍삼 <b>350mg</b></span>
+      <div class="card__media"><img src="../assets/img/pr3_jinhongsam_pouch_cut.webp" alt="6년근 진홍삼 프리미엄 파우치" loading="lazy" decoding="async"></div>
+      <h3 class="card__t"><span class="ol" data-text="진홍삼 프리미엄">진홍삼 프리미엄</span></h3>
+      <p class="card__d">국내산 6년근 홍삼 농축액 350mg. 남녀노소 즐기는 프리미엄 홍삼음료.</p>
+      <p class="card__spec">70ml × 30입</p>
+      <div class="card__btns">
+        <button type="button" class="pill pill--line" data-demo>더 알아보기</button>
+        <button type="button" class="pill pill--orange" data-demo>구매하기 (스마트스토어)</button>
+      </div>
+    </article>
+
+    <article class="card card--4" data-reveal>
+      <p class="card__cat"><span class="en">04</span> 건강기능식품 · RED GINSENG</p>
+      <span class="stk stk--dark card__stk" style="--r:8deg">진세노사이드 <b>10mg</b></span>
+      <div class="card__media"><img src="../assets/img/pr4_hongsam_pouch_cut.webp" alt="6년근 홍삼진액 파우치" loading="lazy" decoding="async"></div>
+      <h3 class="card__t"><span class="ol" data-text="홍삼진액">홍삼진액</span></h3>
+      <p class="card__d">한 포(50ml)당 진세노사이드 10mg. 면역력 증진·피로 개선에 도움을 줄 수 있습니다.</p>
+      <p class="card__spec">50ml × 30입</p>
+      <div class="card__btns">
+        <button type="button" class="pill pill--line" data-demo>더 알아보기</button>
+        <button type="button" class="pill pill--dark" data-demo>구매하기 (스마트스토어)</button>
+      </div>
+    </article>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path fill="#f29b87" d="M0,90 C120,40 260,10 420,30 C600,52 700,110 860,104 C1020,98 1120,40 1260,30 C1350,24 1410,40 1440,52 L1440,121 L0,121 Z"/></svg>
+</section>
+
+<!-- ───────── 05 QUALITY THAT TRAVELS ───────── -->
+<section class="travel" id="travel" aria-labelledby="travelTitle">
+  <div class="travel__track">
+    <div class="travel__stage">
+      <div class="travel__canvas">
+        <!-- PC 경로 (1600×900) -->
+        <svg class="route route--desk" viewBox="0 0 1600 900" aria-hidden="true" data-route>
+          <defs>
+            <filter id="stkShadowD" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#1a0f08" flood-opacity=".22"/></filter>
+            <mask id="routeMaskD" maskUnits="userSpaceOnUse" x="-100" y="-100" width="1800" height="1100"><path class="route__reveal" d="M70,840 C123,824 287,744 390,742 C493,740 595,832 690,826 C785,820 875,710 960,706 C1045,702 1120,809 1200,800 C1280,791 1407,719 1440,650 C1473,581 1432,464 1400,385 C1368,306 1308,200 1250,178 C1192,156 1083,238 1050,250" fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round"/></mask>
+          </defs>
+          <path class="route__path" mask="url(#routeMaskD)" d="M70,840 C123,824 287,744 390,742 C493,740 595,832 690,826 C785,820 875,710 960,706 C1045,702 1120,809 1200,800 C1280,791 1407,719 1440,650 C1473,581 1432,464 1400,385 C1368,306 1308,200 1250,178 C1192,156 1083,238 1050,250"/>
+          <g class="city city--origin" transform="translate(70,840)"><circle class="city__dot" r="9"/><g class="city__in" filter="url(#stkShadowD)"><rect x="-6" y="-104" width="178" height="62" rx="31"/><text x="83" y="-80" class="city__ko">대학촌 칠곡</text><text x="83" y="-58" class="city__en">DEPARTURE</text></g></g>
+          <g class="city" data-city transform="translate(390,742)"><circle class="city__dot" r="7"/><g class="city__in" filter="url(#stkShadowD)"><rect x="-60" y="-104" width="120" height="62" rx="31"/><text y="-80" class="city__ko">일본</text><text y="-58" class="city__en">JAPAN</text></g></g>
+          <g class="city" data-city transform="translate(690,826)"><circle class="city__dot" r="7"/><g class="city__in" filter="url(#stkShadowD)"><rect x="-64" y="-104" width="128" height="62" rx="31"/><text y="-80" class="city__ko">홍콩</text><text y="-58" class="city__en">HONG KONG</text></g></g>
+          <g class="city" data-city transform="translate(960,706)"><circle class="city__dot" r="7"/><g class="city__in" filter="url(#stkShadowD)"><rect x="-70" y="-104" width="140" height="62" rx="31"/><text y="-80" class="city__ko">베트남</text><text y="-58" class="city__en">VIETNAM</text></g></g>
+          <g class="city" data-city transform="translate(1200,800)"><circle class="city__dot" r="7"/><g class="city__in" filter="url(#stkShadowD)"><rect x="-60" y="-104" width="120" height="62" rx="31"/><text y="-80" class="city__ko">중국</text><text y="-58" class="city__en">CHINA</text></g></g>
+          <g class="city" data-city transform="translate(1440,650)"><circle class="city__dot" r="7"/><g class="city__in" filter="url(#stkShadowD)"><rect x="-64" y="-104" width="128" height="62" rx="31"/><text y="-80" class="city__ko">몽골</text><text y="-58" class="city__en">MONGOLIA</text></g></g>
+          <g class="city" data-city transform="translate(1400,385)"><circle class="city__dot" r="7"/><g class="city__in" filter="url(#stkShadowD)"><rect x="-70" y="-104" width="140" height="62" rx="31"/><text y="-80" class="city__ko">캐나다</text><text y="-58" class="city__en">CANADA</text></g></g>
+          <g class="city" data-city transform="translate(1250,178)"><circle class="city__dot" r="7"/><g class="city__in" filter="url(#stkShadowD)"><rect x="-60" y="-104" width="120" height="62" rx="31"/><text y="-80" class="city__ko">미국</text><text y="-58" class="city__en">USA</text></g></g>
+          <g class="plane" transform="translate(1050,250) rotate(160)"><g class="plane__in" transform="scale(1.7)"><path d="M34,0 C34,-3 30,-5 24,-5 L7,-5 L-9,-30 L-18,-30 L-9,-5 L-22,-5 L-30,-15 L-36,-15 L-31,0 L-36,15 L-30,15 L-22,5 L-9,5 L-18,30 L-9,30 L7,5 L24,5 C30,5 34,3 34,0 Z"/></g></g>
+        </svg>
+
+        <!-- 모바일 경로 (400×640) -->
+        <svg class="route route--mob" viewBox="0 0 400 640" aria-hidden="true" data-route>
+          <defs>
+            <filter id="stkShadowM" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#1a0f08" flood-opacity=".22"/></filter>
+            <mask id="routeMaskM" maskUnits="userSpaceOnUse" x="-50" y="-50" width="500" height="740"><path class="route__reveal" d="M40,30 C83,38 288,58 300,80 C312,102 110,133 110,160 C110,187 302,213 300,240 C298,267 100,293 100,320 C100,347 298,373 300,400 C302,427 112,453 110,480 C108,507 245,538 290,560 C335,582 365,602 380,610" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round"/></mask>
+          </defs>
+          <path class="route__path" mask="url(#routeMaskM)" d="M40,30 C83,38 288,58 300,80 C312,102 110,133 110,160 C110,187 302,213 300,240 C298,267 100,293 100,320 C100,347 298,373 300,400 C302,427 112,453 110,480 C108,507 245,538 290,560 C335,582 365,602 380,610"/>
+          <g class="city city--origin" transform="translate(40,30)"><circle class="city__dot" r="5"/><g class="city__in" filter="url(#stkShadowM)"><rect x="12" y="-2" width="104" height="40" rx="20"/><text x="64" y="13" class="city__ko">대학촌 칠곡</text><text x="64" y="28" class="city__en">DEPARTURE</text></g></g>
+          <g class="city" data-city transform="translate(300,80)"><circle class="city__dot" r="5"/><g class="city__in" filter="url(#stkShadowM)"><rect x="-38" y="-62" width="76" height="40" rx="20"/><text y="-47" class="city__ko">일본</text><text y="-32" class="city__en">JAPAN</text></g></g>
+          <g class="city" data-city transform="translate(110,160)"><circle class="city__dot" r="5"/><g class="city__in" filter="url(#stkShadowM)"><rect x="-40" y="-62" width="80" height="40" rx="20"/><text y="-47" class="city__ko">홍콩</text><text y="-32" class="city__en">HONG KONG</text></g></g>
+          <g class="city" data-city transform="translate(300,240)"><circle class="city__dot" r="5"/><g class="city__in" filter="url(#stkShadowM)"><rect x="-42" y="-62" width="84" height="40" rx="20"/><text y="-47" class="city__ko">베트남</text><text y="-32" class="city__en">VIETNAM</text></g></g>
+          <g class="city" data-city transform="translate(100,320)"><circle class="city__dot" r="5"/><g class="city__in" filter="url(#stkShadowM)"><rect x="-38" y="-62" width="76" height="40" rx="20"/><text y="-47" class="city__ko">중국</text><text y="-32" class="city__en">CHINA</text></g></g>
+          <g class="city" data-city transform="translate(300,400)"><circle class="city__dot" r="5"/><g class="city__in" filter="url(#stkShadowM)"><rect x="-42" y="-62" width="84" height="40" rx="20"/><text y="-47" class="city__ko">몽골</text><text y="-32" class="city__en">MONGOLIA</text></g></g>
+          <g class="city" data-city transform="translate(110,480)"><circle class="city__dot" r="5"/><g class="city__in" filter="url(#stkShadowM)"><rect x="-42" y="-62" width="84" height="40" rx="20"/><text y="-47" class="city__ko">캐나다</text><text y="-32" class="city__en">CANADA</text></g></g>
+          <g class="city" data-city transform="translate(290,560)"><circle class="city__dot" r="5"/><g class="city__in" filter="url(#stkShadowM)"><rect x="-38" y="-62" width="76" height="40" rx="20"/><text y="-47" class="city__ko">미국</text><text y="-32" class="city__en">USA</text></g></g>
+          <g class="plane" transform="translate(380,610) rotate(28)"><g class="plane__in" transform="scale(.95)"><path d="M34,0 C34,-3 30,-5 24,-5 L7,-5 L-9,-30 L-18,-30 L-9,-5 L-22,-5 L-30,-15 L-36,-15 L-31,0 L-36,15 L-30,15 L-22,5 L-9,5 L-18,30 L-9,30 L7,5 L24,5 C30,5 34,3 34,0 Z"/></g></g>
+        </svg>
+
+        <div class="travel__copy">
+          <h2 class="travel__title" id="travelTitle"><span class="ol ln" data-text="세계로 가는">세계로 가는</span><span class="ol ln" data-text="품질">품질</span></h2>
+          <span class="stk stk--ivory travel__label" style="--r:-7deg" data-sticker><span class="en">QUALITY THAT TRAVELS</span></span>
+          <p class="travel__lead">2001년 화랑삼 수출로 시작해 2026년 300만불. <br>감식초 화이바는 인천공항 면세점에도 있습니다.</p>
+          <p class="sr-only">수출국: 베트남, 일본, 중국, 미국, 캐나다, 홍콩, 몽골</p>
+          <ul class="travel__facts">
+            <li class="stk stk--dark" style="--r:-4deg" data-sticker>해외 수출 <b>300만불</b> <small class="en">2026.06</small></li>
+            <li class="stk stk--white" style="--r:5deg" data-sticker>인천공항 면세점 입점 <small class="en">2025.07</small></li>
+          </ul>
+        </div>
+
+        <figure class="travel__photo" data-sticker style="--r:5deg">
+          <img src="../assets/img/y3_export.webp" alt="항만의 컨테이너와 크레인, 주황 띠를 두른 수출 박스 팔레트" loading="lazy" decoding="async">
+          <figcaption class="stk stk--pink travel__cap" style="--r:-6deg"><span class="en">EXPORT</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path fill="#fff6e9" d="M0,64 C180,10 360,8 540,50 C720,92 900,118 1080,84 C1260,50 1350,24 1440,32 L1440,121 L0,121 Z"/></svg>
+</section>
+
+<!-- ───────── 06 PARTNERS 스티커 월 ───────── -->
+<section class="partners" id="partners" aria-labelledby="partnersTitle">
+  <div class="partners__head">
+    <span class="stk stk--dark partners__label" style="--r:-6deg" data-sticker><span class="en">OEM · ODM PARTNERS</span></span>
+    <h2 class="partners__title" id="partnersTitle"><span class="ol ln" data-text="믿고 맡기는">믿고 맡기는</span><span class="ol ln" data-text="OEM · ODM">OEM · ODM</span></h2>
+    <p class="partners__lead">CJ웰케어부터 광동제약까지,<br>대기업의 음료가 대학촌 라인에서 나옵니다.</p>
+  </div>
+
+  <ul class="wall" aria-label="주요 파트너 15개사">
+    <li class="stk stk--lg" style="--r:-5deg" data-sticker>CJ웰케어</li>
+    <li class="stk stk--ivory" style="--r:4deg" data-sticker>HK이노엔</li>
+    <li class="stk stk--dark stk--lg" style="--r:-3deg" data-sticker>한국콜마</li>
+    <li class="stk stk--pink stk--rect" style="--r:6deg" data-sticker>롯데칠성음료</li>
+    <li class="stk stk--white stk--xl" style="--r:-4deg" data-sticker>광동제약</li>
+    <li class="stk stk--oval" style="--r:7deg" data-sticker>일동제약</li>
+    <li class="stk stk--ivory stk--lg" style="--r:-7deg" data-sticker>유한양행</li>
+    <li class="stk stk--dark stk--rect" style="--r:3deg" data-sticker>농협홍삼</li>
+    <li class="stk stk--pink" style="--r:-4deg" data-sticker>천지개벽</li>
+    <li class="stk stk--lg" style="--r:5deg" data-sticker>현대약품</li>
+    <li class="stk stk--white stk--rect" style="--r:-6deg" data-sticker>보해양조</li>
+    <li class="stk stk--dark stk--oval" style="--r:4deg" data-sticker>샘표</li>
+    <li class="stk stk--ivory stk--xl" style="--r:-3deg" data-sticker>올네이처</li>
+    <li class="stk stk--pink stk--lg" style="--r:6deg" data-sticker>CJ제일제당</li>
+    <li class="stk stk--rect" style="--r:-5deg" data-sticker>대상</li>
+  </ul>
+
+  <ol class="points" data-reveal-group>
+    <li class="point"><b class="point__no en">01</b><h3>검증된 OEM·ODM 파트너</h3><p>CJ웰케어, HK이노엔, 한국콜마, 롯데칠성음료, 광동제약 등 국내 대기업과 OEM·ODM 파트너십.</p></li>
+    <li class="point"><b class="point__no en">02</b><h3>다양한 제품과 패키징</h3><p>병·PET·이중캡·스파우트 파우치·모양 파우치·스탠딩 파우치, 두 개의 생산 라인.</p></li>
+    <li class="point"><b class="point__no en">03</b><h3>체계적인 품질 관리</h3><p>GMP, HACCP, ISO 9001:2015, 미국 FDA 식품시설 등록.</p></li>
+    <li class="point"><b class="point__no en">04</b><h3>대학 연구소 기반 R&amp;D</h3><p>교수진이 제품 연구·개발과 자체 분석을 맡습니다.</p></li>
+  </ol>
+
+  <div class="cats">
+    <p class="cats__k en">OEM CATEGORY</p>
+    <ul class="cats__list">
+      <li>숙취 해소</li><li>건강기능식품</li><li>홍삼</li><li>비타민</li><li>기타 음료</li>
+    </ul>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path fill="#1a0f08" d="M0,30 C200,90 420,112 640,72 C860,32 1080,8 1260,44 C1350,62 1400,78 1440,84 L1440,121 L0,121 Z"/></svg>
+</section>
+
+<!-- ───────── 07 feel the TRUST CTA ───────── -->
+<section class="cta" id="cta" data-dark aria-labelledby="ctaTitle">
+  <div class="cta__grid">
+    <div class="cta__body">
+      <span class="stk stk--pink cta__label" style="--r:-6deg" data-sticker><span class="en">FEEL THE TRUST</span></span>
+      <h2 class="cta__title" id="ctaTitle"><span class="ol ln" data-text="함께">함께</span><span class="ol ln" data-text="만들어요">만들어요</span></h2>
+      <p class="cta__lead">연구에서 생산까지, 한 캠퍼스 안에서.</p>
+      <p class="cta__desc">식품 관련 학과의 전문성과 연구 역량을 바탕으로 건강기능식품 연구·개발·제조를 수행하는 학교기업입니다.</p>
+      <div class="cta__btns">
+        <button type="button" class="btn-hot" data-demo><span>OEM 문의하기</span><i aria-hidden="true">→</i></button>
+        <button type="button" class="pill pill--ivory-line" data-demo>스마트스토어 바로가기</button>
+        <button type="button" class="pill pill--ivory-line" data-demo>카탈로그 보기</button>
+      </div>
+      <dl class="cta__tel">
+        <div><dt class="en">TEL</dt><dd>054-972-9721</dd></div>
+        <div><dt class="en">FAX</dt><dd>054-972-9725</dd></div>
+      </dl>
+    </div>
+
+    <div class="cta__visual">
+      <figure class="cta__photo" data-sticker style="--r:-4deg">
+        <img src="../assets/img/p6_warehouse.webp" alt="주황 띠를 두른 박스가 쌓인 대학촌 창고" loading="lazy" decoding="async">
+      </figure>
+      <span class="stk stk--round cta__stk cta__stk--1" style="--r:10deg" data-sticker><small>주요 파트너</small><b>15개사</b></span>
+      <span class="stk stk--ivory cta__stk cta__stk--2" style="--r:-8deg" data-sticker>인증 <b>12종</b></span>
+      <span class="stk stk--pink stk--rect cta__stk cta__stk--3" style="--r:5deg" data-sticker>생산 라인 <b>2개</b></span>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path fill="#eb6100" d="M0,90 C120,40 260,10 420,30 C600,52 700,110 860,104 C1020,98 1120,40 1260,30 C1350,24 1410,40 1440,52 L1440,121 L0,121 Z"/></svg>
+</section>
+
+</main>
+
+<!-- ───────── 08 FOOTER ───────── -->
+<footer class="ft" id="ft">
+  <div class="ft__top">
+    <div class="logo logo--ft">
+      <img class="logo__ci" src="../shared/ci.svg" alt="" width="100" height="112" loading="lazy">
+      <span class="logo__word"><b>대학촌</b><small>경북과학대학교 식품공장</small></span>
+    </div>
+    <nav class="ft__links" aria-label="푸터 메뉴">
+      <button type="button">회사소개</button>
+      <button type="button">생산역량</button>
+      <button type="button">제품소개</button>
+      <button type="button">고객지원</button>
+      <button type="button" data-goto="#cta">OEM 문의</button>
+      <button type="button" data-demo>스마트스토어</button>
+      <button type="button" data-demo>카탈로그</button>
+    </nav>
+  </div>
+
+  <p class="ft__giant"><span class="sr-only">UNIVERSITY-MADE · GMP · SINCE 1996</span><span class="ol ln" data-text="UNIVERSITY-MADE" aria-hidden="true">UNIVERSITY-MADE</span><span class="ol ln" data-text="GMP · SINCE 1996" aria-hidden="true">GMP · SINCE 1996</span></p>
+
+  <div class="ft__bottom">
+    <span class="stk stk--dark ft__stk" style="--r:-4deg">수익금 전액 학생 장학금 환원</span>
+    <p class="ft__biz">경북과학대학교 식품공장 대학촌 <i>|</i> 대표 정은재 <i>|</i> 경북 칠곡군 기산면 지산로 520 <i>|</i> TEL 054-972-9721 <i>|</i> FAX 054-972-9725 <i>|</i> 사업자등록번호 504-82-06818 <i>|</i> 통신판매업신고 제04-24호</p>
+    <p class="ft__copy en">© 2026 KYONGBUK SCIENCE UNIVERSITY FOOD FACTORY</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
