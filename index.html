@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>대학촌 메인페이지 초안 5종</title>
+<title>대학촌 메인페이지 초안 6종</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
   :root { --o: #eb6100; --p: #f29b87; --iv: #fff6e9; --ink: #1a0f08; }
@@ -24,13 +24,19 @@
   .card h2 small { display: block; font-weight: 500; font-size: 12px; color: var(--o); letter-spacing: .12em; margin-bottom: 6px; }
   .card p { margin: 10px 0 0; font-size: 14px; line-height: 1.65; opacity: .72; }
   .card .ref { margin-top: 12px; font-size: 12px; opacity: .55; }
+  .card--f { grid-column: 1 / -1; display: grid; grid-template-columns: 1.2fr 1fr; background: var(--ink); color: var(--iv); }
+  .card--f .th { aspect-ratio: auto; min-height: 260px; }
+  .card--f .th i { background: var(--iv); color: var(--o); }
+  .card--f h2 small { color: var(--p); }
+  .card--f p, .card--f .ref { opacity: .8; }
+  @media (max-width: 700px) { .card--f { grid-template-columns: 1fr; } .card--f .th { aspect-ratio: 16/10; min-height: 0; } }
   footer { padding: 24px 6vw 60px; font-size: 13px; opacity: .55; }
   code { background: rgba(0,0,0,.06); padding: 2px 6px; border-radius: 4px; }
 </style>
 </head>
 <body>
 <header>
-  <h1>대학촌 <b>메인페이지 초안</b> 5종</h1>
+  <h1>대학촌 <b>메인페이지 초안</b> 6종</h1>
   <p>경북과학대학교 식품공장 '대학촌' 홈페이지 리뉴얼 초안입니다. 메인페이지만 구성했고, 메뉴는 링크 없이 이름과 hover 효과만 있습니다. 이미지·영상은 AI로 생성한 임시 소재이며 실제 제작 시 촬영본으로 교체됩니다. PC와 모바일 모두 확인해 보세요.</p>
 </header>
 <section class="grid">
@@ -38,6 +44,7 @@
   <a class="card" href="02-depth/index.html"><div class="th" style="background-image:url(assets/img/pr5_fiber_dark_hero.webp);background-position:center 40%"><i>B</i></div><div class="b"><h2><small>DEPTH PRODUCT</small>제품 깊이감</h2><p>다크 프리미엄 톤. 마우스에 반응하는 깊이맵 히어로, 원료가 떠오르는 레이어, 스크롤 줌 제품 소개, 인증 스티커.</p><div class="ref">레퍼런스: lusion 깊이맵 패럴랙스 · soijeong 로딩 게이트</div></div></a>
   <a class="card" href="03-film/index.html"><div class="th" style="background-image:url(assets/img/h1_factory_wide.webp)"><i>C</i></div><div class="b"><h2><small>FACTORY FILM + 30 YEARS</small>기업 영상 + 30년 연혁</h2><p>글자 없는 영상 7컷 위에 실시간 한글 타이포(KR/EN 즉시 전환) 브랜드 필름 → 카드 확장 → 1996→2026 연혁 스크롤 → 제품 라인업 → 뉴스.</p><div class="ref">레퍼런스: gigavis 메인·연혁 핀</div></div></a>
   <a class="card" href="04-sticker/index.html"><div class="th" style="background-image:url(assets/img/pr7_group.webp)"><i>D</i></div><div class="b"><h2><small>PLAYFUL ORANGE</small>브랜드 스티커</h2><p>거대 타이포 사이 제품, 랜덤 회전 스티커, 기울어진 마키 띠, 재료가 쌓이는 스크롤, 수출 점선 여정.</p><div class="ref">레퍼런스: cravburgers · soijeong 마키</div></div></a>
+  <a class="card card--f" href="06-journey/index.html"><div class="th" style="background-image:url(assets/img/pr5_fiber_dark_hero.webp);background-position:center 35%"><i>F</i></div><div class="b"><h2><small>ONE BOTTLE JOURNEY · THREE.JS</small>한 병의 여정 (시그니처)</h2><p>입자 6만 개가 스크롤에 따라 CI → 감 → 항아리 → 병으로 변하는 실시간 3D. 굴절 유리병이 마우스를 따라오고 기울어 쏟아지며, 공장 속으로 카메라가 들어가고, 인증 타일이 날아와 박히고, 30년 링을 손으로 돌려요.</p><div class="ref">레퍼런스: soijeong 3D 히어로·로딩 게이트를 넘어, 제품 이야기 자체를 변형으로</div></div></a>
   <a class="card" href="05-clean/index.html"><div class="th" style="background-image:url(assets/img/iso_factory.webp)"><i>E</i></div><div class="b"><h2><small>CAMPUS CLEAN</small>신뢰·수치 클린</h2><p>아이보리·오렌지·핑크 색 블록, 수치 카운터(30년·12인증·15파트너·300만불), 제품 탭, 인증 롤링, 아이소메트릭 캠퍼스, 퀵메뉴.</p><div class="ref">레퍼런스: umburger 색 블록 · 브로슈어</div></div></a>
 </section>
 <footer>로컬 확인: <code>python serve.py</code> → <code>http://localhost:8780/</code> · 연출 끄기 <code>?nomotion=1</code> · 필름 정지 <code>03-film/?t=12.5</code></footer>
