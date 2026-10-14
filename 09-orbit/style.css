@@ -1450,11 +1450,6 @@ html:not(.mo) .s03 .cue i::after { animation:none }
   transition: transform var(--t); }
 .s05 .hd__nav button:hover::after, .s05 .hd__nav button:focus-visible::after { transform: scaleX(1); transform-origin: left; }
 .s05 .hd__util { justify-self: end; display: flex; align-items: center; gap: clamp(14px, 1.56vw, 32px); }
-.s05 .lang { display: flex; align-items: center; font-family: var(--en); font-size: 13px; font-weight: 600; letter-spacing: .06em; }
-.s05 .lang i { margin: 0 .5em; opacity: .35; }
-.s05 .lang button { padding: .4em 0; opacity: .5; transition: opacity var(--t); }
-.s05 .lang button:hover { opacity: .85; }
-.s05 .lang button[aria-pressed="true"] { opacity: 1; font-weight: 800; }
 .s05 .hd__cta { height: 42px;
   padding: 0 1.3em;
   border-radius: 999px;
@@ -1613,8 +1608,6 @@ html:not(.mo) .s03 .cue i::after { animation:none }
   border-radius: var(--r-lg);
   background: var(--white);
   box-shadow: var(--shadow); }
-.s05 .cnt { padding: 0 2.2vw; }
-.s05 .cnt + .cnt { border-left: 1px solid var(--line); }
 .s05 .cnt__en { font-family: var(--en); font-size: var(--fs-label); font-weight: 700; letter-spacing: .18em; color: var(--orange); }
 .s05 .cnt__num { margin-top: .5vw; display: flex; align-items: baseline; gap: .25em; line-height: 1; white-space: nowrap; }
 .s05 .cnt__num b { font-family: var(--en);
@@ -1840,16 +1833,7 @@ html:not(.mo) .s03 .cue i::after { animation:none }
   transform: rotate(-10deg); }
 .s05 .show__badge svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: var(--pink); filter: drop-shadow(0 8px 14px rgba(200, 70, 40, .25)); }
 .s05 .show__badge b { position: relative; font-size: clamp(14px, 1.2vw, 25px); font-weight: 800; line-height: 1.15; letter-spacing: -0.04em; text-align: center; color: var(--ink); }
-.s05 .cert { --bg: var(--pink);
-  --w1: var(--ivory);
-  --w2: var(--pink);
-  position: relative;
-  background: var(--bg);
-  color: var(--ink);
-  padding: var(--s3) 0 calc(var(--s3) + var(--wh)); }
-.s05 .cert .en-label { color: var(--dark-2); opacity: .75; }
 .s05 .cert__top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 4vw; align-items: center; }
-.s05 .cert .sec-desc { max-width: 30em; color: rgba(43, 26, 15, .82); }
 .s05 .cert__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1vw; margin-top: 2.4vw; }
 .s05 .cert__stats li { padding: 1.3vw 1.3vw 1.2vw; border-radius: var(--r-md); background: var(--white); box-shadow: 0 10px 24px rgba(160, 60, 40, .1); }
 .s05 .cert__stats b { display: block; font-family: var(--en); font-size: clamp(30px, 2.6vw, 54px); font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: var(--orange); }
@@ -1858,13 +1842,6 @@ html:not(.mo) .s03 .cue i::after { animation:none }
 .s05 .cert__photo { position: relative; }
 .s05 .cert__photo-clip { position: relative; aspect-ratio: 16 / 10; border-radius: var(--r-lg); overflow: hidden; background: #dfe7f4; }
 .s05 .cert__photo-clip img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 62% 40%; }
-.s05 .cert .cert__photo figcaption { position: absolute;
-  left: 1.3vw; top: 1.3vw;
-  padding: .55em 1.1em;
-  border-radius: 999px;
-  background: var(--white);
-  color: var(--orange);
-  opacity: 1; }
 .s05 .mq { position: relative; overflow-x: auto; scrollbar-width: none; }
 .s05 .mq::-webkit-scrollbar { display: none; }
 .s05 .mq.is-run { overflow: hidden; }
@@ -2104,8 +2081,6 @@ html:not(.mo) .s03 .cue i::after { animation:none }
   .s05 .hd__brand b { font-size: 19px; }
   .s05 .hd__brand small { font-size: 10px; }
   .s05 .hd__util { gap: 12px; }
-  .s05 .lang { font-size: 12px; }
-  .s05 .lang i { margin: 0 .35em; }
   .s05 .hd__cta { height: 36px; padding: 0 1em; font-size: 13px; }
   .s05 .qm { left: 0; right: 0; bottom: 0;
     flex-direction: row;
@@ -2146,10 +2121,6 @@ html:not(.mo) .s03 .cue i::after { animation:none }
   .s05 .hero__tag-txt { font-size: clamp(13px, 3.6vw, 18px); }
   .s05 .hero__tag-arrow { width: clamp(30px, 8.6vw, 52px); stroke-width: 5; }
   .s05 .counters { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 28px; padding: 0; }
-  .s05 .cnt { padding: 20px 18px; }
-  .s05 .cnt + .cnt { border-left: 0; }
-  .s05 .cnt:nth-child(even) { border-left: 1px solid var(--line); }
-  .s05 .cnt:nth-child(n/**/+3) { border-top: 1px solid var(--line); }
   .s05 .cnt__en { font-size: 10.5px; letter-spacing: .14em; }
   .s05 .cnt__num { margin-top: 8px; }
   .s05 .cnt__num b { font-size: clamp(34px, 10vw, 46px); }
@@ -2210,7 +2181,6 @@ html:not(.mo) .s03 .cue i::after { animation:none }
   .s05 .cert__stats li { padding: 14px 12px; }
   .s05 .cert__stats b { font-size: 30px; }
   .s05 .cert__stats span { margin-top: 6px; font-size: 12px; }
-  .s05 .cert .cert__photo figcaption { left: 12px; top: 12px; }
   .s05 .mq--cert { --mq-gap: 12px; margin-top: 32px; padding: 8px 0 16px; }
   .s05 .ccard { width: 232px; padding: 20px; }
   .s05 .ccard__en { margin-top: 14px; }
@@ -2256,7 +2226,7 @@ html:not(.mo) .s03 .cue i::after { animation:none }
   .s05 .press { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 420px) {
-  .s05 .lang { display: none; }
+
 }
 .s05 .no-motion *, .s05 .no-motion *::before, .s05 .no-motion *::after { animation: none !important; transition: none !important; }
 
@@ -2390,3 +2360,190 @@ html:not(.mo) .s03 .cue i::after { animation:none }
   body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
 }
 
+
+/* ── I안: 03 C안 브랜드 필름 박스 (03 원본 필름 규칙, 박스 기준 단위) ── */
+.s03 .fbox *, .s03 .fbox *::before, .s03 .fbox *::after { box-sizing:border-box }
+.s03 .fbox img, .s03 .fbox video { display:block;max-width:100% }
+.s03 .fbox button { font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;letter-spacing:inherit }
+.s03 .fbox h1, .s03 .fbox h2, .s03 .fbox h3, .s03 .fbox h4, .s03 .fbox p, .s03 .fbox ul, .s03 .fbox ol, .s03 .fbox figure { margin:0 }
+.s03 .fbox ul, .s03 .fbox ol { padding:0;list-style:none }
+.s03 .fbox address { font-style:normal }
+.s03 .fbox em, .s03 .fbox i { font-style:normal }
+.s03 .fbox :focus-visible { outline:2px solid var(--or-2);outline-offset:3px }
+@keyframes s03f-prebar { from{transform:scaleX(0)}to{transform:scaleX(1)} }
+.s03 .fbox .lang { display:flex;align-items:center;gap:6px;font:600 12.5px/1 var(--en);letter-spacing:.08em }
+.s03 .fbox .lang i { opacity:.35;font-weight:400 }
+.s03 .fbox .lang__b { position:relative;padding:8px 2px;opacity:.5;transition:opacity .25s }
+.s03 .fbox .lang__b::after { content:"";position:absolute;left:2px;right:2px;bottom:3px;height:1px;background:currentColor;transform:scaleX(0);transition:transform .4s var(--e) }
+.s03 .fbox .lang__b:hover { opacity:.9 }
+.s03 .fbox .lang__b.is-on { opacity:1 }
+.s03 .fbox .lang__b.is-on::after { transform:scaleX(1) }
+.s03 .fbox .film { position:relative;height:100cqh;height:100cqh;min-height:520px;overflow:hidden;background:#000;color:#fff;isolation:isolate;user-select:none }
+.s03 .fbox .film__bg, .s03 .fbox .film__shade, .s03 .fbox .film__type { position:absolute;inset:0 }
+.s03 .fbox .film__bg { z-index:0 }
+.s03 .fbox .bg { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;visibility:hidden;filter:brightness(var(--b,.6));background:#140b05 }
+.s03 .fbox .bg.is-on { opacity:1;visibility:visible }
+.s03 .fbox .bg--still { background:#140b05 var(--img) 50% 50%/cover no-repeat }
+.s03 .fbox .bg--light { background:var(--iv);filter:none }
+.s03 .fbox .film__shade { z-index:1;pointer-events:none;background:radial-gradient(ellipse 78% 66% at 50% 50%,rgba(0,0,0,.08),rgba(0,0,0,.42) 100%),linear-gradient(to bottom,rgba(20,10,4,.42),transparent 22%,transparent 66%,rgba(20,10,4,.62)) }
+.s03 .fbox .film[data-tone="light"] .film__shade, .s03 .fbox .film[data-plate="light"] .film__shade { opacity:0 }
+.s03 .fbox .film__type { z-index:2 }
+.s03 .fbox .sc { position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;visibility:hidden;overflow:hidden }
+.s03 .fbox .sc.is-on { visibility:visible }
+.s03 .fbox .sc--dim::before { content:"";position:absolute;inset:0;background:radial-gradient(48% 36% at 50% 50%,rgba(14,7,2,.5),transparent 100%);pointer-events:none }
+.s03 .fbox .sc--dim>*:not(.warm) { position:relative }
+.s03 .fbox .sc--light { color:var(--ink) }
+.s03 .fbox [data-fit] { width:max-content;max-width:none;white-space:nowrap;font-size:calc(var(--fs) * var(--fit,1));flex:none }
+.s03 .fbox .lbl { position:relative;font:600 clamp(10.5px,.74cqw,14px)/1.2 var(--en);letter-spacing:.26em;text-transform:uppercase;margin-bottom:clamp(14px,1.7cqw,32px);text-shadow:0 0 .8em rgba(0,0,0,.5);opacity:.9 }
+.s03 .fbox .flash { position:absolute;inset:0;background:var(--or);opacity:0;pointer-events:none }
+.s03 .fbox .t-xl { --fs:clamp(46px,7.3cqw,168px);position:relative;font-weight:800;letter-spacing:-.05em;line-height:1.08;padding:.3em .6em;margin:-.3em -.6em;text-shadow:0 .04em .5em rgba(0,0,0,.28) }
+.s03 .fbox .t-wd { --fs:clamp(38px,5.6cqw,128px);font-weight:200;letter-spacing:-.045em;line-height:1.12;text-shadow:0 0 .5em rgba(0,0,0,.3) }
+.s03 .fbox .t-wd b { font-family:var(--en);font-weight:800;font-size:1.16em;letter-spacing:-.05em }
+.s03 .fbox .film[lang="en"] .t-wd b { font-family:var(--ko) }
+.s03 .fbox .t-ln { --fs:clamp(38px,5.4cqw,124px);display:flex;flex-direction:column;align-items:center;font-weight:200;letter-spacing:-.045em;line-height:1.16;text-shadow:0 0 .5em rgba(0,0,0,.3) }
+.s03 .fbox .t-ln .mask { display:block;overflow:hidden;padding:.06em .12em .1em }
+.s03 .fbox .t-ln .ln { display:block }
+.s03 .fbox .t-ln b { font-weight:800 }
+.s03 .fbox .t-ln .rule { display:block;width:1.3em;height:max(2px,.035em);margin-top:.22em;background:var(--or) }
+.s03 .fbox .type { --fs:clamp(32px,4.6cqw,106px);display:flex;align-items:center;justify-content:flex-start;font-weight:200;letter-spacing:-.04em;line-height:1.2;text-align:left;text-shadow:0 0 .5em rgba(0,0,0,.35) }
+.s03 .fbox .type__txt { white-space:pre }
+.s03 .fbox .type__caret { flex:none;width:.055em;min-width:2px;height:1.04em;margin-left:.08em;background:var(--or) }
+.s03 .fbox .film.is-run .type__caret { animation:s03f-caret .9s steps(1) infinite }
+@keyframes s03f-caret { 50%{opacity:0} }
+.s03 .fbox .lamps { --fs:clamp(20px,2.7cqw,60px);display:flex;align-items:center;gap:.6em }
+.s03 .fbox .lamp { --on:0;display:flex;align-items:center;gap:.55em;padding:.48em 1em .52em .78em;border-radius:999px;background:rgba(26,13,5,calc(.3 + .25 * var(--on)));box-shadow:inset 0 0 0 1px rgba(255,255,255,calc(.16 + .5 * var(--on))),0 0 calc(1.4em * var(--on)) rgba(235,97,0,calc(.42 * var(--on)));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px) }
+.s03 .fbox .lamp__led { flex:none;width:.34em;height:.34em;border-radius:50%;background:var(--or);box-shadow:0 0 .5em .12em rgba(255,122,31,.9) }
+.s03 .fbox .lamp span { font-weight:500;letter-spacing:-.035em;line-height:1 }
+.s03 .fbox .lamp b { font-family:var(--en);font-weight:800;font-size:1.16em;margin:0 .06em }
+.s03 .fbox .lamps__dot { font-weight:300;opacity:.55 }
+.s03 .fbox .one-w { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none }
+.s03 .fbox .one { display:block;font:800 min(80cqh,60cqw)/.8 var(--en);letter-spacing:0;color:var(--or);opacity:.94;padding:.06em .1em;margin-left:-.12em }
+.s03 .fbox .gmp { --fs:clamp(30px,4.3cqw,98px);position:relative;display:flex;flex-direction:column;align-items:center;gap:.06em;line-height:1.2;letter-spacing:-.04em;text-shadow:0 0 .45em rgba(26,10,0,.5) }
+.s03 .fbox .gmp__a { font-weight:300;padding:.1em .5em;margin:-.1em -.5em }
+.s03 .fbox .gmp__a b { font-weight:800 }
+.s03 .fbox .gmp__m { display:block;overflow:hidden;padding:.04em .12em .1em }
+.s03 .fbox .gmp__b { display:block;font-weight:800 }
+.s03 .fbox .gmp__b b { font-family:var(--en);font-weight:800;letter-spacing:-.03em }
+.s03 .fbox .certs { --fs:clamp(30px,5.3cqw,124px);display:flex;align-items:baseline;gap:.4em;font-family:var(--en);font-weight:700;line-height:1.1;letter-spacing:-.03em }
+.s03 .fbox .cert { --u:0;position:relative;padding-bottom:.08em }
+.s03 .fbox .cert::after { content:"";position:absolute;left:0;right:0;bottom:-.08em;height:max(2px,.05em);background:var(--or);transform:scaleX(var(--u));transform-origin:0 50% }
+.s03 .fbox .certs i { font-weight:300;opacity:.45 }
+.s03 .fbox .t-fc { --fs:clamp(36px,5.4cqw,124px);font-weight:200;letter-spacing:-.045em;line-height:1.15;text-shadow:0 0 .6em rgba(0,0,0,.4) }
+.s03 .fbox .t-fc b { font-weight:800 }
+.s03 .fbox .warm { position:absolute;inset:0;background:radial-gradient(64% 56% at 55% 58%,rgba(235,97,0,.34),transparent 72%),linear-gradient(to top,rgba(242,155,135,.26),transparent 58%);mix-blend-mode:screen;opacity:0;pointer-events:none }
+.s03 .fbox .t-wm { --fs:clamp(34px,5cqw,116px);font-weight:300;letter-spacing:-.035em;line-height:1.15;color:#fff7ee;text-shadow:0 0 .6em rgba(60,20,0,.4) }
+.s03 .fbox .t-wm b { font-weight:800 }
+.s03 .fbox .fin { display:flex;flex-direction:column;align-items:center;gap:clamp(4px,.5cqw,10px) }
+.s03 .fbox .fin__aw { transform-origin:50% 100% }
+.s03 .fbox .fin__a { --fs:clamp(46px,8.2cqw,190px);font-weight:800;letter-spacing:-.055em;line-height:1.06;padding:.3em .5em;margin:-.3em -.5em;text-shadow:0 0 .5em rgba(0,0,0,.35) }
+.s03 .fbox .fin__a b { font-family:var(--en);letter-spacing:-.05em }
+.s03 .fbox .fin__b { --fs:clamp(40px,6.6cqw,152px);font-weight:200;letter-spacing:-.05em;line-height:1.1;text-shadow:0 0 .5em rgba(0,0,0,.35) }
+.s03 .fbox .fin__b .cnt { display:inline-block;text-align:right;font-family:var(--en);font-weight:800;font-size:1.04em;letter-spacing:-.04em;color:var(--or);font-variant-numeric:tabular-nums }
+.s03 .fbox .end { display:flex;flex-direction:column;align-items:center;gap:clamp(10px,1.1cqw,22px) }
+.s03 .fbox .end__mark { position:relative;width:clamp(76px,6.4cqw,136px);aspect-ratio:100/112 }
+.s03 .fbox .end__ci { width:100%;height:100% }
+.s03 .fbox .iris { position:absolute;inset:0;background:var(--or);clip-path:polygon(50% 1.8%,96% 25.9%,96% 74.1%,50% 98.2%,4% 74.1%,4% 25.9%);opacity:0 }
+.s03 .fbox .end__w { font-size:clamp(44px,4.8cqw,104px);font-weight:800;letter-spacing:-.05em;line-height:1 }
+.s03 .fbox .end__s { --fs:clamp(15px,1.3cqw,26px);font-weight:500;letter-spacing:-.02em;color:var(--ink-2) }
+.s03 .fbox .end__k { font:600 clamp(10px,.68cqw,13px)/1 var(--en);letter-spacing:.32em;color:var(--or) }
+.s03 .fbox .film__still { position:absolute;inset:0;z-index:3;display:none;align-items:center;justify-content:center;text-align:center;background:var(--dk) }
+.s03 .fbox .film__still>img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.82) }
+.s03 .fbox .film__still::after { content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 50%,rgba(20,8,2,.4),transparent) }
+.s03 .fbox .fst { position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;padding:0 var(--pad) }
+.s03 .fbox .fst__a { font-size:clamp(40px,7cqw,168px);font-weight:800;letter-spacing:-.055em;line-height:1.08 }
+.s03 .fbox .fst__a b, .s03 .fbox .fst__b b { font-family:var(--en) }
+.s03 .fbox .fst__b { font-size:clamp(34px,5.6cqw,132px);font-weight:200;letter-spacing:-.05em;line-height:1.1 }
+.s03 .fbox .fst__b b { font-weight:800;color:var(--or) }
+.s03 .fbox .fst__ci { display:flex;align-items:center;gap:14px;margin-top:clamp(30px,4cqw,64px);text-align:left }
+.s03 .fbox .fst__ci img { width:40px;height:auto }
+.s03 .fbox .fst__ci span { display:flex;flex-direction:column;gap:5px;line-height:1 }
+.s03 .fbox .fst__ci b { font-size:24px;font-weight:800;letter-spacing:-.04em }
+.s03 .fbox .fst__ci small { font-size:13px;font-weight:500;opacity:.8 }
+.s03 .fbox .film__ui { position:absolute;inset:auto 0 0 0;z-index:4;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:0 var(--pad) 30px;color:#fff;transition:color .2s;pointer-events:none }
+.s03 .fbox .film__ui>* { pointer-events:auto }
+.s03 .fbox .film[data-tone="light"] .film__ui { color:var(--ink) }
+.s03 .fbox .acts { display:flex;gap:clamp(12px,1.4cqw,26px) }
+.s03 .fbox .act { display:grid;grid-template-columns:auto auto;justify-content:start;column-gap:8px;row-gap:9px;align-items:baseline;min-width:clamp(58px,5.6cqw,96px);opacity:.45;text-align:left;transition:opacity .3s }
+.s03 .fbox .act:hover { opacity:.8 }
+.s03 .fbox .act.is-on { opacity:1 }
+.s03 .fbox .act em { font:700 10.5px/1 var(--en);letter-spacing:.1em }
+.s03 .fbox .act span { font-size:13px;font-weight:600;line-height:1;letter-spacing:-.01em;white-space:nowrap }
+.s03 .fbox .act i { grid-column:1/-1;display:block;height:1px;background:color-mix(in srgb,currentColor 28%,transparent);position:relative }
+.s03 .fbox .act i b { position:absolute;inset:-.5px 0;background:var(--or);transform:scaleX(var(--p,0));transform-origin:0 50% }
+.s03 .fbox .cue { position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:9px;font:600 10px/1 var(--en);letter-spacing:.24em;text-transform:uppercase;pointer-events:none }
+.s03 .fbox .cue i { width:1px;height:30px;background:color-mix(in srgb,currentColor 28%,transparent);position:relative;overflow:hidden }
+.s03 .fbox .cue i::after { content:"";position:absolute;inset:0;background:currentColor;animation:s03f-cue 2s var(--e) infinite }
+@keyframes s03f-cue { 0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)} }
+.s03 .fbox .ctl { display:flex;align-items:center;gap:16px }
+.s03 .fbox .ctl__tag { display:flex;align-items:center;gap:9px;margin-right:4px;font-size:12px;font-weight:600;line-height:1;white-space:nowrap;opacity:.85 }
+.s03 .fbox .ctl__tag i { width:18px;height:2px;background:var(--or) }
+.s03 .fbox .lang--film { font-size:11.5px }
+.s03 .fbox .ctl__tc { font:600 11px/1 var(--en);letter-spacing:.1em;font-variant-numeric:tabular-nums;opacity:.75 }
+.s03 .fbox .ctl__pp { width:42px;height:42px;border-radius:50%;border:1px solid color-mix(in srgb,currentColor 40%,transparent);display:grid;place-items:center;transition:background-color .3s,color .3s,border-color .3s }
+.s03 .fbox .ctl__pp:hover { background:var(--or);color:#fff;border-color:var(--or) }
+.s03 .fbox .ctl__pp svg { grid-area:1/1;width:13px;height:13px;stroke:currentColor;stroke-width:1.8;fill:none }
+.s03 .fbox .ctl__pp .i-play { fill:currentColor;stroke:none;opacity:0 }
+.s03 .fbox .ctl__pp.is-paused .i-play { opacity:1 }
+.s03 .fbox .ctl__pp.is-paused .i-pause { opacity:0 }
+@keyframes s03f-mq { to{transform:translateX(-50%)} }
+.mo .s03 .fbox [data-rv] { opacity:0;transform:translateY(36px);transition:opacity .9s var(--e),transform 1.1s var(--e);transition-delay:calc(var(--d,0) * .09s) }
+@media (max-width:900px) {
+  .s03 .fbox .ctl__tag, .s03 .fbox .ctl__tc, .s03 .fbox .cue { display:none }
+  .s03 .fbox .t-xl { --fs:clamp(40px,12.4cqw,96px) }
+  .s03 .fbox .t-wd { --fs:clamp(34px,10.6cqw,80px) }
+  .s03 .fbox .t-ln { --fs:clamp(32px,10cqw,76px) }
+  .s03 .fbox .type { --fs:clamp(26px,8.2cqw,62px) }
+  .s03 .fbox .lamps { --fs:clamp(15px,4.6cqw,30px);flex-direction:column;gap:.45em }
+  .s03 .fbox .lamps__dot { display:none }
+  .s03 .fbox .one { font-size:min(62cqh,96cqw) }
+  .s03 .fbox .gmp { --fs:clamp(26px,8cqw,58px) }
+  .s03 .fbox .certs { --fs:clamp(26px,9.4cqw,64px) }
+  .s03 .fbox .t-fc { --fs:clamp(30px,9.6cqw,72px) }
+  .s03 .fbox .t-wm { --fs:clamp(30px,9.2cqw,70px) }
+  .s03 .fbox .fin__a { --fs:clamp(42px,13.4cqw,104px) }
+  .s03 .fbox .fin__b { --fs:clamp(34px,11cqw,86px) }
+  .s03 .fbox .end__s { --fs:clamp(14px,4cqw,20px) }
+  .s03 .fbox .lbl { letter-spacing:.18em }
+  .s03 .fbox .film__ui { padding-bottom:22px }
+  .s03 .fbox .acts { gap:10px }
+  .s03 .fbox .act { min-width:30px;row-gap:8px }
+  .s03 .fbox .act span { display:none }
+  .s03 .fbox .act.is-on { min-width:70px }
+  .s03 .fbox .act.is-on span { display:block }
+}
+@media (max-width:600px) {
+  .s03 .fbox .lang { font-size:11.5px }
+}
+
+/* I안: 03 C안 브랜드 필름을 05 문의 단락(물결로 시작하는 갈색 블록) 안 박스로 — 물결 → 영상 박스 → 문의.
+   필름 규칙은 compose.py 가 03 원본에서 그대로 가져와 .s03 .fbox 범위로 넣고 vw·vh 를 박스 기준 cqw·cqh 로 바꾼다.
+   여기에는 박스 자체와 박스라서 필요 없어진 것만 둔다. */
+.s05 .cta__film { position: relative; z-index: 1; margin-bottom: var(--s3); }
+.s05 .cta__film .s03 { background: none; }
+.s03 .fbox {
+  --pad: clamp(16px, 3.125cqw, 40px);
+  position: relative;
+  container-type: size;
+  aspect-ratio: 16 / 9;
+  border-radius: clamp(16px, 1.4vw, 28px);
+  overflow: hidden;
+  isolation: isolate;
+}
+.s03 .fbox .film { height: 100%; min-height: 0; }
+.s03 .fbox .cue { display: none; }                         /* 원본 히어로의 'Scroll' 안내 — 박스에는 필요 없다 */
+@media (max-width: 900px) {
+  .s03 .fbox { aspect-ratio: 4 / 5; border-radius: 16px; }
+  /* 박스(화면 폭 − 40px)가 원본 전체 화면보다 좁아 하단 컨트롤 줄을 조금 촘촘하게 — 재생 버튼이 잘리지 않게 */
+  .s03 .fbox .film__ui { gap: 12px; }
+  .s03 .fbox .acts { gap: 6px; }
+  .s03 .fbox .act { min-width: 24px; }
+  .s03 .fbox .act.is-on { min-width: 62px; }
+  .s03 .fbox .ctl { gap: 10px; }
+  .s03 .fbox .ctl__pp { width: 34px; height: 34px; }
+}
+@media (max-width: 380px) {
+  .s03 .fbox .acts { gap: 4px; }
+  .s03 .fbox .act { min-width: 18px; }
+  .s03 .fbox .act.is-on { min-width: 56px; }
+  .s03 .fbox .ctl { gap: 8px; }
+}

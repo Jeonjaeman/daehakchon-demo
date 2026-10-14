@@ -24,7 +24,7 @@
 </script>
 </head>
 <body>
-<!-- I 링 사진안: G에서 03 연혁(1996—2026 ~ ERA 04)을 빼고 그 자리에 H의 SOLUTION + 30 YEARS 링, 링 노드는 연도별 둥근 사진 -->
+<!-- I 링 사진안: G에서 03 연혁(1996—2026 ~ ERA 04)을 빼고 그 자리에 H의 SOLUTION + 30 YEARS 링, 링 노드는 연도별 둥근 사진, 문의 단락 안에 03 브랜드 필름 박스 -->
 
 <div class="s05">
 <svg class="sprite" aria-hidden="true" focusable="false">
@@ -351,6 +351,141 @@
 
 <section class="cta" id="contact" data-dark="full">
   <div class="wave" aria-hidden="true"><i class="wave__l1"></i><i class="wave__l2"></i><i class="wave__fill"></i></div>
+  <div class="wrap cta__film" data-reveal>
+<div class="s03"><div class="fbox">
+<!-- 03 C안 BRAND FILM — 원본 필름 엔진 그대로(film.js), 크기만 박스 기준 -->
+<section class="film" id="bfilm" data-tone="dark" data-act="1" aria-label="대학촌 브랜드 필름">
+  <h2 class="sr">대학이 품질을 보증하는 30년의 식품공장 — 경북과학대학교 식품공장 대학촌</h2>
+
+  <!-- background plates: 8 text-free clips, 2 stills (slow zoom), 1 ivory plate -->
+  <div class="film__bg" aria-hidden="true">
+    <video class="bg" data-bg="f1" style="--b:.6" muted playsinline loop preload="metadata" poster="../assets/video/film/f1_orchard.poster.webp" data-still="../assets/img/f1_orchard.webp" src="../assets/video/film/f1_orchard.mp4"></video>
+    <video class="bg" data-bg="f2" style="--b:.56" muted playsinline loop preload="metadata" poster="../assets/video/film/f2_ferment.poster.webp" data-still="../assets/img/f2_ferment.webp" src="../assets/video/film/f2_ferment.mp4"></video>
+    <video class="bg" data-bg="f3" style="--b:.55" muted playsinline loop preload="metadata" poster="../assets/video/film/f3_bottling.poster.webp" data-still="../assets/img/f3_bottling.webp" src="../assets/video/film/f3_bottling.mp4"></video>
+    <video class="bg" data-bg="f4" style="--b:.5" muted playsinline loop preload="metadata" poster="../assets/video/film/f4_lab.poster.webp" data-still="../assets/img/f4_lab.webp" src="../assets/video/film/f4_lab.mp4"></video>
+    <div class="bg bg--still" data-bg="p5" style="--b:.5;--img:url(../assets/img/p5_lab_glass.webp)"></div>
+    <video class="bg" data-bg="h1" style="--b:.55" muted playsinline loop preload="metadata" poster="../assets/video/h1_factory.poster.webp" data-still="../assets/img/h1_factory_wide.webp" src="../assets/video/h1_factory.mp4"></video>
+    <div class="bg bg--still" data-bg="y2" style="--b:.48;--img:url(../assets/img/y2_cleanroom.webp)"></div>
+    <video class="bg" data-bg="f5" style="--b:.72" muted playsinline loop preload="metadata" poster="../assets/video/film/f5_ginseng.poster.webp" data-still="../assets/img/f5_ginseng.webp" src="../assets/video/film/f5_ginseng.mp4"></video>
+    <video class="bg" data-bg="f6" style="--b:.56" muted playsinline loop preload="metadata" poster="../assets/video/film/f6_family.poster.webp" data-still="../assets/img/f6_family.webp" src="../assets/video/film/f6_family.mp4"></video>
+    <video class="bg" data-bg="f7" style="--b:.9" muted playsinline loop preload="metadata" poster="../assets/video/film/f7_particles.poster.webp" data-still="../assets/img/f7_particles.webp" src="../assets/video/film/f7_particles.mp4"></video>
+    <div class="bg bg--light" data-bg="light"></div>
+  </div>
+
+  <div class="film__shade" aria-hidden="true"></div>
+
+  <!-- live type: Korean is the source, data-en holds the English line (*bold*, {count}); main.js rebuilds the same motion -->
+  <div class="film__type" id="filmType">
+
+    <!-- ACT 1 — 시작 -->
+    <div class="sc" data-sc="1">
+      <p class="lbl" data-en="Since 1996 · Chilgok, Gyeongbuk">Since 1996 · 경북 칠곡</p>
+      <p class="t-xl" data-fit=".88" data-en="From a single persimmon">감 한 알에서</p>
+      <i class="flash"></i>
+    </div>
+    <div class="sc" data-sc="2">
+      <p class="t-wd" data-fit=".9" data-en="*Thirty* years of fermentation"><b>30</b>년의 발효</p>
+    </div>
+    <div class="sc" data-sc="3">
+      <div class="t-ln" data-fit=".9">
+        <span class="mask"><span class="ln" data-en="into a bottle you can *trust*">한 병의 <b>신뢰</b>로</span></span>
+        <i class="rule"></i>
+      </div>
+    </div>
+
+    <!-- ACT 2 — 연구 -->
+    <div class="sc sc--dim" data-sc="4">
+      <p class="lbl" data-en="Kyongbuk Science University · Food Research Institute">경북과학대학교 식품연구소</p>
+      <div class="type" data-fit=".9">
+        <span class="type__txt" data-en="Made in a university lab">대학 연구소가 만들고</span><i class="type__caret" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="sc sc--dim" data-sc="5">
+      <div class="lamps" data-fit=".92">
+        <p class="lamp"><i class="lamp__led" aria-hidden="true"></i><span data-en="*5* patents">특허 <b>5</b>건</span></p>
+        <i class="lamps__dot" aria-hidden="true">·</i>
+        <p class="lamp"><i class="lamp__led" aria-hidden="true"></i><span data-en="*2* fermentation strains">발효 균주 <b>2</b>종</span></p>
+      </div>
+    </div>
+
+    <!-- ACT 3 — 품질 (scenes 6 + 7 share one stage) -->
+    <div class="sc" data-sc="6">
+      <span class="one-w" aria-hidden="true"><b class="one">1</b></span>
+      <div class="gmp" data-fit=".9">
+        <p class="gmp__a" data-en="Korea's *first* liquid-product">국내 액상 제품 <b>1호</b></p>
+        <p class="gmp__m"><span class="gmp__b" data-en="*GMP*-certified plant fills it"><b>GMP</b> 공장이 채웁니다</span></p>
+      </div>
+    </div>
+    <div class="sc sc--dim" data-sc="8">
+      <p class="lbl" data-en="Quality standards">품질 관리 기준</p>
+      <div class="certs" data-fit=".92">
+        <span class="cert">HACCP</span><i aria-hidden="true">·</i><span class="cert">ISO 9001</span><i aria-hidden="true">·</i><span class="cert">FDA</span>
+      </div>
+    </div>
+
+    <!-- ACT 4 — 건강 -->
+    <div class="sc" data-sc="9">
+      <p class="t-fc" data-fit=".9" data-en="The *depth* of 6-year ginseng">6년근 홍삼의 <b>깊이</b></p>
+    </div>
+    <div class="sc sc--dim" data-sc="10">
+      <i class="warm" aria-hidden="true"></i>
+      <p class="t-wm" data-fit=".9" data-en="to the whole family's *health*">온 가족의 <b>건강</b>으로</p>
+    </div>
+
+    <!-- ACT 5 — 약속 (scenes 11 + 12 share one stage) -->
+    <div class="sc" data-sc="11">
+      <div class="fin">
+        <div class="fin__aw"><p class="fin__a" data-fit=".9" data-en="Thirty years of trust,"><b>30</b>년의 신뢰,</p></div>
+        <p class="fin__b" data-fit=".9" data-en="a {100}-year future"><b class="cnt">100</b>년의 미래</p>
+      </div>
+    </div>
+    <div class="sc sc--light" data-sc="13">
+      <div class="end">
+        <span class="end__mark"><img class="end__ci" src="../assets/brand/logo_symbol.svg" alt="" width="69" height="76"><i class="iris" aria-hidden="true"></i></span>
+        <p class="end__w">대학촌</p>
+        <p class="end__s" data-fit=".9" data-en="Kyongbuk Science University Food Factory">경북과학대학교 식품공장</p>
+        <p class="end__k">SINCE 1996 · 30 YEARS</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- reduced motion / no JS: scenes 11–13 as one still frame -->
+  <div class="film__still" id="filmStill">
+    <img src="../assets/video/film/f7_particles.poster.webp" alt="" decoding="async">
+    <div class="fst">
+      <p class="fst__a" data-en="Thirty years of trust,"><b>30</b>년의 신뢰,</p>
+      <p class="fst__b" data-en="a *100*-year future"><b>100</b>년의 미래</p>
+      <p class="fst__ci"><img src="../assets/brand/logo_symbol.svg" alt="" width="41" height="45"><span><b>대학촌</b><small data-en="Kyongbuk Science University Food Factory">경북과학대학교 식품공장</small></span></p>
+    </div>
+  </div>
+
+  <!-- film UI -->
+  <div class="film__ui">
+    <div class="acts" role="group" aria-label="필름 구간">
+      <button type="button" class="act is-on" data-act="1"><em>01</em><span data-ko="시작" data-en="Origin">시작</span><i><b></b></i></button>
+      <button type="button" class="act" data-act="2"><em>02</em><span data-ko="연구" data-en="Research">연구</span><i><b></b></i></button>
+      <button type="button" class="act" data-act="3"><em>03</em><span data-ko="품질" data-en="Quality">품질</span><i><b></b></i></button>
+      <button type="button" class="act" data-act="4"><em>04</em><span data-ko="건강" data-en="Health">건강</span><i><b></b></i></button>
+      <button type="button" class="act" data-act="5"><em>05</em><span data-ko="약속" data-en="Promise">약속</span><i><b></b></i></button>
+    </div>
+    <div class="cue" aria-hidden="true"><span>Scroll</span><i></i></div>
+    <div class="ctl">
+      <p class="ctl__tag"><i aria-hidden="true"></i><span data-ko="대학촌 브랜드 필름" data-en="Daehakchon brand film">대학촌 브랜드 필름</span></p>
+      <div class="lang lang--film" role="group" aria-label="필름 언어 / Film language">
+        <button type="button" class="lang__b is-on" data-lang="ko" aria-pressed="true">KR</button>
+        <i aria-hidden="true">/</i>
+        <button type="button" class="lang__b" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <span class="ctl__tc" aria-hidden="true"><b id="tc">00:00</b> / 00:27</span>
+      <button type="button" class="ctl__pp" id="pp" aria-label="필름 일시정지">
+        <svg class="i-pause" viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2.5v9M10 2.5v9"/></svg>
+        <svg class="i-play" viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2.2 11.5 7 4 11.8z"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+</div></div>
+  </div>
   <p class="cta__ghost" aria-hidden="true">SINCE 1996</p>
   <div class="wrap cta__grid">
     <div class="cta__copy">
@@ -397,5 +532,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="main.js"></script>
+<script type="module" src="film.js"></script>
 </body>
 </html>
