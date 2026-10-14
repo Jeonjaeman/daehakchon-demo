@@ -14,7 +14,7 @@
   var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
 
   var query = new URLSearchParams(location.search);
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = false;   // OS '모션 줄이기'와 상관없이 모션을 보인다(10/15 결정) — 정적 확인은 ?nomotion=1
   var noMotion = reduce || query.get('nomotion') === '1';
   var gate = root.classList.contains('has-loader');          // head 인라인 스크립트가 결정
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;

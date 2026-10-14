@@ -869,15 +869,7 @@ em, i { font-style: normal; }
 /* ==========================================================================
    REDUCED MOTION / ?nomotion=1
    ========================================================================== */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
-}
 .no-motion *, .no-motion *::before, .no-motion *::after { animation: none !important; transition-duration: .01ms !important; }
-@media (prefers-reduced-motion: reduce) {
-  .marquee__track { width: auto; }
-  .marquee__list { flex-wrap: wrap; justify-content: center; }
-  .marquee__list[aria-hidden="true"] { display: none; }
-}
 .no-motion .marquee__track { width: auto; }
 .no-motion .marquee__list { flex-wrap: wrap; justify-content: center; }
 .no-motion .marquee__list[aria-hidden="true"] { display: none; }

@@ -12,7 +12,7 @@
   /* 로딩 게이트·모션 여부를 첫 페인트 전에 결정한다 (main.js가 못 뜨면 12초 뒤 게이트를 스스로 푼다) */
   (function (d) {
     var c = d.documentElement.classList, q = location.search;
-    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var reduce = false;   // OS '모션 줄이기'와 상관없이 모션을 보인다(10/15 결정) — 정적 확인은 ?nomotion=1
     c.add('js');
     if (reduce || /[?&]nomotion=1/.test(q)) { c.add('no-motion'); return; }
     if (/[?&]noloader=1/.test(q)) return;

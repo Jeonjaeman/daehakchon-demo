@@ -9,7 +9,7 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var noMotion = /[?&]nomotion=1/.test(location.search);
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = false;   // OS '모션 줄이기'와 상관없이 모션을 보인다(10/15 결정) — 정적 확인은 ?nomotion=1
   var isMobile = window.matchMedia('(max-width: 900px)').matches;
   var motion = !noMotion && !reduce && !!(window.gsap && window.ScrollTrigger);
   var lenis = null;

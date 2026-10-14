@@ -811,10 +811,6 @@ body { margin: 0; background: #fff; overflow-x: clip; }
   .s01 .ft__biz span + span::before { display: none; }
   .s01 .ft__copy { grid-column: auto; letter-spacing: .12em; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .s01 .scroll-ind__mouse i, .s01 .badge svg { animation: none; }
-  .s01 * { transition-duration: .01ms !important; }
-}
 .is-static .s01 .scroll-ind__mouse i, .is-static .s01 .badge svg { animation: none; }
 
 /* ── 03 C안 film ── */
@@ -1299,9 +1295,6 @@ html:not(.mo) .s03 .mq__track { animation:none;flex-wrap:wrap;width:auto }
 html:not(.mo) .s03 .mq__track ul+ul { display:none }
 html:not(.mo) .s03 .mq ul { flex-wrap:wrap }
 html:not(.mo) .s03 .cue i::after { animation:none }
-@media (prefers-reduced-motion:reduce) {
-  .s03 .pre__bar i { animation:none }
-}
 
 /* ── 05 E안 clean ── */
 
@@ -2264,9 +2257,6 @@ html:not(.mo) .s03 .cue i::after { animation:none }
 }
 @media (max-width: 420px) {
   .s05 .lang { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .s05 *, .s05 *::before, .s05 *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
 .s05 .no-motion *, .s05 .no-motion *::before, .s05 .no-motion *::after { animation: none !important; transition: none !important; }
 

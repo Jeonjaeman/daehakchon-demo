@@ -13,7 +13,7 @@
     var h = d.documentElement, q = location.search;
     h.classList.add('js');
     if (/[?&]t=/.test(q)) h.classList.add('qa');
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]nomotion=1/.test(q)) h.classList.add('mo');
+    if (!/[?&]nomotion=1/.test(q)) h.classList.add('mo');   // OS '모션 줄이기'와 상관없이 모션을 보인다(10/15 결정) — 정적 확인은 ?nomotion=1
   })(document);
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">

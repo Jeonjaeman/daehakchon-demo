@@ -10,7 +10,7 @@ const { gsap, ScrollTrigger, Lenis } = window;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const params = new URLSearchParams(location.search);
-const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const RM = false;   // OS '모션 줄이기'와 상관없이 모션을 보인다(10/15 결정) — 정적 확인은 ?nomotion=1
 const MOTION = !(RM || params.get('nomotion') === '1');
 const MOBILE = matchMedia('(max-width: 900px)').matches;
 const PFIX = params.has('p') ? clamp01(parseFloat(params.get('p')) || 0) : null;

@@ -12,7 +12,7 @@ const pad2 = (n) => String(n).padStart(2, '0');
 
 const qs = new URLSearchParams(location.search);
 const QA_T = qs.has('t') ? Math.max(0, parseFloat(qs.get('t')) || 0) : null;   // ?t=12.5 → film frozen at 12.5s, no leader
-const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const REDUCED = false;   // OS '모션 줄이기'와 상관없이 모션을 보인다(10/15 결정) — 정적 확인은 ?nomotion=1
 const NOMOTION = REDUCED || qs.get('nomotion') === '1' || !HAS_GSAP;          // no pins, no Lenis, no scroll motion
 const STATIC_FILM = !HAS_GSAP || (NOMOTION && QA_T === null);                  // film = one still frame (scenes 11–13)
 const mqMobile = matchMedia('(max-width: 900px)');

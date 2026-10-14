@@ -1006,8 +1006,4 @@ em, i { font-style: normal; }
 /* ==========================================================================
    REDUCED MOTION / ?nomotion=1
    ========================================================================== */
-@media (prefers-reduced-motion: reduce) {
-  .scroll-ind__mouse i, .badge svg { animation: none; }
-  * { transition-duration: .01ms !important; }
-}
 .is-static .scroll-ind__mouse i, .is-static .badge svg { animation: none; }

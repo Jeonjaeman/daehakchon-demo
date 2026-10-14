@@ -1194,7 +1194,4 @@ em, i { font-style: normal; }
 /* ==========================================================================
    REDUCED MOTION / ?nomotion=1 — 연출 전부 끔 (마키는 가로 스크롤로 남는다)
    ========================================================================== */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
-}
 .no-motion *, .no-motion *::before, .no-motion *::after { animation: none !important; transition: none !important; }

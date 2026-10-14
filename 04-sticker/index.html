@@ -18,7 +18,7 @@
 <script>
   /* 연출이 켜질 환경이면 첫 페인트 전에 히어로 등장 요소를 숨겨 깜빡임을 막는다. main.js가 못 뜨면 3.5초 뒤 자동 해제 */
   (function (d) {
-    var off = /[?&]nomotion=1/.test(location.search) || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var off = /[?&]nomotion=1/.test(location.search);   // OS '모션 줄이기'와 상관없이 모션을 보인다(10/15 결정) — 정적 확인은 ?nomotion=1
     if (off) { d.documentElement.classList.add('no-motion'); return; }
     d.documentElement.classList.add('js-pre');
     setTimeout(function () { d.documentElement.classList.remove('js-pre'); }, 3500);

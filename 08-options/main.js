@@ -1,10 +1,10 @@
-/* 대학촌 G·H 조합안 — 고객이 고른 기존 시안 단락의 원본 스크립트를 한 페이지에서 그대로 돌린다.
+/* 대학촌 G·H·I 조합안 — 고객이 고른 기존 시안 단락의 원본 스크립트를 한 페이지에서 그대로 돌린다.
    01 A안: 헤더 · HERO · CHAPTER 01 RESEARCH · PRODUCT FILM      (01-editorial/main.js)
    03 C안: SOLUTION(Beyond Factory) · 30 YEARS                   (03-film/main.js)
    05 E안: 퀵메뉴 · 마키 · 소식 · CTA · 토스트                     (05-clean/main.js)
-   06 F안: 30 YEARS 링 — three.js 전체 화면 장면 대신 캔버스 2D로 같은 링을 그린다
+   06 F안: 30 YEARS 링 — three.js 전체 화면 장면 대신 캔버스 2D로 같은 링을 그린다 (I안은 노드가 연도별 둥근 사진)
    Lenis·GSAP 인스턴스는 하나. 함수 본문은 원본에서 옮겼고, 바꾼 곳은 [조합] / [모션 보강] 주석으로 표시했다.
-   자동 생성 파일이 아니라 _compose/main.src.js 가 원본이다(compose.py 가 07·08 폴더로 복사).
+   자동 생성 파일이 아니라 _compose/main.src.js 가 원본이다(compose.py 가 07·08·09 폴더로 복사).
    QA: ?nomotion=1 (정적) · ?nosnap=1 (03 연혁 스냅 끔) · window.__g */
 (function () {
   'use strict';
@@ -14,7 +14,7 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var qs = new URLSearchParams(location.search);
   var HAS_GSAP = !!(window.gsap && window.ScrollTrigger);
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = false;   // OS '모션 줄이기'와 상관없이 모션을 보인다(10/15 결정) — 정적 확인은 ?nomotion=1
   var NOMOTION = reduce || qs.get('nomotion') === '1' || !HAS_GSAP;
   var isMobile = window.matchMedia('(max-width: 900px)').matches;     // 01
   var mqMobile = window.matchMedia('(max-width: 900px)');             // 03
@@ -514,13 +514,14 @@
   /* ═════════ 06 F안 — 30 YEARS 링
      원본은 three.js 전체 화면 장면의 일부(링 반지름 1.4, 그룹 x축 0.38rad 기울기 + 카메라 원근, 토러스 와이어 + 오렌지 선 + 연도 눈금 31개 + 노드 8개).
      여기서는 같은 링을 캔버스 2D 원근 투영으로 그린다. 2D 시선 고도 e(0.43 / 모바일 0.5)와 중심·반지름은 3D 기울기를 그대로 옮긴 값이 아니라
-     06 원본 캡처(_qa/06-journey/p_78.png: 타원 세로/가로 ≈ 0.42)에 맞춰 잡은 값이다. 스크롤로 1996→2026 한 바퀴, 드래그(관성)로 더 돌리고,
-     정면에 가장 가까운 노드가 현재 연도(큰 연도·설명·리스트 갱신은 06 원본 방식). ═════════ */
+     06 원본 캡처(_qa/06-journey/p_78.png: 타원 세로/가로 ≈ 0.42)에 맞춰 잡은 값이다. 스크롤은 06 원본처럼 노드마다 머물렀다가 다음 노드로 넘어가고
+     (구간의 45% 정지 → 스무스스텝 이동), 드래그(관성)로 더 돌리고, 정면에 가장 가까운 노드가 현재 연도(큰 연도·설명·리스트 갱신은 06 원본 방식).
+     노드 크기·후광·현재 노드 확대(1→1.9배, 감쇠 8)도 06 원본 값(구 0.028 / 링 1.4, 후광 0.16×(1+0.5·on))을 링 반지름 비율로 옮겼다. ═════════ */
   function ring06() {
     var sec = $('#ring'), stage = $('#ringStage'), cv = $('#ringCv'), ctx = cv.getContext('2d');
     var labelWrap = $('#nodeLabels'), yearBig = $('#yearBig'), yearTitle = $('#yearTitle');
     var lis = $$('#yearList li');
-    var NODES = lis.map(function (li) { return { y: +$('b', li).textContent, s: li.dataset.s, d: $('span', li).textContent }; });
+    var NODES = lis.map(function (li) { return { y: +$('b', li).textContent, s: li.dataset.s, d: $('span', li).textContent, on: 0 }; });
     var labels = NODES.map(function (n) {
       var el = document.createElement('div');
       el.className = 'nlabel';
@@ -530,6 +531,22 @@
     });
     var SPAN = 31, TAU = Math.PI * 2;
     var ang = function (yr) { return ((yr - 1996) / SPAN) * TAU; };
+
+    // [I안] 링 노드를 연도별 둥근 사진(li data-img)으로 — 사진이 없으면 06 원본 노드(점)
+    var PHOTOS = sec.hasAttribute('data-photos');
+    if (PHOTOS) {
+      ScrollTrigger.create({
+        trigger: sec, start: 'top bottom+=150%', end: 'max', once: true,
+        onEnter: function () {
+          lis.forEach(function (li, j) {
+            var img = new Image();
+            img.decoding = 'async';
+            img.onload = function () { NODES[j].img = img; };
+            img.src = li.dataset.img;
+          });
+        }
+      });
+    }
 
     var seed = 7;
     var rnd = function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
@@ -563,10 +580,16 @@
         : { cx: W * 0.425, cy: H * 0.59, R: Math.min(W * 0.26, H * 0.46), e: 0.43 };
     };
 
+    // 06 원본 world.js: 노드 사이 7구간, 구간마다 앞 45%는 그 노드에 머물고 나머지를 스무스스텝으로 이동.
+    // 원본은 연도 진행이 장 끝보다 먼저 끝나 2026에 잠시 머문다 → 진행도 92%에서 2026 도착.
+    var scrollYear = function (p) {
+      var u = Math.min(1, p / 0.92) * 7, i0 = Math.min(6, Math.floor(u)), f = Math.max(0, Math.min(1, (u - i0 - 0.45) / 0.55));
+      return NODES[i0].y - 1996 + (NODES[i0 + 1].y - NODES[i0].y) * f * f * (3 - 2 * f);
+    };
     ScrollTrigger.create({
       trigger: sec, start: 'top top', end: 'bottom bottom',
-      onUpdate: function (s) { st.scroll = s.progress * 30; },
-      onRefresh: function (s) { st.scroll = s.progress * 30; }
+      onUpdate: function (s) { st.scroll = scrollYear(s.progress); },
+      onRefresh: function (s) { st.scroll = scrollYear(s.progress); }
     });
     ScrollTrigger.create({ trigger: sec, start: 'top bottom', end: 'top top', onUpdate: function (s) { st.k = s.progress; }, onRefresh: function (s) { st.k = s.progress; }, onLeave: function () { setTimeout(measureAvoid, 300); } });
     ScrollTrigger.create({
@@ -577,15 +600,15 @@
     function loop(now) {
       var dt = Math.min(0.05, (now - st.last) / 1000);
       st.last = now;
-      if (!st.drag) { st.off += st.vel * dt; st.vel *= Math.exp(-dt * 3.2); }
-      st.cur += (st.scroll + st.off - st.cur) * (1 - Math.exp(-dt * 6));
+      if (!st.drag) { st.off += st.vel * dt; st.vel *= Math.exp(-dt * 3); }   // 06 원본 관성 감쇠
+      st.cur = st.scroll + st.off;                                              // 06 원본: 연도 = 스크롤 연도 + 드래그 오프셋 (부드러움은 Lenis가)
       st.smx += (st.mx - st.smx) * (1 - Math.exp(-dt * 4));
       st.smy += (st.my - st.smy) * (1 - Math.exp(-dt * 4));
-      draw(now);
+      draw(now, dt);
       raf = st.on ? requestAnimationFrame(loop) : 0;
     }
 
-    function draw(now) {
+    function draw(now, dt) {
       if (!W) return;
       var L = layout();
       var ek = 1 - Math.pow(1 - st.k, 3);
@@ -646,34 +669,70 @@
         if (!first) gsap.fromTo([yearBig, yearTitle], { yPercent: 18, opacity: 0.2 }, { yPercent: 0, opacity: 1, duration: 0.55, ease: 'power3.out', overwrite: true });
       }
 
-      // 노드 (뒤쪽부터)
+      // 노드 (뒤쪽부터) — 06 원본: 현재 노드는 색이 바로 오렌지로 바뀌고, 크기(1→1.9배)·후광은 감쇠 8로 부드럽게 커진다
+      var lam = dt ? 1 - Math.exp(-8 * dt) : 0;
       var pts = NODES.map(function (n, j) { return { i: j, p: P(ang(n.y), R) }; }).sort(function (a, b) { return a.p.z - b.p.z; });
       pts.forEach(function (o) {
-        var p = o.p, on = o.i === st.node, dz2 = (p.z + 1) / 2, gr = (on ? 30 : 13) * p.s;
-        var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, gr);
-        g.addColorStop(0, on ? 'rgba(255, 140, 40, .8)' : 'rgba(255, 210, 160, ' + (0.25 + 0.3 * dz2).toFixed(3) + ')');
-        g.addColorStop(1, 'rgba(255, 140, 40, 0)');
+        var n = NODES[o.i], p = o.p, cur = o.i === st.node;
+        n.on += ((cur ? 1 : 0) - n.on) * lam;
+        if (PHOTOS && n.img) { medal(n, o, cur, R, L); return; }
+        o.r = R * 0.02 * (1 + 0.9 * n.on) * p.s;                     // 구 0.028 / 링 1.4
+        var hr = R * 0.0571 * (1 + 0.5 * n.on) * p.s;                // 후광 0.16×(1+0.5·on) (지름) / 링 1.4
+        var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, hr);
+        g.addColorStop(0, 'rgba(242, 138, 22, ' + (0.2 + 0.6 * n.on).toFixed(3) + ')');
+        g.addColorStop(1, 'rgba(242, 138, 22, 0)');
+        ctx.globalCompositeOperation = 'lighter';                    // 원본 후광은 가산 혼합
         ctx.fillStyle = g;
-        ctx.beginPath(); ctx.arc(p.x, p.y, gr, 0, TAU); ctx.fill();
-        ctx.fillStyle = on ? '#f28a16' : 'rgba(255, 241, 220, ' + (0.5 + 0.5 * dz2).toFixed(3) + ')';
-        ctx.beginPath(); ctx.arc(p.x, p.y, (on ? 13 : 5) * p.s, 0, TAU); ctx.fill();
+        ctx.beginPath(); ctx.arc(p.x, p.y, hr, 0, TAU); ctx.fill();
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillStyle = cur ? '#f28a16' : '#fff1dc';
+        ctx.beginPath(); ctx.arc(p.x, p.y, o.r, 0, TAU); ctx.fill();
       });
 
       // 라벨: 현재 노드 → 앞쪽 노드 순으로 놓고, 이미 놓인 라벨·큰 연도·우측 리스트와 겹치면 숨긴다(뒤쪽 반은 숨김)
+      // [I안] 다른 노드의 사진 위에도 라벨을 얹지 않는다
       var placed = avoid.slice();
+      if (PHOTOS) pts.forEach(function (o) { if (NODES[o.i].img) placed.push({ x0: o.p.x - o.r, y0: o.p.y - o.r, x1: o.p.x + o.r, y1: o.p.y + o.r, own: o.i }); });
       pts.slice().sort(function (a, b) { return ((b.i === st.node) - (a.i === st.node)) || (b.p.z - a.p.z); }).forEach(function (o) {
-        var p = o.p, j = o.i, on = j === st.node, el = labels[j], left = p.x > W * 0.6, gap = (on ? 16 : 6) * p.s;
+        var p = o.p, j = o.i, on = j === st.node, el = labels[j], left = p.x > W * 0.6, gap = o.r + (2 + 8 * NODES[j].on) * p.s;   // 원본: 라벨 x + 8·on
         if (left !== el._l || on !== el._on) { el._l = left; el._on = on; el.classList.toggle('is-l', left); el.classList.toggle('is-on', on); el._w = 0; }
         if (!el._w) { el._w = el.offsetWidth; el._h = el.offsetHeight; }
         var lx = left ? p.x - gap - el._w : p.x + gap, ly = p.y - 8;
         var box = { x0: lx - 4, y0: ly - 4, x1: lx + el._w + 4, y1: ly + el._h + 4 };
-        var hit = placed.some(function (r) { return box.x0 < r.x1 && box.x1 > r.x0 && box.y0 < r.y1 && box.y1 > r.y0; });
+        var hit = placed.some(function (r) { return r.own !== j && box.x0 < r.x1 && box.x1 > r.x0 && box.y0 < r.y1 && box.y1 > r.y0; });
         var show = ek > 0.5 && (on || (p.z > -0.25 && !hit));
         if (show) placed.push(box);
         el.style.transform = 'translate3d(' + lx.toFixed(1) + 'px, ' + ly.toFixed(1) + 'px, 0)';
         el.style.opacity = show ? '1' : '0';
       });
       ctx.globalAlpha = 1;
+    }
+
+    // [I안] 둥근 사진 노드 — 06 원본 노드처럼 현재 연도에서 부드럽게 커지고(on, 감쇠 8) 오렌지 테두리·가산 후광을 두른다.
+    //       사진은 원 안에서 1.18→1.1로 풀리며, 링 위 가로 위치에 따라 살짝 밀려(창 너머 시차) 돌아가는 느낌을 더한다. 뒤쪽 노드는 어둡게.
+    function medal(n, o, cur, R, L) {
+      var p = o.p, mob = mqMobile.matches;
+      var r0 = Math.max(mob ? 13 : 20, R * 0.058), r1 = Math.max(mob ? 46 : 0, R * 0.17);
+      var r = (r0 + (r1 - r0) * n.on) * p.s, dz = (p.z + 1) / 2;
+      o.r = r;
+      var hr = r * 1.7;
+      var g = ctx.createRadialGradient(p.x, p.y, r * 0.8, p.x, p.y, hr);
+      g.addColorStop(0, 'rgba(242, 138, 22, ' + (0.12 + 0.5 * n.on).toFixed(3) + ')');
+      g.addColorStop(1, 'rgba(242, 138, 22, 0)');
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(p.x, p.y, hr, 0, TAU); ctx.fill();
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.save();
+      ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, TAU); ctx.clip();
+      var z = 1.18 - 0.08 * n.on, d = 2 * r * z, sx = (p.x - L.cx) / L.R * r * 0.08;
+      ctx.drawImage(n.img, p.x - d / 2 - sx, p.y - d / 2, d, d);
+      var shade = (1 - dz) * 0.55 * (1 - n.on);
+      if (shade > 0.01) { ctx.fillStyle = 'rgba(26, 15, 8, ' + shade.toFixed(3) + ')'; ctx.fillRect(p.x - r, p.y - r, 2 * r, 2 * r); }
+      ctx.restore();
+      ctx.lineWidth = cur ? 2.5 : 1;
+      ctx.strokeStyle = cur ? '#f28a16' : 'rgba(255, 241, 220, ' + (0.35 + 0.4 * dz).toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, TAU); ctx.stroke();
     }
 
     // 드래그(관성) · 커서 시차 — 06 원본: 화면 폭 한 번 끌기 ≈ 24년

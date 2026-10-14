@@ -532,6 +532,3 @@ html:not(.mo) .mq__track{animation:none;flex-wrap:wrap;width:auto}
 html:not(.mo) .mq__track ul+ul{display:none}
 html:not(.mo) .mq ul{flex-wrap:wrap}
 html:not(.mo) .cue i::after{animation:none}
-@media (prefers-reduced-motion:reduce){
-  .pre__bar i{animation:none}
-}
