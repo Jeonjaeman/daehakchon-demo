@@ -253,22 +253,35 @@
     });
   }
 
-  /* ═════════ 01 A안 — PRODUCT FILM: 턴테이블 프레임 시퀀스 스크럽 (아이보리 스테이지, contain) ═════════ */
+  /* ═════════ 01 A안 — PRODUCT FILM: 턴테이블 프레임 시퀀스 스크럽 (아이보리 스테이지, contain) ═════════
+     [조합] 고객 10/15 "제품이 변경되는 건 아직 적용이 안 된 거죠?" — 01 화이바는 원본 턴테이블 한 바퀴,
+     02~04는 설명과 같은 제품 사진(같은 아이보리 스튜디오 컷)으로 디졸브해 바뀌고 천천히 다가간다. */
   function film01() {
     var film = $('#film'), stage = $('.film__stage'), canvas = $('#filmCanvas');
     if (!film || !canvas) return;
     var ctx = canvas.getContext('2d');
     var FRAME_DIR = '../assets/seq/turntable/';
     var STILL_SRC = '../assets/img/pr1_fiber_bottle.webp';
+    var SHOT_SRC = ['../assets/img/pr2_vermont_pouch.webp', '../assets/img/pr3_jinhongsam_pouch.webp', '../assets/img/pr4_hongsam_pouch.webp'];   // [조합] 02~04 슬라이드
     var IVORY = '#fff6e9';
     var STEP = isMobile ? 2 : 1;
     var TOTAL = Math.floor(120 / STEP);
     var frames = new Array(TOTAL);
+    var shots = [];
     var mode = 'pending';
     var still = null;
     var st = { p: 0 };
     var lastKey = '';
     var started = false;
+
+    // [조합] 장면 시간표 — 아래 callout 타임라인(T0·GAP)과 같은 박자. 설명이 위로 사라질 때(s+0.155~0.21) 제품도 떠오르며 사라지고,
+    //        다음 설명이 올라올 때(s+0.215~0.27) 다음 제품이 아래에서 올라온다. 두 제품이 겹쳐 보이는 순간은 없다.
+    var T0 = 0.13, GAP = 0.215;
+    var XW = 0.11, OUT_END = 0.45, IN_START = 0.55;                  // 바뀌는 구간 길이, 나가기·들어오기 비율
+    var xAt = function (k) { return T0 + (k - 1) * GAP + 0.155; };   // k번째(1~3) 사진으로 바뀌기 시작하는 진행도
+    var SPIN_END = xAt(1);                                           // 화이바 병은 첫 장면 동안 한 바퀴(마지막 프레임 = 정면)
+    var clamp01 = function (v) { return v < 0 ? 0 : v > 1 ? 1 : v; };
+    var ease = function (t) { return t * t * (3 - 2 * t); };
 
     var pad = function (n) { return ('000' + n).slice(-4); };
     var srcOf = function (i) { return FRAME_DIR + pad(i * STEP + 1) + '.webp'; };
@@ -280,23 +293,26 @@
       render();
     }
 
-    function pick() {
-      if (mode === 'frames') {
-        var want = Math.round(st.p * (TOTAL - 1)), i;
-        for (i = want; i >= 0; i--) if (frames[i]) return { img: frames[i], key: 'f' + i, zoom: 1, pan: 0 };
-        for (i = want + 1; i < TOTAL; i++) if (frames[i]) return { img: frames[i], key: 'f' + i, zoom: 1, pan: 0 };
+    // 장면 k의 그림: 0 = 화이바 턴테이블(원본 pick 그대로, 진행도만 첫 장면 안으로), 1~3 = 제품 사진
+    function pick(k, p) {
+      if (k === 0) {
+        var q = clamp01(p / SPIN_END);
+        if (mode === 'frames') {
+          var want = Math.round(q * (TOTAL - 1)), i;
+          for (i = want; i >= 0; i--) if (frames[i]) return { img: frames[i], key: 'f' + i, zoom: 1, pan: 0 };
+          for (i = want + 1; i < TOTAL; i++) if (frames[i]) return { img: frames[i], key: 'f' + i, zoom: 1, pan: 0 };
+        }
+        if (still) return { img: still, key: 's' + q.toFixed(4), zoom: 1 + 0.08 * q, pan: 0 };
+        return null;
       }
-      if (still) return { img: still, key: 's' + st.p.toFixed(4), zoom: 1 + 0.26 * st.p, pan: (0.5 - st.p) * 0.05 };
-      return null;
+      var img = shots[k - 1];
+      if (!img) return null;
+      var z = 1 + 0.06 * clamp01((p - xAt(k)) / (GAP + XW));          // 머무는 동안 천천히 다가간다
+      return { img: img, key: 'p' + k + '-' + z.toFixed(4), zoom: z, pan: 0 };
     }
 
-    function render() {
-      var f = pick();
-      if (!f) return;
+    function draw(f, alpha, dy) {
       var cw = canvas.width, ch = canvas.height;
-      var key = f.key + '|' + cw + 'x' + ch;
-      if (key === lastKey) return;
-      lastKey = key;
       var img = f.img, iw = img.naturalWidth, ih = img.naturalHeight;
       var ir = iw / ih, cr = cw / ch;
       var portrait = cr < 0.8;
@@ -305,15 +321,41 @@
       else if (ir > cr) { w = cw; h = w / ir; }
       else { h = ch; w = h * ir; }
       w *= f.zoom; h *= f.zoom;
-      var x = (cw - w) / 2 + f.pan * cw, y = ch * cy - h / 2;
+      var x = (cw - w) / 2 + f.pan * cw, y = ch * cy - h / 2 + dy * ch;
       var r = Math.floor(x + w), b = Math.floor(y + h);
-      ctx.fillStyle = IVORY;
-      ctx.fillRect(0, 0, cw, ch);
+      ctx.globalAlpha = alpha;
       if (x > 0) ctx.drawImage(img, 0, 0, 2, ih, 0, y, Math.ceil(x) + 1, h);
       if (r < cw) ctx.drawImage(img, iw - 2, 0, 2, ih, r - 1, y, cw - r + 1, h);
       if (y > 0) ctx.drawImage(img, 0, 0, iw, 2, x, 0, w, Math.ceil(y) + 1);
       if (b < ch) ctx.drawImage(img, 0, ih - 2, iw, 2, x, b - 1, w, ch - b + 1);
       ctx.drawImage(img, x, y, w, h);
+      ctx.globalAlpha = 1;
+    }
+
+    function render() {
+      var p = st.p, k = 0;
+      while (k < SHOT_SRC.length && p >= xAt(k + 1)) k++;
+      var t = k > 0 ? clamp01((p - xAt(k)) / XW) : 1;
+      var f = null, a = 1, dy = 0, e;
+      if (t < OUT_END) {                                             // 나가는 제품: 설명처럼 위로 떠오르며 사라진다
+        f = pick(k - 1, p); e = ease(t / OUT_END);
+        if (f) { f.zoom *= 1 + 0.03 * e; a = 1 - e; dy = -0.025 * e; }
+      } else if (t > IN_START) {                                     // 들어오는 제품: 조금 작게, 아래에서 올라온다
+        f = pick(k, p); e = ease((t - IN_START) / (1 - IN_START));
+        if (f) { f.zoom *= 0.95 + 0.05 * e; a = e; dy = 0.03 * (1 - e); }
+      }
+      if (!f && t >= OUT_END && t <= IN_START) f = { key: 'blank', img: null };   // 사이: 빈 아이보리 무대
+      if (!f) {                                                      // 사진이 아직 안 왔으면 앞 장면을 그대로
+        for (var j = k - 1; j >= 0 && !f; j--) f = pick(j, p);
+        a = 1; dy = 0;
+      }
+      if (!f) return;
+      var key = f.key + '@' + a.toFixed(3) + '/' + dy.toFixed(4) + '|' + canvas.width + 'x' + canvas.height;
+      if (key === lastKey) return;
+      lastKey = key;
+      ctx.fillStyle = IVORY;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      if (f.img && a > 0) draw(f, a, dy);
     }
 
     function loadStill() {
@@ -321,6 +363,15 @@
       var img = new Image();
       img.onload = function () { still = img; lastKey = ''; render(); };
       img.src = STILL_SRC;
+    }
+
+    function loadShots() {
+      SHOT_SRC.forEach(function (src, i) {
+        var img = new Image();
+        img.decoding = 'async';
+        img.onload = function () { shots[i] = img; lastKey = ''; render(); };
+        img.src = src;
+      });
     }
 
     function loadRest() {
@@ -346,6 +397,7 @@
       first.onload = function () { frames[0] = first; mode = 'frames'; lastKey = ''; render(); loadRest(); };
       first.onerror = loadStill;
       first.src = srcOf(0);
+      loadShots();
     }
     ScrollTrigger.create({ trigger: film, start: 'top bottom+=150%', end: 'max', once: true, onEnter: start });
 
@@ -355,7 +407,6 @@
 
     var callouts = $$('.callout', film);
     var nowEl = $('#filmNow');
-    var T0 = 0.13, GAP = 0.215;
     var tl = gsap.timeline({
       scrollTrigger: {
         trigger: film, start: 'top top', end: 'bottom bottom', scrub: 0.6,

@@ -2328,6 +2328,9 @@ html:not(.mo) .s03 .cue i::after { animation:none }
 /* 05 푸터: 실제 로고 */
 .s05 .ft__logo--real { width: clamp(200px, 13vw, 260px); height: auto; }
 
+/* 05 물결 띠 삭제(고객 10/15) — 띠가 앉던 블록 아래 여백(--wh)도 없앤다 */
+.s05 { --wh: 0px; }
+
 /* 05 파트너 블록: 01 제품 필름 바로 아래에 붙인다 (캠퍼스 섹션 위쪽 여백만 줄임) */
 .s05 .campus--pt { padding-top: var(--s2); }
 .s05 .campus--pt .partners { margin-top: 0; }
