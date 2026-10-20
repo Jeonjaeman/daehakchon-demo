@@ -170,10 +170,17 @@
 
   /* ═════════ 01 A안 — HERO ═════════ */
   function hero01() {
-    gsap.from('.hero__label span, .hero__title .ln > span, .hero__sub span', {
-      yPercent: 115, duration: 1.3, ease: 'power4.out', stagger: 0.12, delay: 0.25
-    });
-    gsap.from('.hero__foot', { autoAlpha: 0, duration: 1.2, delay: 1.2 });
+    var lines = '.hero__label span, .hero__title .ln > span, .hero__sub span';
+    var heroIn = function (d) {
+      gsap.fromTo(lines, { yPercent: 115 }, { yPercent: 0, duration: 1.3, ease: 'power4.out', stagger: 0.12, delay: d });
+      gsap.fromTo('.hero__foot', { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.2, delay: d + 0.95 });
+    };
+    // [G 1차 수정] 첫 접속 인트로(rev1.js)가 있으면 막이 올라가기 시작할 때 히어로 문구가 올라온다
+    if (root.classList.contains('has-intro')) {
+      gsap.set(lines, { yPercent: 115 });
+      gsap.set('.hero__foot', { autoAlpha: 0 });
+      document.addEventListener('intro:reveal', function () { heroIn(0.45); }, { once: true });
+    } else heroIn(0.25);
     gsap.to('.hero__body', {
       yPercent: -14, autoAlpha: 0, ease: 'none',
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 35%', scrub: true }

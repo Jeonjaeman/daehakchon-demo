@@ -2363,3 +2363,180 @@ html:not(.mo) .s03 .cue i::after { animation:none }
   body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
 }
 
+
+/* ── G안 1차 수정 (_compose/g_rev1.css) ── */
+/* ═════════ G안 1차 수정 (고객 10/20 「대학촌 홈페이지 수정요청.xls」) — G(07-structure)에만 붙는다 ═════════
+   1 헤더 로고·글자 크게, 'OEM 문의' 버튼 삭제 · 히어로 문구 왼쪽으로, 위 영문 라벨·아래 양쪽 라벨 삭제
+   2 히어로 영상 교체(고객 영상) · 3 첫 접속 인트로(학교 로고 → 식품공장 로고 → 영상)
+   5 OEM·ODM 쇼케이스 · 6 파트너사 로고 마키 · 7 제품 필름 → 상세페이지 · 8 문의 제목 한/영 자동 전환 */
+
+/* ── 1. 헤더: 로고·메뉴·언어 크게 ── */
+.s01 .hd__logo--real { height: clamp(40px, 3vw, 60px); }
+.s01 .hd__nav { gap: clamp(30px, 3vw, 64px); }
+.s01 .hd__nav button { font-size: clamp(16px, 1.04vw, 21px); font-weight: 600; }
+.s01 .hd__lang { font-size: clamp(13px, .78vw, 16px); }
+
+/* ── 1. 히어로: 가운데 → 왼쪽 ── */
+.s01 .hero--side .hero__body { align-items: flex-start; text-align: left; padding: 0 var(--gut); }
+.s01 .hero--side .hero__title { font-size: clamp(42px, 5vw, 108px); }
+.s01 .hero--side .hero__shade {
+  background:
+    linear-gradient(90deg, rgba(26, 15, 8, .7) 0%, rgba(26, 15, 8, .38) 38%, rgba(26, 15, 8, 0) 66%),
+    linear-gradient(180deg, rgba(26, 15, 8, .55) 0%, rgba(26, 15, 8, .08) 26%, rgba(26, 15, 8, .1) 68%, rgba(26, 15, 8, .62) 100%);
+}
+.s01 .hero--side .hero__foot { grid-template-columns: 1fr; justify-items: center; }
+.s01 .hero--side { background-image: url("../assets/img/hero_client_poster.webp"); }
+
+/* ── 3. 인트로: 학교 엠블럼 → 식품공장 로고 → 막이 올라가며 영상 ── */
+.g-intro { display: none; }
+html.has-intro .g-intro {
+  position: fixed; inset: 0; z-index: 1000;
+  display: grid; place-items: center;
+  overflow: hidden;
+  background: #1a0f08;
+  color: #fff;
+  cursor: pointer;
+}
+html.has-intro { overflow: hidden; }
+html.has-intro.intro-done { overflow: visible; }
+html.intro-done .g-intro { display: none; }
+.g-intro::before {                                   /* 은은한 빛 */
+  content: ""; position: absolute; inset: -20%;
+  background: radial-gradient(closest-side, rgba(235, 97, 0, .22), rgba(235, 97, 0, 0) 70%);
+  opacity: var(--glow, 0);
+}
+.g-intro__edge {                                     /* 막이 올라갈 때 아래 가장자리의 주황 선 */
+  position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: linear-gradient(90deg, rgba(235, 97, 0, 0), #eb6100 30%, #f29b87 70%, rgba(242, 155, 135, 0));
+  opacity: 0;
+}
+.g-intro__step {
+  grid-area: 1 / 1;
+  display: flex; flex-direction: column; align-items: center; gap: clamp(18px, 1.6vw, 30px);
+  opacity: 0;
+}
+.g-intro__emb { width: clamp(150px, 13vw, 250px); height: auto; filter: drop-shadow(0 18px 40px rgba(0, 0, 0, .45)); }
+.g-intro__name { text-align: center; line-height: 1.3; }
+.g-intro__name b { display: block; font-size: clamp(22px, 1.75vw, 34px); font-weight: 700; letter-spacing: -0.03em; }
+.g-intro__name span {
+  display: block; margin-top: .5em;
+  font-family: "Montserrat", sans-serif; font-size: clamp(10px, .68vw, 13px); font-weight: 600; letter-spacing: .38em; color: #f29b87;
+}
+.g-intro__logo { position: relative; width: clamp(300px, 36vw, 680px); }
+.g-intro__logo img { display: block; width: 100%; height: auto; }
+.g-intro__logo .wipe { clip-path: inset(0 100% 0 0); }
+.g-intro__line { width: clamp(40px, 4vw, 72px); height: 2px; background: #eb6100; transform: scaleX(0); }
+.g-intro__skip {
+  position: absolute; right: clamp(18px, 2.6vw, 48px); bottom: clamp(18px, 2.6vw, 44px);
+  padding: .6em 1.1em; border: 1px solid rgba(255, 255, 255, .3); border-radius: 99px;
+  font: 600 12px/1 "Montserrat", sans-serif; letter-spacing: .2em; color: rgba(255, 255, 255, .75); background: none;
+  cursor: pointer; transition: border-color .25s, color .25s;
+}
+.g-intro__skip:hover, .g-intro__skip:focus-visible { border-color: #fff; color: #fff; }
+
+/* ── 7. 제품 필름: 상세페이지로 ── */
+.s01 .film__stage { cursor: pointer; }
+.s01 .callout { pointer-events: auto; }
+.s01 .callout__more {
+  display: inline-flex; align-items: center; gap: .5em; margin-top: 1.1em;
+  padding: .75em 1.25em; border-radius: 99px;
+  font-size: var(--fs-sm); font-weight: 700; color: #fff; background: var(--orange);
+  transition: background var(--t), transform var(--t);
+}
+.s01 .callout__more:hover, .s01 .callout__more:focus-visible { background: var(--orange-hover); transform: translateY(-2px); }
+.s01 .callout__more i { font-style: normal; transition: transform var(--t); }
+.s01 .callout__more:hover i { transform: translateX(3px); }
+
+/* ── 5. OEM·ODM 쇼케이스 ── */
+.g-sc {
+  --orange: #eb6100; --pink: #f29b87; --ivory: #fff6e9; --ink: #2b1d12; --ink-2: #7d6b5b;
+  position: relative; overflow: hidden;
+  padding: clamp(72px, 6.8vw, 140px) 0 clamp(28px, 2.6vw, 52px);
+  background: linear-gradient(180deg, #fff 0%, var(--ivory) 100%);
+  color: var(--ink);
+  font-family: "Pretendard Variable", Pretendard, -apple-system, "Malgun Gothic", sans-serif;
+}
+.g-sc__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2vw; padding: 0 5.2vw; }
+.g-sc__label { font-family: "Montserrat", sans-serif; font-size: clamp(11px, .73vw, 15px); font-weight: 700; letter-spacing: .3em; color: var(--orange); }
+.g-sc__title { margin: .6em 0 0; font-size: clamp(30px, 3.1vw, 64px); font-weight: 300; line-height: 1.22; letter-spacing: -0.05em; }
+.g-sc__title strong { font-weight: 800; color: var(--orange); }
+.g-sc__nav { display: flex; align-items: center; gap: 12px; }
+.g-sc__count { margin-right: 10px; font-family: "Montserrat", sans-serif; font-size: clamp(13px, .83vw, 17px); font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.g-sc__count b { color: var(--ink); font-weight: 800; }
+.g-sc__btn {
+  display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+  border: 1.5px solid rgba(43, 29, 18, .2); background: #fff; color: var(--ink); cursor: pointer;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.g-sc__btn:hover, .g-sc__btn:focus-visible { background: var(--orange); border-color: var(--orange); color: #fff; }
+.g-sc__btn svg { width: 18px; height: 18px; }
+
+.g-sc__list { list-style: none; margin: 0; padding: 0; }
+.g-sc__stage { position: relative; height: clamp(330px, 26vw, 520px); margin-top: clamp(8px, 1vw, 20px); touch-action: pan-y; cursor: grab; }
+.g-sc__stage:active { cursor: grabbing; }
+.g-sc__ghost {                                       /* 뒤의 큰 분류 글자 */
+  position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%);
+  font-size: clamp(70px, 10.4vw, 220px); font-weight: 900; letter-spacing: -0.06em; white-space: nowrap;
+  color: transparent; -webkit-text-stroke: 1.5px rgba(235, 97, 0, .13);
+  pointer-events: none; user-select: none;
+}
+.g-sc__belt {                                        /* 컨베이어 */
+  position: absolute; left: 0; right: 0; bottom: 8%; height: 10px;
+  background: repeating-linear-gradient(90deg, rgba(43, 29, 18, .1) 0 22px, rgba(43, 29, 18, 0) 22px 34px);
+  background-size: 34px 100%;
+  border-top: 1px solid rgba(43, 29, 18, .12);
+}
+.g-sc__spot {                                        /* 가운데 조명 */
+  position: absolute; left: 50%; bottom: 6%; width: clamp(260px, 24vw, 460px); height: 76%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse 50% 60% at 50% 100%, rgba(235, 97, 0, .16), rgba(235, 97, 0, 0) 70%);
+  pointer-events: none;
+}
+.g-sc__item {
+  position: absolute; left: 50%; bottom: 8%;
+  width: 0; height: 0;                               /* JS가 transform으로 자리·크기를 정한다 */
+  will-change: transform, opacity;
+}
+.g-sc__item img {
+  position: absolute; left: 0; bottom: 0;
+  transform: translateX(-50%);
+  max-width: none; height: auto;
+  filter: drop-shadow(0 22px 22px rgba(58, 32, 12, .22));
+  -webkit-user-drag: none; user-select: none;
+}
+.g-sc__cap { position: relative; display: grid; justify-items: center; gap: .4em; min-height: 6.4em; margin-top: clamp(14px, 1.2vw, 24px); padding: 0 5.2vw; text-align: center; }
+.g-sc__cat {
+  display: inline-block; padding: .45em 1em; border-radius: 99px;
+  font-size: clamp(12px, .73vw, 15px); font-weight: 700; color: var(--orange); background: rgba(235, 97, 0, .1);
+}
+.g-sc__name { margin: 0; font-size: clamp(22px, 1.75vw, 36px); font-weight: 800; letter-spacing: -0.04em; }
+.g-sc__partner { margin: 0; font-size: clamp(14px, .9vw, 18px); color: var(--ink-2); }
+.g-sc__partner b { color: var(--ink); font-weight: 700; }
+.g-sc__cap > * { transition: opacity .35s, transform .35s; }
+.g-sc__cap.is-swap > * { opacity: 0; transform: translateY(8px); }
+
+/* ── 6. 파트너사 로고 마키 ── */
+.s05 .mq--logo { --mq-gap: clamp(48px, 4.4vw, 92px); padding: clamp(24px, 2vw, 40px) 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.s05 .mq--logo li { display: flex; align-items: center; height: clamp(40px, 3.1vw, 62px); }
+.s05 .mq--logo img { display: block; height: 100%; width: auto; max-width: none; }
+.s05 .mq--logo img.is-tall { height: 118%; }       /* 심볼+글자 2단 로고는 조금 크게 */
+.s05 .campus--pt { padding-top: 0; background: var(--g1, #fff6e9); }
+.s05 .campus--pt .partners__label { padding-top: clamp(28px, 2.6vw, 52px); }
+
+/* ── 8. 문의 제목: 한글 ↔ 영어 자동 전환 ── */
+.s05 .cta__t.is-rot { display: grid; }
+.s05 .cta__t .rot { grid-area: 1 / 1; transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1), filter .7s; }
+.s05 .cta__t .rot[aria-hidden="true"] { opacity: 0; transform: translateY(.35em); filter: blur(6px); }
+
+@media (max-width: 900px) {
+  .s01 .hd__logo--real { height: 32px; }
+  .s01 .hero--side .hero__body { padding: 0 24px; }
+  .s01 .hero--side .hero__shade { background: linear-gradient(180deg, rgba(26, 15, 8, .55) 0%, rgba(26, 15, 8, .25) 40%, rgba(26, 15, 8, .7) 100%); }
+  .g-sc__head { grid-template-columns: 1fr; padding: 0 24px; }
+  .g-sc__count { margin-right: auto; }
+  .s05 .partners__label { flex-direction: column; gap: .3em; }
+  .g-sc__btn { width: 44px; height: 44px; }
+  .g-sc__stage { height: 330px; }
+  .g-sc__cap { padding: 0 24px; }
+  .s05 .mq--logo li { height: 34px; }
+}
