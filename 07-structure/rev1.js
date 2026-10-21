@@ -98,128 +98,55 @@
     });
   })();
 
-  /* ═════════ 5. OEM·ODM 쇼케이스 — 컨베이어처럼 한 칸씩 지나가며 가운데 제품을 크게 ═════════ */
-  (function showcase() {
-    var sec = $('#showcase');
+  /* ═════════ 5. 30년의 발자취 — 제품 컷이 세 줄로 빠르게 흘러간다(타임랩스). 처음 보일 때 연도가 1996 → 2026으로 돌며 잠깐 더 빨리 감긴다 ═════════ */
+  (function history() {
+    var sec = $('#history30');
     if (!sec) return;
-    var stage = $('#scStage', sec), belt = $('#scBelt', sec), ghost = $('#scGhost', sec), cap = $('#scCap', sec), nowEl = $('#scNow', sec);
-    var items = $$('.g-sc__item', sec), N = items.length;
-    var imgs = items.map(function (it) { return $('img', it); });
-    var ratio = imgs.map(function (im) { return (+im.getAttribute('width')) / (+im.getAttribute('height')); });
-    var pos = { v: 0 }, target = 0;                       // target: 지금 가고 있는 칸(연달아 눌러도 한 칸씩 더 간다)
-    var shown = -1, timer = 0, inView = false, hover = false, drag = null, tween = null;
-    var STEP = 2.6, DUR = 1.05;
+    var rows = $$('.g-hs__row', sec);
+    var yearEl = $('#hsYear', sec);
+    var Y0 = 1996, Y1 = 2026;
+    var isMobile = window.matchMedia('(max-width: 900px)').matches;
 
-    var mod = function (n) { return ((n % N) + N) % N; };
-    var sizes = { sw: 0, hb: 0 };
-    function measure() {
-      var w = stage.clientWidth, h = stage.clientHeight;
-      sizes.sw = Math.max(120, Math.min(300, w * 0.16));   // 칸 간격
-      sizes.hb = h * 0.78;                                 // 가운데 병 높이
-      imgs.forEach(function (im, i) {                      // 세트·박스처럼 가로로 긴 제품은 조금 낮게(면적을 비슷하게)
-        var hh = sizes.hb * Math.min(1, 0.72 / Math.sqrt(ratio[i]));
-        im.style.height = hh.toFixed(1) + 'px';
-        im.style.width = (hh * ratio[i]).toFixed(1) + 'px';
+    // 05 마키와 같은 방식: 화면을 덮을 만큼 그룹을 복제하고 그룹 한 개 폭만큼 흘린다. 줄마다 속도(px/s)가 다르다.
+    function setup(row) {
+      var track = $('.g-hs__track', row), group = $('.g-hs__group', track);
+      $$('[data-clone]', track).forEach(function (c) { track.removeChild(c); });
+      var w = group.getBoundingClientRect().width;
+      if (!w) return;
+      var copies = Math.max(1, Math.ceil(window.innerWidth / w));
+      for (var k = 0; k < copies; k++) {
+        var clone = group.cloneNode(true);
+        clone.setAttribute('data-clone', '');
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+      }
+      var speed = parseFloat(row.dataset.speed) || 160;
+      if (isMobile) speed *= 0.62;
+      track.style.setProperty('--shift', (-w) + 'px');
+      track.style.setProperty('--dur', (w / speed).toFixed(2) + 's');
+      row.classList.add('is-run');
+    }
+    if (!MOTION) return;                               // 정적: 첫 그룹만 멈춰 보인다
+    rows.forEach(setup);
+    var rw = window.innerWidth, rt = 0;
+    var resetup = function () { clearTimeout(rt); rt = setTimeout(function () { rows.forEach(setup); }, 150); };
+    window.addEventListener('resize', function () { if (window.innerWidth !== rw) { rw = window.innerWidth; resetup(); } });
+    $$('.g-hs__group img', sec).forEach(function (im) { if (!im.complete) im.addEventListener('load', resetup, { once: true }); });
+
+    // 처음 보일 때: 연도가 1996 → 2026으로 돌고, 그동안 제품은 3배 빨리 감기다가 제 속도로
+    var played = false;
+    function play() {
+      if (played) return;
+      played = true;
+      sec.classList.add('is-in');
+      var o = { y: Y0, s: 3 };
+      gsap.to(o, {
+        y: Y1, s: 1, duration: 3.2, ease: 'power3.out',
+        onUpdate: function () { yearEl.textContent = String(Math.round(o.y)); sec.style.setProperty('--spd', o.s.toFixed(3)); },
+        onComplete: function () { yearEl.textContent = String(Y1); sec.style.setProperty('--spd', '1'); }
       });
-      layout();
     }
-
-    function layout() {
-      var sw = sizes.sw;
-      for (var i = 0; i < N; i++) {
-        var d = i - pos.v;
-        d = d - N * Math.round(d / N);                     // 고리처럼 이어진다
-        var ad = Math.abs(d), sg = d < 0 ? -1 : 1;
-        var x = ad < 1 ? d * sw * 1.4 : sg * (1.4 + (ad - 1) * 0.95) * sw;
-        var s = ad < 1 ? 1 - 0.46 * ad : Math.max(0.4, 0.54 - 0.04 * (ad - 1));
-        var o = ad < 3.6 ? 1 : Math.max(0, 1 - (ad - 3.6));
-        var it = items[i];
-        it.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,0) scale(' + s.toFixed(4) + ')';
-        it.style.opacity = o.toFixed(3);
-        it.style.zIndex = String(100 - Math.round(ad * 10));
-        it.style.visibility = o <= 0 ? 'hidden' : 'visible';
-      }
-      belt.style.backgroundPosition = (-pos.v * sw * 1.4).toFixed(1) + 'px 0';
-      var k = mod(Math.round(pos.v));
-      if (k !== shown) caption(k);
-    }
-
-    function caption(k) {
-      var first = shown < 0;
-      shown = k;
-      var it = items[k];
-      nowEl.textContent = ('0' + (k + 1)).slice(-2);
-      var put = function () {
-        $('.g-sc__cat', cap).textContent = it.dataset.cat;
-        $('.g-sc__name', cap).textContent = it.dataset.name;
-        $('.g-sc__partner', cap).innerHTML = it.dataset.who;
-        ghost.textContent = it.dataset.cat;
-        cap.classList.remove('is-swap');
-      };
-      if (first || !MOTION) { put(); return; }
-      cap.classList.add('is-swap');
-      clearTimeout(cap._t);
-      cap._t = setTimeout(put, 220);
-    }
-
-    function go(to, dur) {
-      target = to;
-      if (tween) tween.kill();
-      if (!MOTION) { pos.v = to; layout(); return; }
-      tween = gsap.to(pos, { v: to, duration: dur == null ? DUR : dur, ease: 'power3.inOut', onUpdate: layout, onComplete: function () { tween = null; } });
-    }
-    function next(dir) { go((tween ? target : Math.round(pos.v)) + (dir || 1)); }
-
-    function loop() {
-      clearTimeout(timer);
-      if (!MOTION || !inView || hover || drag || document.hidden) return;
-      timer = setTimeout(function () { next(1); loop(); }, STEP * 1000);
-    }
-
-    $$('[data-sc]', sec).forEach(function (b) {
-      b.addEventListener('click', function () { next(+b.dataset.sc); loop(); });
-    });
-    stage.addEventListener('mouseenter', function () { hover = true; loop(); });
-    stage.addEventListener('mouseleave', function () { hover = false; loop(); });
-
-    // 끌어서 넘기기
-    stage.addEventListener('pointerdown', function (e) {
-      if (e.button !== 0) return;
-      if (tween) tween.kill();
-      drag = { x: e.clientX, v: pos.v, moved: false, id: e.pointerId };
-      loop();
-    });
-    window.addEventListener('pointermove', function (e) {
-      if (!drag || e.pointerId !== drag.id) return;
-      var dx = e.clientX - drag.x;
-      if (Math.abs(dx) > 4) drag.moved = true;
-      pos.v = drag.v - dx / (sizes.sw * 1.4);
-      layout();
-    });
-    window.addEventListener('pointerup', function (e) {
-      if (!drag || e.pointerId !== drag.id) return;
-      var moved = drag.moved;
-      drag = null;
-      go(Math.round(pos.v), 0.6);
-      if (!moved) {                                       // 옆 제품을 누르면 그 제품으로
-        var hit = e.target.closest && e.target.closest('.g-sc__item');
-        if (hit) {
-          var i = items.indexOf(hit), d = i - pos.v;
-          d = d - N * Math.round(d / N);
-          go(Math.round(pos.v + d));
-        }
-      }
-      loop();
-    });
-
-    new IntersectionObserver(function (es) {
-      inView = es[0].isIntersecting;
-      loop();
-    }, { threshold: 0.35 }).observe(stage);
-    document.addEventListener('visibilitychange', loop);
-
-    measure();
-    window.addEventListener('resize', measure);
+    new IntersectionObserver(function (es) { if (es[0].isIntersecting) play(); }, { threshold: 0.3 }).observe(sec);
   })();
 
   /* ═════════ 8. 문의 제목 — 한글 ↔ 영어 자동 반복 ═════════ */
