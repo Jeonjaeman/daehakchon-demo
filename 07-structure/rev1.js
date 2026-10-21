@@ -98,7 +98,8 @@
     });
   })();
 
-  /* ═════════ 5. 30년의 발자취 — 제품 컷이 세 줄로 빠르게 흘러간다(타임랩스). 처음 보일 때 연도가 1996 → 2026으로 돌며 잠깐 더 빨리 감긴다 ═════════ */
+  /* ═════════ 5. 30년의 발자취 — 섹션을 고정하고 스크롤이 시간을 돌린다: 연도 1996 → 2026(검정 → 주황), 제품 줄 이동, 흑백 → 컬러(왼쪽부터).
+     멈춰 있을 때도 아주 느리게 흐른다(사용자 10/21 결정: 스크롤 주도 + 느린 자동 흐름). ═════════ */
   (function history() {
     var sec = $('#history30');
     if (!sec) return;
@@ -106,47 +107,81 @@
     var yearEl = $('#hsYear', sec);
     var Y0 = 1996, Y1 = 2026;
     var isMobile = window.matchMedia('(max-width: 900px)').matches;
+    if (!MOTION || !window.ScrollTrigger) { yearEl.textContent = String(Y1); sec.style.setProperty('--p', '1'); return; }
 
-    // 05 마키와 같은 방식: 화면을 덮을 만큼 그룹을 복제하고 그룹 한 개 폭만큼 흘린다. 줄마다 속도(px/s)가 다르다.
-    function setup(row) {
-      var track = $('.g-hs__track', row), group = $('.g-hs__group', track);
-      $$('[data-clone]', track).forEach(function (c) { track.removeChild(c); });
-      var w = group.getBoundingClientRect().width;
-      if (!w) return;
-      var copies = Math.max(1, Math.ceil(window.innerWidth / w));
-      for (var k = 0; k < copies; k++) {
-        var clone = group.cloneNode(true);
-        clone.setAttribute('data-clone', '');
-        clone.setAttribute('aria-hidden', 'true');
-        track.appendChild(clone);
-      }
-      var speed = parseFloat(row.dataset.speed) || 160;
-      if (isMobile) speed *= 0.62;
-      track.style.setProperty('--shift', (-w) + 'px');
-      track.style.setProperty('--dur', (w / speed).toFixed(2) + 's');
-      row.classList.add('is-run');
+    // 줄마다: 두 트랙(흑백·컬러)을 똑같이 복제해 화면을 덮고, 같은 x로 움직인다
+    var R = rows.map(function (row, i) {
+      var tracks = $$('.g-hs__track', row);
+      var dir = row.classList.contains('g-hs__row--rev') ? -1 : 1;
+      var travel = parseFloat(row.dataset.travel) || 2.2;        // 스크롤 한 바퀴(진행도 0 → 1)에 화면 폭의 몇 배를 가는지
+      return { row: row, tracks: tracks, dir: dir, travel: travel, w: 0, drift: 0 };
+    });
+    function setup(r) {
+      r.tracks.forEach(function (track) {
+        var group = $('.g-hs__group', track);
+        $$('[data-clone]', track).forEach(function (c) { track.removeChild(c); });
+        var w = group.getBoundingClientRect().width;
+        if (!w) return;
+        var copies = Math.max(1, Math.ceil(window.innerWidth / w));
+        for (var k = 0; k < copies; k++) {
+          var clone = group.cloneNode(true);
+          clone.setAttribute('data-clone', '');
+          clone.setAttribute('aria-hidden', 'true');
+          track.appendChild(clone);
+        }
+        r.w = w;
+      });
     }
-    if (!MOTION) return;                               // 정적: 첫 그룹만 멈춰 보인다
-    rows.forEach(setup);
+    R.forEach(setup);
     var rw = window.innerWidth, rt = 0;
-    var resetup = function () { clearTimeout(rt); rt = setTimeout(function () { rows.forEach(setup); }, 150); };
+    var resetup = function () { clearTimeout(rt); rt = setTimeout(function () { R.forEach(setup); draw(); ScrollTrigger.refresh(); }, 150); };
     window.addEventListener('resize', function () { if (window.innerWidth !== rw) { rw = window.innerWidth; resetup(); } });
     $$('.g-hs__group img', sec).forEach(function (im) { if (!im.complete) im.addEventListener('load', resetup, { once: true }); });
 
-    // 처음 보일 때: 연도가 1996 → 2026으로 돌고, 그동안 제품은 3배 빨리 감기다가 제 속도로
-    var played = false;
-    function play() {
-      if (played) return;
-      played = true;
-      sec.classList.add('is-in');
-      var o = { y: Y0, s: 3 };
-      gsap.to(o, {
-        y: Y1, s: 1, duration: 3.2, ease: 'power3.out',
-        onUpdate: function () { yearEl.textContent = String(Math.round(o.y)); sec.style.setProperty('--spd', o.s.toFixed(3)); },
-        onComplete: function () { yearEl.textContent = String(Y1); sec.style.setProperty('--spd', '1'); }
+    var p = 0, lastT = 0;
+    var IDLE = isMobile ? 14 : 22;                                 // 멈춰 있을 때 흐르는 속도(px/s)
+    var inkC = gsap.utils.interpolate('#2b1d12', '#eb6100');
+    function draw() {
+      var vw = window.innerWidth;
+      R.forEach(function (r) {
+        if (!r.w) return;
+        var x = (p * r.travel * vw + r.drift) * r.dir;
+        x = ((x % r.w) + r.w) % r.w;                                // 0 ~ w 사이로 감아서
+        var tx = (-x).toFixed(2) + 'px';
+        r.tracks.forEach(function (t) { t.style.transform = 'translate3d(' + tx + ',0,0)'; });
+        // 컬러 마스크: 진행도에 따라 왼쪽에서 오른쪽으로(마스크는 트랙과 같이 움직이므로 화면 기준으로 되돌린다)
+        var edge = p * 1.25 * vw;                                   // 화면 기준 컬러 경계
+        var soft = Math.max(80, vw * 0.12);
+        var color = r.tracks[1];
+        if (color) {
+          color.style.setProperty('--c0', (x + edge - soft) + 'px');   // 트랙 좌표계: 화면 x = 트랙 x - x오프셋
+          color.style.setProperty('--c1', (x + edge) + 'px');
+        }
       });
+      var y = Math.round(Y0 + (Y1 - Y0) * p);
+      var ys = String(y);
+      if (yearEl.textContent !== ys) yearEl.textContent = ys;
+      yearEl.style.color = inkC(Math.min(1, p * 1.15));
+      sec.style.setProperty('--p', p.toFixed(4));
     }
-    new IntersectionObserver(function (es) { if (es[0].isIntersecting) play(); }, { threshold: 0.3 }).observe(sec);
+    // 멈춰 있을 때의 느린 흐름
+    gsap.ticker.add(function (t) {
+      var dt = lastT ? Math.min(0.05, t - lastT) : 0;
+      lastT = t;
+      if (!inView || document.hidden) return;
+      R.forEach(function (r) { r.drift += IDLE * dt; });
+      draw();
+    });
+    var inView = false;
+    ScrollTrigger.create({
+      trigger: sec, start: 'top top', end: '+=' + (isMobile ? 180 : 230) + '%',
+      pin: true, scrub: true, anticipatePin: 1, invalidateOnRefresh: true, refreshPriority: 1,   // 아래 단락 위치 계산보다 먼저(핀 여백)
+      onUpdate: function (st) { p = st.progress; draw(); },
+      onToggle: function (st) { inView = st.isActive; },
+      onRefresh: function () { draw(); }
+    });
+    ScrollTrigger.refresh();
+    draw();
   })();
 
   /* ═════════ 8. 문의 제목 — 한글 ↔ 영어 자동 반복 ═════════ */
