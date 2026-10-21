@@ -98,90 +98,51 @@
     });
   })();
 
-  /* ═════════ 5. 30년의 발자취 — 섹션을 고정하고 스크롤이 시간을 돌린다: 연도 1996 → 2026(검정 → 주황), 제품 줄 이동, 흑백 → 컬러(왼쪽부터).
-     멈춰 있을 때도 아주 느리게 흐른다(사용자 10/21 결정: 스크롤 주도 + 느린 자동 흐름). ═════════ */
+  /* ═════════ 5. 30년의 발자취 — 레퍼런스 hy 발자취(한 자리 플립북 + 굴러가는 연도) + Histography(쌓여서 보이는 양).
+     섹션 고정, 스크롤 진행도 p(0 → 1)가 곧 시간: 제품 i = p × N 번째가 왼쪽에 서고, 0 ~ i 번째가 오른쪽 선반에 쌓인다.
+     연도 1996 → 2026(글자색 검정 → 주황). 끝에서 선반 전체가 컬러로 바뀌고 마무리 문구. ═════════ */
   (function history() {
     var sec = $('#history30');
     if (!sec) return;
-    var rows = $$('.g-hs__row', sec);
-    var yearEl = $('#hsYear', sec);
-    var Y0 = 1996, Y1 = 2026;
+    var frames = $$('.g-ts__f', sec), cells = $$('.g-ts__shelf li', sec), N = frames.length;
+    var countEl = $('#tsCount', sec), digits = $$('.g-ts__dg > span', sec), yearEl = $('.g-ts__year', sec);
+    var Y0 = 1996, Y1 = 2026, TRAIL = 10;
     var isMobile = window.matchMedia('(max-width: 900px)').matches;
-    if (!MOTION || !window.ScrollTrigger) { yearEl.textContent = String(Y1); sec.style.setProperty('--p', '1'); return; }
 
-    // 줄마다: 두 트랙(흑백·컬러)을 똑같이 복제해 화면을 덮고, 같은 x로 움직인다
-    var R = rows.map(function (row, i) {
-      var tracks = $$('.g-hs__track', row);
-      var dir = row.classList.contains('g-hs__row--rev') ? -1 : 1;
-      var travel = parseFloat(row.dataset.travel) || 2.2;        // 스크롤 한 바퀴(진행도 0 → 1)에 화면 폭의 몇 배를 가는지
-      return { row: row, tracks: tracks, dir: dir, travel: travel, w: 0, drift: 0 };
-    });
-    function setup(r) {
-      r.tracks.forEach(function (track) {
-        var group = $('.g-hs__group', track);
-        $$('[data-clone]', track).forEach(function (c) { track.removeChild(c); });
-        var w = group.getBoundingClientRect().width;
-        if (!w) return;
-        var copies = Math.max(1, Math.ceil(window.innerWidth / w));
-        for (var k = 0; k < copies; k++) {
-          var clone = group.cloneNode(true);
-          clone.setAttribute('data-clone', '');
-          clone.setAttribute('aria-hidden', 'true');
-          track.appendChild(clone);
-        }
-        r.w = w;
-      });
+    function setYear(y) {
+      String(y).split('').forEach(function (d, k) { digits[k].style.transform = 'translateY(' + (-d) + 'em)'; });
     }
-    R.forEach(setup);
-    var rw = window.innerWidth, rt = 0;
-    var resetup = function () { clearTimeout(rt); rt = setTimeout(function () { R.forEach(setup); draw(); ScrollTrigger.refresh(); }, 150); };
-    window.addEventListener('resize', function () { if (window.innerWidth !== rw) { rw = window.innerWidth; resetup(); } });
-    $$('.g-hs__group img', sec).forEach(function (im) { if (!im.complete) im.addEventListener('load', resetup, { once: true }); });
-
-    var p = 0, lastT = 0;
-    var IDLE = isMobile ? 14 : 22;                                 // 멈춰 있을 때 흐르는 속도(px/s)
-    var inkC = gsap.utils.interpolate('#2b1d12', '#eb6100');
-    function draw() {
-      var vw = window.innerWidth;
-      R.forEach(function (r) {
-        if (!r.w) return;
-        var x = (p * r.travel * vw + r.drift) * r.dir;
-        x = ((x % r.w) + r.w) % r.w;                                // 0 ~ w 사이로 감아서
-        var tx = (-x).toFixed(2) + 'px';
-        r.tracks.forEach(function (t) { t.style.transform = 'translate3d(' + tx + ',0,0)'; });
-        // 컬러 마스크: 진행도에 따라 왼쪽에서 오른쪽으로(마스크는 트랙과 같이 움직이므로 화면 기준으로 되돌린다)
-        var edge = p * 1.25 * vw;                                   // 화면 기준 컬러 경계
-        var soft = Math.max(80, vw * 0.12);
-        var color = r.tracks[1];
-        if (color) {
-          color.style.setProperty('--c0', (x + edge - soft) + 'px');   // 트랙 좌표계: 화면 x = 트랙 x - x오프셋
-          color.style.setProperty('--c1', (x + edge) + 'px');
-        }
-      });
-      var y = Math.round(Y0 + (Y1 - Y0) * p);
-      var ys = String(y);
-      if (yearEl.textContent !== ys) yearEl.textContent = ys;
-      yearEl.style.color = inkC(Math.min(1, p * 1.15));
+    var cur = -1;
+    function show(i, p) {
+      if (i !== cur) {
+        if (frames[cur]) frames[cur].classList.remove('is-on');
+        frames[i].classList.add('is-on');
+        if (MOTION && cur >= 0) gsap.fromTo(frames[i], { scale: 1.05 }, { scale: 1, duration: 0.22, ease: 'power2.out', overwrite: true, transformOrigin: '50% 100%', xPercent: -50, x: 0 });
+        cells.forEach(function (c, k) {
+          c.classList.toggle('is-on', k <= i);
+          c.classList.toggle('is-old', k < i - TRAIL);
+          c.classList.toggle('is-now', k === i);
+        });
+        countEl.textContent = String(i + 1);
+        cur = i;
+      }
+      setYear(Math.round(Y0 + (Y1 - Y0) * p));
+      yearEl.style.color = MOTION ? gsap.utils.interpolate('#2b1d12', '#eb6100', Math.min(1, p * 1.1)) : '#eb6100';
       sec.style.setProperty('--p', p.toFixed(4));
+      sec.classList.toggle('is-end', p > 0.985);
     }
-    // 멈춰 있을 때의 느린 흐름
-    gsap.ticker.add(function (t) {
-      var dt = lastT ? Math.min(0.05, t - lastT) : 0;
-      lastT = t;
-      if (!inView || document.hidden) return;
-      R.forEach(function (r) { r.drift += IDLE * dt; });
-      draw();
-    });
-    var inView = false;
+
+    if (!MOTION || !window.ScrollTrigger) { show(N - 1, 1); return; }
+    show(0, 0);
     ScrollTrigger.create({
-      trigger: sec, start: 'top top', end: '+=' + (isMobile ? 180 : 230) + '%',
-      pin: true, scrub: true, anticipatePin: 1, invalidateOnRefresh: true, refreshPriority: 1,   // 아래 단락 위치 계산보다 먼저(핀 여백)
-      onUpdate: function (st) { p = st.progress; draw(); },
-      onToggle: function (st) { inView = st.isActive; },
-      onRefresh: function () { draw(); }
+      trigger: sec, start: 'top top', end: '+=' + (isMobile ? 260 : 340) + '%',   // 117개 기준 제품 하나에 화면 높이의 약 3%
+      pin: '.g-ts__in', pinSpacing: true, scrub: true, anticipatePin: 1, invalidateOnRefresh: true, refreshPriority: 1,
+      onUpdate: function (st) {
+        var p = st.progress;
+        show(Math.min(N - 1, Math.floor(p * N * 0.999)), p);
+      }
     });
     ScrollTrigger.refresh();
-    draw();
   })();
 
   /* ═════════ 8. 문의 제목 — 한글 ↔ 영어 자동 반복 ═════════ */
