@@ -98,51 +98,117 @@
     });
   })();
 
-  /* ═════════ 5. 30년의 발자취 — 레퍼런스 hy 발자취(한 자리 플립북 + 굴러가는 연도) + Histography(쌓여서 보이는 양).
-     섹션 고정, 스크롤 진행도 p(0 → 1)가 곧 시간: 제품 i = p × N 번째가 왼쪽에 서고, 0 ~ i 번째가 오른쪽 선반에 쌓인다.
-     연도 1996 → 2026(글자색 검정 → 주황). 끝에서 선반 전체가 컬러로 바뀌고 마무리 문구. ═════════ */
-  (function history() {
-    var sec = $('#history30');
+  /* ═════════ 5. 30년의 발자취 — 3차 수정(10/22): 1차 수정 컨베이어(1열, 한 칸씩 지나가며 가운데 제품을 크게)로 되돌리고
+     117종 전부 순서대로·더 빠르게(2.6 → 0.95초)·더 크게. 제품 설명 캡션은 뺐다. ═════════ */
+  (function showcase() {
+    var sec = $('#showcase');
     if (!sec) return;
-    var frames = $$('.g-ts__f', sec), cells = $$('.g-ts__shelf li', sec), N = frames.length;
-    var countEl = $('#tsCount', sec), digits = $$('.g-ts__dg > span', sec), yearEl = $('.g-ts__year', sec);
-    var Y0 = 1996, Y1 = 2026, TRAIL = 10;
-    var isMobile = window.matchMedia('(max-width: 900px)').matches;
+    var stage = $('#scStage', sec), belt = $('#scBelt', sec), nowEl = $('#scNow', sec);
+    var items = $$('.g-sc__item', sec), N = items.length;
+    var imgs = items.map(function (it) { return $('img', it); });
+    var ratio = imgs.map(function (im) { return (+im.getAttribute('width')) / (+im.getAttribute('height')); });
+    var pos = { v: 0 }, target = 0;                       // target: 지금 가고 있는 칸(연달아 눌러도 한 칸씩 더 간다)
+    var shown = -1, timer = 0, inView = false, hover = false, drag = null, tween = null;
+    var STEP = 0.95, DUR = 0.55;                      // 고객 10/22 "속도를 조금 더 빠르게" (1차 수정본 2.6 / 1.05)
 
-    function setYear(y) {
-      String(y).split('').forEach(function (d, k) { digits[k].style.transform = 'translateY(' + (-d) + 'em)'; });
-    }
-    var cur = -1;
-    function show(i, p) {
-      if (i !== cur) {
-        if (frames[cur]) frames[cur].classList.remove('is-on');
-        frames[i].classList.add('is-on');
-        if (MOTION && cur >= 0) gsap.fromTo(frames[i], { scale: 1.05 }, { scale: 1, duration: 0.22, ease: 'power2.out', overwrite: true, transformOrigin: '50% 100%', xPercent: -50, x: 0 });
-        cells.forEach(function (c, k) {
-          c.classList.toggle('is-on', k <= i);
-          c.classList.toggle('is-old', k < i - TRAIL);
-          c.classList.toggle('is-now', k === i);
-        });
-        countEl.textContent = String(i + 1);
-        cur = i;
-      }
-      setYear(Math.round(Y0 + (Y1 - Y0) * p));
-      yearEl.style.color = MOTION ? gsap.utils.interpolate('#2b1d12', '#eb6100', Math.min(1, p * 1.1)) : '#eb6100';
-      sec.style.setProperty('--p', p.toFixed(4));
-      sec.classList.toggle('is-end', p > 0.985);
+    var mod = function (n) { return ((n % N) + N) % N; };
+    var sizes = { sw: 0, hb: 0 };
+    function measure() {
+      var w = stage.clientWidth, h = stage.clientHeight;
+      sizes.sw = Math.max(130, Math.min(340, w * 0.17));   // 칸 간격(1차 수정본보다 넓게 — 이미지가 커져서)
+      sizes.hb = h * 0.78;                                 // 가운데 병 높이
+      imgs.forEach(function (im, i) {                      // 세트·박스처럼 가로로 긴 제품은 조금 낮게(면적을 비슷하게)
+        var hh = sizes.hb * Math.min(1, 0.72 / Math.sqrt(ratio[i]));
+        im.style.height = hh.toFixed(1) + 'px';
+        im.style.width = (hh * ratio[i]).toFixed(1) + 'px';
+      });
+      layout();
     }
 
-    if (!MOTION || !window.ScrollTrigger) { show(N - 1, 1); return; }
-    show(0, 0);
-    ScrollTrigger.create({
-      trigger: sec, start: 'top top', end: '+=' + (isMobile ? 260 : 340) + '%',   // 117개 기준 제품 하나에 화면 높이의 약 3%
-      pin: '.g-ts__in', pinSpacing: true, scrub: true, anticipatePin: 1, invalidateOnRefresh: true, refreshPriority: 1,
-      onUpdate: function (st) {
-        var p = st.progress;
-        show(Math.min(N - 1, Math.floor(p * N * 0.999)), p);
+    function layout() {
+      var sw = sizes.sw;
+      for (var i = 0; i < N; i++) {
+        var d = i - pos.v;
+        d = d - N * Math.round(d / N);                     // 고리처럼 이어진다
+        var ad = Math.abs(d), sg = d < 0 ? -1 : 1;
+        var x = ad < 1 ? d * sw * 1.4 : sg * (1.4 + (ad - 1) * 0.95) * sw;
+        var s = ad < 1 ? 1 - 0.36 * ad : Math.max(0.5, 0.64 - 0.035 * (ad - 1));   // 옆 제품도 더 크게(고객 10/22)
+        var o = ad < 3.6 ? 1 : Math.max(0, 1 - (ad - 3.6));
+        var it = items[i];
+        it.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,0) scale(' + s.toFixed(4) + ')';
+        it.style.opacity = o.toFixed(3);
+        it.style.zIndex = String(100 - Math.round(ad * 10));
+        it.style.visibility = o <= 0 ? 'hidden' : 'visible';
       }
+      belt.style.backgroundPosition = (-pos.v * sw * 1.4).toFixed(1) + 'px 0';
+      var k = mod(Math.round(pos.v));
+      if (k !== shown) caption(k);
+    }
+
+    function caption(k) {
+      shown = k;
+      nowEl.textContent = ('00' + (k + 1)).slice(-3);
+      sec.style.setProperty('--prog', ((k + 1) / N).toFixed(4));
+    }
+
+    function go(to, dur) {
+      target = to;
+      if (tween) tween.kill();
+      if (!MOTION) { pos.v = to; layout(); return; }
+      tween = gsap.to(pos, { v: to, duration: dur == null ? DUR : dur, ease: 'power3.inOut', onUpdate: layout, onComplete: function () { tween = null; } });
+    }
+    function next(dir) { go((tween ? target : Math.round(pos.v)) + (dir || 1)); }
+
+    function loop() {
+      clearTimeout(timer);
+      if (!MOTION || !inView || hover || drag || document.hidden) return;
+      timer = setTimeout(function () { next(1); loop(); }, STEP * 1000);
+    }
+
+    $$('[data-sc]', sec).forEach(function (b) {
+      b.addEventListener('click', function () { next(+b.dataset.sc); loop(); });
     });
-    ScrollTrigger.refresh();
+    stage.addEventListener('mouseenter', function () { hover = true; loop(); });
+    stage.addEventListener('mouseleave', function () { hover = false; loop(); });
+
+    // 끌어서 넘기기
+    stage.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      if (tween) tween.kill();
+      drag = { x: e.clientX, v: pos.v, moved: false, id: e.pointerId };
+      loop();
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var dx = e.clientX - drag.x;
+      if (Math.abs(dx) > 4) drag.moved = true;
+      pos.v = drag.v - dx / (sizes.sw * 1.4);
+      layout();
+    });
+    window.addEventListener('pointerup', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var moved = drag.moved;
+      drag = null;
+      go(Math.round(pos.v), 0.6);
+      if (!moved) {                                       // 옆 제품을 누르면 그 제품으로
+        var hit = e.target.closest && e.target.closest('.g-sc__item');
+        if (hit) {
+          var i = items.indexOf(hit), d = i - pos.v;
+          d = d - N * Math.round(d / N);
+          go(Math.round(pos.v + d));
+        }
+      }
+      loop();
+    });
+
+    new IntersectionObserver(function (es) {
+      inView = es[0].isIntersecting;
+      loop();
+    }, { threshold: 0.35 }).observe(stage);
+    document.addEventListener('visibilitychange', loop);
+
+    measure();
+    window.addEventListener('resize', measure);
   })();
 
   /* ═════════ 8. 문의 제목 — 한글 ↔ 영어 자동 반복 ═════════ */

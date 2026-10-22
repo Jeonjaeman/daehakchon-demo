@@ -2393,7 +2393,7 @@ html.has-intro .g-intro {
   position: fixed; inset: 0; z-index: 1000;
   display: grid; place-items: center;
   overflow: hidden;
-  background: #1a0f08;
+  background: #000;                                  /* 3차 수정(10/22): 블랙 */
   color: #fff;
   cursor: pointer;
 }
@@ -2402,8 +2402,8 @@ html.has-intro.intro-done { overflow: visible; }
 html.intro-done .g-intro { display: none; }
 .g-intro::before {                                   /* 은은한 빛 */
   content: ""; position: absolute; inset: -20%;
-  background: radial-gradient(closest-side, rgba(235, 97, 0, .22), rgba(235, 97, 0, 0) 70%);
-  opacity: var(--glow, 0);
+  background: none;                                   /* 3차 수정(10/22): 완전한 블랙 — 주황 빛 없앰 */
+  opacity: 0;
 }
 .g-intro__edge {                                     /* 막이 올라갈 때 아래 가장자리의 주황 선 */
   position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
@@ -2447,77 +2447,62 @@ html.intro-done .g-intro { display: none; }
 .s01 .callout__more i { font-style: normal; transition: transform var(--t); }
 .s01 .callout__more:hover i { transform: translateX(3px); }
 
-/* ── 5. 30년의 발자취 — 2차 수정 재작업(10/21, 레퍼런스: hy 발자취 + Histography)
-   섹션을 고정하고 스크롤이 시간을 돌린다: 왼쪽 한 자리에서 제품이 빠르게 바뀌고(플립북) 연도가 굴러 올라가며,
-   지나간 제품은 오른쪽 선반에 차곡차곡 쌓인다. 끝(2026)에서 117종이 모두 컬러로 차고 마무리 문구. ── */
-.g-ts {
-  --orange: #eb6100; --pink: #f29b87; --ivory: #fff6e9; --ink: #2b1d12; --ink-2: #7d6b5b; --line: rgba(43, 29, 18, .12);
-  --p: 0;
-  position: relative;
+/* ── 5. 30년의 발자취 — 3차 수정(10/22): 고객 선택 '처음 보여 드린 좌우로 흘러가는 방식'(1차 수정 컨베이어, 1열)으로.
+   고객이 보낸 제품 117종을 모두 순서대로, 더 빠르게, 더 크게. 개별 제품 설명은 넣지 않는다(제품소개 페이지 몫). ── */
+.g-sc {
+  --orange: #eb6100; --pink: #f29b87; --ivory: #fff6e9; --ink: #2b1d12; --ink-2: #7d6b5b;
+  position: relative; overflow: hidden;
+  padding: clamp(72px, 6.8vw, 140px) 0 clamp(36px, 3vw, 60px);
   background: linear-gradient(180deg, #fff 0%, var(--ivory) 100%);
   color: var(--ink);
   font-family: "Pretendard Variable", Pretendard, -apple-system, "Malgun Gothic", sans-serif;
 }
-.g-ts__in {
-  position: relative; height: 100vh; height: 100svh; min-height: 640px;
-  display: grid; grid-template-columns: minmax(0, 38%) minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: clamp(14px, 1.6vw, 30px) 4.2vw;
-  padding: clamp(84px, 7.4vw, 128px) 5.2vw clamp(26px, 2.4vw, 44px);
-  box-sizing: border-box; overflow: hidden;
+.g-sc__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2vw; padding: 0 5.2vw; }
+.g-sc__label { font-family: "Montserrat", sans-serif; font-size: clamp(11px, .73vw, 15px); font-weight: 700; letter-spacing: .3em; color: var(--orange); }
+.g-sc__title { margin: .6em 0 0; font-size: clamp(30px, 3.1vw, 64px); font-weight: 300; line-height: 1.22; letter-spacing: -0.05em; }
+.g-sc__title strong { font-weight: 800; color: var(--orange); }
+.g-sc__lead { margin: .9em 0 0; font-size: clamp(14px, .98vw, 20px); line-height: 1.6; color: var(--ink-2); }
+.g-sc__nav { display: flex; align-items: center; gap: 12px; }
+.g-sc__count { margin-right: 10px; font-family: "Montserrat", sans-serif; font-size: clamp(13px, .83vw, 17px); font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.g-sc__count b { color: var(--ink); font-weight: 800; }
+.g-sc__btn {
+  display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+  border: 1.5px solid rgba(43, 29, 18, .2); background: #fff; color: var(--ink); cursor: pointer;
+  transition: background .25s, color .25s, border-color .25s;
 }
-.g-ts__head { grid-column: 1; grid-row: 1; }
-.g-ts__label { margin: 0; font-family: "Montserrat", sans-serif; font-size: clamp(11px, .73vw, 15px); font-weight: 700; letter-spacing: .3em; color: var(--orange); }
-.g-ts__title { margin: .55em 0 0; font-size: clamp(28px, 2.7vw, 56px); font-weight: 300; line-height: 1.2; letter-spacing: -0.05em; }
-.g-ts__title strong { font-weight: 800; color: var(--orange); }
-.g-ts__lead { margin: .8em 0 0; font-size: clamp(14px, .94vw, 19px); line-height: 1.6; color: var(--ink-2); }
-
-/* 왼쪽: 플립북 + 연도 */
-.g-ts__flip { grid-column: 1; grid-row: 2; position: relative; display: grid; grid-template-rows: minmax(0, 1fr) auto; align-items: end; justify-items: start; min-height: 0; }
-.g-ts__frame { position: relative; width: 100%; height: 100%; min-height: 0; }
-.g-ts__frame::after {                                  /* 바닥 그림자 */
-  content: ""; position: absolute; left: 18%; right: 18%; bottom: -6px; height: 14px; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(58, 32, 12, .22), rgba(58, 32, 12, 0));
+.g-sc__btn:hover, .g-sc__btn:focus-visible { background: var(--orange); border-color: var(--orange); color: #fff; }
+.g-sc__btn svg { width: 18px; height: 18px; }
+.g-sc__list { list-style: none; margin: 0; padding: 0; }
+.g-sc__stage { position: relative; height: clamp(420px, 34vw, 660px); margin-top: clamp(8px, 1vw, 20px); touch-action: pan-y; cursor: grab; }
+.g-sc__stage:active { cursor: grabbing; }
+.g-sc__ghost {                                       /* 뒤의 큰 글자 */
+  position: absolute; left: 50%; top: 42%; margin: 0; transform: translate(-50%, -50%);
+  font-family: "Montserrat", sans-serif; font-size: clamp(90px, 14vw, 280px); font-weight: 900; letter-spacing: -0.04em; white-space: nowrap;
+  color: transparent; -webkit-text-stroke: 1.5px rgba(235, 97, 0, .12);
+  pointer-events: none; user-select: none;
 }
-.g-ts__f { position: absolute; left: 50%; bottom: 0; max-width: 100%; max-height: 100%; width: auto; height: auto; transform: translateX(-50%); opacity: 0; visibility: hidden; -webkit-user-drag: none; user-select: none; }
-.g-ts__f.is-on { opacity: 1; visibility: visible; }
-.g-ts__meta { display: flex; align-items: baseline; gap: clamp(14px, 1.4vw, 26px); margin-top: clamp(14px, 1.4vw, 26px); }
-.g-ts__year { display: flex; margin: 0; font-family: "Montserrat", sans-serif; font-size: clamp(64px, 7vw, 150px); font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: var(--ink); }
-.g-ts__dg { display: block; height: 1em; overflow: hidden; }                          /* 굴러가는 숫자 한 자리 */
-.g-ts__dg > span { display: flex; flex-direction: column; transition: transform .28s cubic-bezier(.3, .7, .2, 1); }
-.g-ts__dg > span > i { display: block; height: 1em; font-style: normal; text-align: center; }
-.g-ts__count { margin: 0; font-family: "Montserrat", sans-serif; font-size: clamp(12px, .8vw, 16px); font-weight: 700; letter-spacing: .14em; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.g-ts__count b { color: var(--ink); font-size: 1.5em; letter-spacing: 0; }
-
-/* 오른쪽: 선반 — 지나간 제품이 쌓인다 */
-.g-ts__shelf {
-  grid-column: 2; grid-row: 1 / 3; align-self: stretch; min-height: 0;
-  display: grid; grid-template-columns: repeat(var(--cols, 13), minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr);
-  gap: clamp(4px, .5vw, 10px) clamp(4px, .5vw, 10px);
-  margin: 0; padding: 0; list-style: none;
+.g-sc__belt {                                        /* 컨베이어 */
+  position: absolute; left: 0; right: 0; bottom: 8%; height: 10px;
+  background: repeating-linear-gradient(90deg, rgba(43, 29, 18, .1) 0 22px, rgba(43, 29, 18, 0) 22px 34px);
+  background-size: 34px 100%;
+  border-top: 1px solid rgba(43, 29, 18, .12);
 }
-.g-ts__shelf li { position: relative; display: flex; align-items: flex-end; justify-content: center; min-height: 0; border-bottom: 1px solid var(--line); }
-.g-ts__shelf img { display: block; max-width: 92%; max-height: 92%; width: auto; height: auto; opacity: 0; transform: translateY(14px) scale(.6); transition: opacity .25s, transform .35s cubic-bezier(.3, .8, .3, 1.2), filter .6s; -webkit-user-drag: none; }
-.g-ts__shelf li.is-on img { opacity: 1; transform: none; }
-.g-ts__shelf li.is-old img { filter: grayscale(1) contrast(.9) brightness(1.06); opacity: .62; }   /* 지나간 지 오래된 것은 흑백으로 */
-.g-ts.is-end .g-ts__shelf li.is-old img { filter: none; opacity: 1; }                               /* 끝에서 전부 컬러 */
-.g-ts__shelf li.is-now img { filter: drop-shadow(0 0 0 transparent); }
-
-/* 끝 문구 — 설명 줄이 마무리 문구로 바뀐다 */
-.g-ts__lead { display: grid; }
-.g-ts__la, .g-ts__lb { grid-area: 1 / 1; transition: opacity .45s, transform .45s; }
-.g-ts__lb { opacity: 0; transform: translateY(8px); font-weight: 600; color: var(--ink); }
-.g-ts__lb b { color: var(--orange); font-weight: 800; }
-.g-ts.is-end .g-ts__la { opacity: 0; transform: translateY(-8px); }
-.g-ts.is-end .g-ts__lb { opacity: 1; transform: none; }
-
-/* 아래: 1996 ─── 2026 */
-.g-ts__bar { grid-column: 1 / 3; grid-row: 3; display: flex; align-items: center; gap: 1.2vw; font-family: "Montserrat", sans-serif; font-size: clamp(11px, .73vw, 15px); font-weight: 700; letter-spacing: .24em; color: var(--ink-2); }
-.g-ts__bar i { position: relative; flex: 1; height: 1px; background: var(--line); }
-.g-ts__bar i b { position: absolute; left: 0; top: -1px; height: 3px; width: calc(var(--p) * 100%); background: var(--orange); }
-.g-ts__hint { margin-left: auto; opacity: calc(1 - var(--p) * 4); }
-
-html.is-static .g-ts__shelf img, html:not(.js) .g-ts__shelf img { opacity: 1; transform: none; }
-html.is-static .g-ts__f:last-child, html:not(.js) .g-ts__f:last-child { opacity: 1; visibility: visible; }
+.g-sc__spot {                                        /* 가운데 조명 */
+  position: absolute; left: 50%; bottom: 6%; width: clamp(280px, 26vw, 500px); height: 80%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse 50% 60% at 50% 100%, rgba(235, 97, 0, .16), rgba(235, 97, 0, 0) 70%);
+  pointer-events: none;
+}
+.g-sc__item { position: absolute; left: 50%; bottom: 8%; width: 0; height: 0; will-change: transform, opacity; }
+.g-sc__item img {
+  position: absolute; left: 0; bottom: 0; transform: translateX(-50%);
+  max-width: none; height: auto;
+  filter: drop-shadow(0 22px 22px rgba(58, 32, 12, .22));
+  -webkit-user-drag: none; user-select: none;
+}
+.g-sc__foot { display: flex; align-items: center; gap: 1.2vw; margin-top: clamp(10px, 1vw, 20px); padding: 0 5.2vw; font-family: "Montserrat", sans-serif; font-size: clamp(11px, .73vw, 15px); font-weight: 700; letter-spacing: .24em; color: var(--ink-2); }
+.g-sc__foot i { position: relative; flex: 1; height: 1px; background: rgba(43, 29, 18, .12); }
+.g-sc__foot i b { position: absolute; left: 0; top: -1px; height: 3px; width: calc(var(--prog, 0) * 100%); background: var(--orange); transition: width .5s; }
 
 /* ── 6. 파트너사 로고 마키 ── */
 .s05 .mq--logo { --mq-gap: clamp(48px, 4.4vw, 92px); padding: clamp(24px, 2vw, 40px) 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -2536,13 +2521,14 @@ html.is-static .g-ts__f:last-child, html:not(.js) .g-ts__f:last-child { opacity:
   .s01 .hd__logo--real { height: 32px; }
   .s01 .hero--side .hero__body { padding: 0 24px; }
   .s01 .hero--side .hero__shade { background: linear-gradient(180deg, rgba(26, 15, 8, .55) 0%, rgba(26, 15, 8, .25) 40%, rgba(26, 15, 8, .7) 100%); }
-  .g-ts__in { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr) auto auto; padding: 72px 24px 78px; gap: 10px; }   /* 아래 78px: 고정 퀵메뉴 바 */
-  .g-ts__flip { grid-row: 2; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: 1fr; align-items: end; gap: 12px; }
-  .g-ts__meta { flex-direction: column; align-items: flex-start; gap: 4px; margin: 0; }
-  .g-ts__year { font-size: 52px; }
-  .g-ts__shelf { grid-column: 1; grid-row: 3; --cols: 13; height: 28svh; gap: 2px; }
-  .g-ts__bar { grid-column: 1; grid-row: 4; }
-  .g-ts__hint { display: none; }
+  .g-sc__head { grid-template-columns: 1fr; padding: 0 24px; }
+  .g-sc__count { margin-right: auto; }
+  .g-sc__btn { width: 44px; height: 44px; }
+  .g-sc__stage { height: 380px; }
+  .g-sc__foot { padding: 0 24px; letter-spacing: .14em; }
   .s05 .partners__label { flex-direction: column; gap: .3em; }
   .s05 .mq--logo li { height: 34px; }
 }
+
+/* ── 3차 수정(10/22) 3번: 하단 'SINCE 1996' 글자와 선, 'TEL' 글자, '30년의 신뢰, 100년의 미래' 삭제(마크업은 compose.py에서 뺌) ── */
+.s05 .ft .wrap { border-top: 0; }
