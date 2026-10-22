@@ -2532,3 +2532,6 @@ html.intro-done .g-intro { display: none; }
 
 /* ── 3차 수정(10/22) 3번: 하단 'SINCE 1996' 글자와 선, 'TEL' 글자, '30년의 신뢰, 100년의 미래' 삭제(마크업은 compose.py에서 뺌) ── */
 .s05 .ft .wrap { border-top: 0; }
+/* 사용자 10/22: 문의(contact)와 푸터 사이 간격 절반 — 원래 문의 아래 여백(7.8vw + 2vw) + 푸터 위 여백(2.6vw) = 12.4vw → 6.2vw, 모바일 88 + 28 = 116px → 58px */
+.s05 .cta { padding-bottom: 3.6vw; }
+@media (max-width: 900px) { .s05 .cta { padding-bottom: 30px; } }
