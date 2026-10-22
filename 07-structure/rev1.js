@@ -140,7 +140,7 @@
         it.style.zIndex = String(100 - Math.round(ad * 10));
         it.style.visibility = o <= 0 ? 'hidden' : 'visible';
       }
-      belt.style.backgroundPosition = (-pos.v * sw * 1.4).toFixed(1) + 'px 0';
+      if (belt) belt.style.backgroundPosition = (-pos.v * sw * 1.4).toFixed(1) + 'px 0';   // 컨베이어 선은 4차 수정(10/22)에서 뺐다
       var k = mod(Math.round(pos.v));
       if (k !== shown) caption(k);
     }
