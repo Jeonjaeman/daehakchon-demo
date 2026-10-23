@@ -81,19 +81,59 @@
 <div class="s01">
 <!-- 01 A안 헤더 (로고만 실제 로고로) -->
 <header class="hd" id="hd">
-  <a class="hd__logo hd__logo--real" href="#hero" aria-label="경북과학대학교 식품공장 대학촌 — 처음으로"><img class="l-w" src="../assets/brand/logo_full_white.svg" width="356" height="76" alt=""><img class="l-c" src="../assets/brand/logo_full.svg" width="356" height="76" alt=""></a>
+  <a class="hd__logo hd__logo--real" href="index.html" aria-label="경북과학대학교 식품공장 대학촌 — 처음으로"><img class="l-w" src="../assets/brand/logo_full_white.svg" width="356" height="76" alt=""><img class="l-c" src="../assets/brand/logo_full.svg" width="356" height="76" alt=""></a>
   <nav class="hd__nav" aria-label="주요 메뉴">
-    <button type="button">회사소개</button>
-    <button type="button">생산역량</button>
-    <button type="button">제품소개</button>
-    <button type="button">고객지원</button>
+    <div class="hd__item">
+      <a class="hd__top" href="company.html">회사소개</a>
+      <ul class="hd__sub"><li><a href="company.html">기업소개</a></li><li><a href="ci.html">CI 소개</a></li><li><a href="history.html">연혁</a></li><li><a href="location.html">오시는 길</a></li></ul>
+    </div>
+    <div class="hd__item">
+      <a class="hd__top" href="facility.html">생산역량</a>
+      <ul class="hd__sub"><li><a href="facility.html">설비현황</a></li><li><a href="process.html">생산공정</a></li><li><a href="certification.html">인증서</a></li><li><a href="partners.html">협력업체</a></li></ul>
+    </div>
+    <div class="hd__item">
+      <a class="hd__top" href="products.html">제품소개</a>
+      <ul class="hd__sub"><li><a href="products.html">자사제품</a></li><li><a href="oem.html">OEM</a></li><li><a href="odm.html">ODM</a></li></ul>
+    </div>
+    <div class="hd__item">
+      <a class="hd__top" href="news.html">고객지원</a>
+      <ul class="hd__sub"><li><a href="news.html">뉴스</a></li><li><a href="contact.html">문의하기</a></li></ul>
+    </div>
   </nav>
   <div class="hd__util">
     <p class="hd__lang" aria-label="언어 선택 (데모에서는 표시만)">
       <span class="is-on">KR</span><i>/</i><span>EN</span><i>/</i><span>CN</span>
     </p>
+    <button type="button" class="hd__burger" id="hdBurger" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mnav"><i></i><i></i></button>
   </div>
+  <i class="hd__panel" aria-hidden="true"></i>
 </header>
+</div>
+<div class="mnav" id="mnav" aria-hidden="true">
+  <div class="mnav__in">
+  <ul class="mnav__list">
+    <li class="mnav__g">
+      <button type="button" class="mnav__t" aria-expanded="false"><span class="en">COMPANY</span>회사소개</button>
+      <ul class="mnav__s"><li><a href="company.html">기업소개</a></li><li><a href="ci.html">CI 소개</a></li><li><a href="history.html">연혁</a></li><li><a href="location.html">오시는 길</a></li></ul>
+    </li>
+    <li class="mnav__g">
+      <button type="button" class="mnav__t" aria-expanded="false"><span class="en">CAPABILITY</span>생산역량</button>
+      <ul class="mnav__s"><li><a href="facility.html">설비현황</a></li><li><a href="process.html">생산공정</a></li><li><a href="certification.html">인증서</a></li><li><a href="partners.html">협력업체</a></li></ul>
+    </li>
+    <li class="mnav__g">
+      <button type="button" class="mnav__t" aria-expanded="false"><span class="en">PRODUCTS</span>제품소개</button>
+      <ul class="mnav__s"><li><a href="products.html">자사제품</a></li><li><a href="oem.html">OEM</a></li><li><a href="odm.html">ODM</a></li></ul>
+    </li>
+    <li class="mnav__g">
+      <button type="button" class="mnav__t" aria-expanded="false"><span class="en">SUPPORT</span>고객지원</button>
+      <ul class="mnav__s"><li><a href="news.html">뉴스</a></li><li><a href="contact.html">문의하기</a></li></ul>
+    </li>
+  </ul>
+  <div class="mnav__foot">
+    <p class="mnav__lang"><span class="is-on">KR</span><span>EN</span><span>CN</span></p>
+    <a class="mnav__tel" href="tel:0549729721">054-972-9721</a>
+  </div>
+  </div>
 </div>
 
 <div class="s05">
@@ -474,5 +514,6 @@
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="main.js"></script>
 <script src="rev1.js"></script>
+<script src="nav.js"></script>
 </body>
 </html>
