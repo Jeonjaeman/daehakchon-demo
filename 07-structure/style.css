@@ -2475,12 +2475,6 @@ html.intro-done .g-intro { display: none; }
 .g-sc__list { list-style: none; margin: 0; padding: 0; }
 .g-sc__stage { position: relative; height: clamp(420px, 34vw, 660px); margin-top: clamp(8px, 1vw, 20px); touch-action: pan-y; cursor: grab; }
 .g-sc__stage:active { cursor: grabbing; }
-.g-sc__ghost {                                       /* 뒤의 큰 글자 */
-  position: absolute; left: 50%; top: 42%; margin: 0; transform: translate(-50%, -50%);
-  font-family: "Montserrat", sans-serif; font-size: clamp(90px, 14vw, 280px); font-weight: 900; letter-spacing: -0.04em; white-space: nowrap;
-  color: transparent; -webkit-text-stroke: 1.5px rgba(235, 97, 0, .12);
-  pointer-events: none; user-select: none;
-}
 .g-sc__belt {                                        /* 컨베이어 */
   position: absolute; left: 0; right: 0; bottom: 8%; height: 10px;
   background: repeating-linear-gradient(90deg, rgba(43, 29, 18, .1) 0 22px, rgba(43, 29, 18, 0) 22px 34px);

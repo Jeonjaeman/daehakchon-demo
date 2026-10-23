@@ -422,12 +422,11 @@
   /* 자사제품 — 왼쪽 무대는 고정, 오른쪽 설명이 바뀌면 제품이 교체(스플릿 스티키) */
   var own = $('#spOwn');
   if (own) {
-    var oimgs = $$('.sp-own__stage img', own), ono = $('#ownNo');
+    var oimgs = $$('.sp-own__stage img', own);
     $$('.sp-own__item', own).forEach(function (it, k) {
       ScrollTrigger.create({ trigger: it, start: 'top 55%', end: 'bottom 55%', onToggle: function (s) {
         if (!s.isActive) return;
         oimgs.forEach(function (im, i) { im.classList.toggle('is-on', i === k); });
-        ono.textContent = ('0' + (k + 1)).slice(-2);
       } });
     });
   }
@@ -480,9 +479,6 @@
     if (buy && btnsEl) ScrollTrigger.create({ trigger: btnsEl, start: 'bottom top', end: 'max', onToggle: function (s) { buy.classList.toggle('is-on', s.isActive); buy.setAttribute('aria-hidden', s.isActive ? 'false' : 'true'); } });
   }
 
-  /* 다음 페이지 — 화살표 원이 들어오며 회전 */
-  var nx = $('.sp-next');
-  if (nx) gsap.from('.sp-next__bg', { xPercent: 20, ease: 'none', scrollTrigger: { trigger: nx, start: 'top bottom', end: 'bottom bottom', scrub: true } });
 
   window.addEventListener('load', function () { ScrollTrigger.refresh(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
