@@ -250,7 +250,7 @@
     if (curA && isMobile) curA.parentNode.scrollLeft = curA.offsetLeft - 24;
     window.addEventListener('resize', function () { placeBar(curA); });
     ScrollTrigger.create({
-      trigger: tabs, start: function () { return 'top ' + (hd.classList.contains('nav-hide') ? 0 : hdH()); }, endTrigger: 'main', end: 'bottom top',
+      trigger: tabs, start: function () { return 'top ' + (hd.classList.contains('nav-hide') ? 0 : hdH()); }, endTrigger: 'main', end: function () { return 'bottom ' + ((hd.classList.contains('nav-hide') ? 0 : hdH()) + tabs.offsetHeight); },   // 본문 끝이 탭 아래선에 닿으면 풀린다(하단 문의 단락을 덮지 않게, 10/24)
       pin: true, pinSpacing: false, toggleClass: { targets: tabs, className: 'is-stuck' }
     });
   }
@@ -479,6 +479,24 @@
     if (buy && btnsEl) ScrollTrigger.create({ trigger: btnsEl, start: 'bottom top', end: 'max', onToggle: function (s) { buy.classList.toggle('is-on', s.isActive); buy.setAttribute('aria-hidden', s.isActive ? 'false' : 'true'); } });
   }
 
+
+  /* 하단 문의 제목 — 한글 ↔ 영어 자동 반복 (메인 g_rev1.js 8번과 같다) */
+  (function ctaRotate() {
+    var h = $('.cta__t.is-rot');
+    if (!h) return;
+    var spans = $$('.rot', h), k = 0, timer = 0, vis = false;
+    function tick() {
+      clearTimeout(timer);
+      if (!vis || document.hidden) return;
+      timer = setTimeout(function () {
+        k = (k + 1) % spans.length;
+        spans.forEach(function (s, i) { s.setAttribute('aria-hidden', i === k ? 'false' : 'true'); });
+        tick();
+      }, k === 0 ? 3600 : 3000);
+    }
+    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; tick(); }, { threshold: 0.2 }).observe(h);
+    document.addEventListener('visibilitychange', tick);
+  })();
 
   window.addEventListener('load', function () { ScrollTrigger.refresh(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
