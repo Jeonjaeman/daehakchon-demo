@@ -90,11 +90,15 @@
     var stage = $('.film__stage');
     if (!stage) return;
     var names = $$('.callout h3').map(function (h) { return h.textContent.replace(/\s+/g, ' ').trim(); });
+    // 10/24: 장면을 누르면 제품소개(products.html)의 그 제품으로 간다. '자세히 보기'는 링크(compose.py)
+    var slugs = $$('.callout__more[data-slug]').map(function (a) { return a.dataset.slug; });
+    stage.style.cursor = 'pointer';
     stage.addEventListener('click', function (e) {
-      if (e.target.closest('.callout__more')) return;      // 버튼은 main.js의 data-toast
+      if (e.target.closest('a, button')) return;
       var now = $('#filmNow');
       var i = Math.max(0, Math.min(names.length - 1, (parseInt(now && now.textContent, 10) || 1) - 1));
-      say('데모 화면입니다. 실제 사이트에서는 \'' + names[i] + '\' 제품 상세페이지로 연결됩니다.');
+      if (slugs[i]) location.href = 'products.html#p-' + slugs[i];
+      else say('데모 화면입니다. 실제 사이트에서는 \'' + names[i] + '\' 제품 상세페이지로 연결됩니다.');
     });
   })();
 

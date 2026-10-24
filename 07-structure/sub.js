@@ -90,7 +90,7 @@
     $('[data-a="date"]', art).textContent = it.date;
     $('[data-a="cat"]', art).textContent = it.cat;
     $('[data-a="img"]', art).src = it.img;
-    document.title = it.title + ' — 경북과학대학교 식품공장 대학촌';
+    document.title = it.title + ' | 경북과학대학교 식품공장 대학촌';
     var prev = list[i + 1], next = list[i - 1];
     var pa = $('[data-a="prev"]', art), na = $('[data-a="next"]', art);
     if (prev) { pa.href = 'news-view.html?no=' + prev.no; pa.children[1].textContent = prev.title; pa.children[2].textContent = prev.date; } else pa.style.display = 'none';
@@ -329,7 +329,7 @@
   var cards = $$('.sp-stack__card');
   cards.forEach(function (c, i) {
     if (i === cards.length - 1) return;
-    gsap.to(c, { scale: .9, filter: 'brightness(.7)', ease: 'none', scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: 'top ' + (hdH() + 76) + 'px', scrub: true } });
+    gsap.fromTo(c, { scale: 1, filter: 'brightness(1)' }, { scale: .9, filter: 'brightness(.7)', ease: 'none', scrollTrigger: { trigger: cards[i + 1], start: 'top 70%', end: 'top ' + (hdH() + 76) + 'px', scrub: true } });
   });
 
   /* CI — 심볼 마우스 기울기 */
@@ -410,13 +410,53 @@
     $$('.sp-steps__list li', steps).forEach(function (li) { li.classList.add('is-on'); });
   }
 
-  /* ODM 수출 지도 — 점선 경로가 그려진다 */
-  var routes = $$('[data-route]');
-  if (routes.length) {
-    routes.forEach(function (r) { var L = r.getTotalLength(); r.style.strokeDasharray = L; r.style.strokeDashoffset = L; });
-    gsap.to(routes, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut', stagger: .18, scrollTrigger: { trigger: '.sp-export', start: 'top 70%', once: true },
-      onComplete: function () { routes.forEach(function (r) { r.style.strokeDasharray = '6 8'; }); } });
-    gsap.from('.sp-export .pt', { scale: 0, transformOrigin: 'center', duration: .6, ease: 'back.out(3)', stagger: .12, scrollTrigger: { trigger: '.sp-export', start: 'top 70%', once: true } });
+  /* ODM 수출 경로 (4번 초안 연출, 10/24): 데스크톱은 핀 + 스크럽, 모바일은 핀 없이 지나가며.
+     점선이 마스크로 그려지고 비행기가 경로 끝을 따라가며, 지나간 나라마다 점·스티커가 톡 붙는다 */
+  var trv = $('#spTravel');
+  var tmap = trv && $$('[data-travel]', trv).filter(function (m) { return m.offsetWidth > 0; })[0];
+  if (tmap) {
+    var tpath = $('.sp-travel__path', tmap), tplane = $('.sp-travel__plane', tmap);
+    var TL = tpath.getTotalLength();
+    // 마스크 대신 그려진 길이만큼만 점선 패턴을 직접 만든다(마스크는 렌더러에 따라 앞쪽 점선 조각이 미리 비쳤다)
+    tpath.removeAttribute('mask');
+    var dpat = (getComputedStyle(tpath).strokeDasharray || '16 14').split(/[\s,]+/).map(parseFloat).filter(function (v) { return v > 0; });
+    var dOn = dpat[0] || 16, dOff = dpat[1] || 14;
+    var tdraw = function (len) {
+      var n = Math.floor(len / (dOn + dOff)), rem = len - n * (dOn + dOff), arr = [];
+      for (var k = 0; k < n; k++) arr.push(dOn, dOff);
+      if (rem > 0) arr.push(Math.min(rem, dOn), Math.max(0, rem - dOn));
+      arr.push(0, TL + 100);
+      tpath.style.strokeDasharray = arr.join(' ');
+    };
+    var tcities = $$('.sp-travel__city', tmap).map(function (el, i) {
+      var x = +el.dataset.x, y = +el.dataset.y, best = 0, bd = Infinity;
+      for (var l = 0; l <= TL; l += 3) {
+        var q = tpath.getPointAtLength(l), d = (q.x - x) * (q.x - x) + (q.y - y) * (q.y - y);
+        if (d < bd) { bd = d; best = l; }
+      }
+      return { dot: $('i', el), pill: $('.sp-travel__pill', el), f: best / TL, r: i % 2 ? 3 : -3 };
+    });
+    var tst = { p: 0 };
+    var tplace = function () {
+      var l = tst.p * TL, c = tpath.getPointAtLength(l);
+      var a = tpath.getPointAtLength(Math.max(0, l - 2)), b = tpath.getPointAtLength(Math.min(TL, l + 2));
+      tplane.setAttribute('transform', 'translate(' + c.x.toFixed(1) + ',' + c.y.toFixed(1) + ') rotate(' + (Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI).toFixed(1) + ')');
+      tdraw(l);
+    };
+    var ttl = gsap.timeline({
+      scrollTrigger: isMobile
+        ? { trigger: tmap, start: 'top 80%', end: 'bottom 60%', scrub: 1 }
+        : { trigger: trv, start: 'top top', end: '+=170%', pin: $('.sp-travel__pin', trv), anticipatePin: 1, scrub: 1 }
+    });
+    ttl.to(tst, { p: 1, duration: 1, ease: 'none', onUpdate: tplace }, 0);
+    tcities.forEach(function (c) {
+      var at = Math.max(0, c.f - 0.035);
+      gsap.set(c.pill, { transformOrigin: '50% 100%' });
+      ttl.fromTo(c.dot, { scale: 0 }, { scale: 1, duration: 0.025, ease: 'back.out(3)' }, at)
+        .fromTo(c.pill, { autoAlpha: 0, scale: 0.6, rotate: c.r * 5, y: 24 }, { autoAlpha: 1, scale: 1, rotate: c.r, y: 0, duration: 0.06, ease: 'back.out(2.2)' }, at);
+    });
+    tplace();
+    gsap.fromTo($('.sp-travel__photo', trv), { autoAlpha: 0, y: 60, rotate: 12 }, { autoAlpha: 1, y: 0, rotate: 4, duration: 1.1, ease: 'back.out(1.6)', scrollTrigger: { trigger: isMobile ? $('.sp-travel__photo', trv) : trv, start: isMobile ? 'top 85%' : 'top 40%', once: true } });
   }
 
   /* 자사제품 — 왼쪽 무대는 고정, 오른쪽 설명이 바뀌면 제품이 교체(스플릿 스티키) */
@@ -498,6 +538,14 @@
     document.addEventListener('visibilitychange', tick);
   })();
 
-  window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+  // 주소 #p-fiber 처럼 들어오면(메인 제품 필름에서) 핀·높이가 다 잡힌 뒤 그 제품으로 — 헤더·탭에 가리지 않게 띄운다(10/24)
+  var hashGo = function () {
+    var t = location.hash && document.getElementById(location.hash.slice(1));
+    if (!t || !t.classList.contains('sp-own__item')) return;
+    var y = t.getBoundingClientRect().top + window.pageYOffset - hdH() - 64 - 24;
+    if (lenis) lenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo(0, y);
+    ScrollTrigger.update();
+  };
+  window.addEventListener('load', function () { ScrollTrigger.refresh(); setTimeout(hashGo, 60); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
 })();
