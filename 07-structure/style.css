@@ -2484,14 +2484,13 @@ html.intro-done .g-intro { display: none; }
 .g-sc__spot {                                        /* 가운데 조명 */
   position: absolute; left: 50%; bottom: 6%; width: clamp(280px, 26vw, 500px); height: 80%;
   transform: translateX(-50%);
-  background: radial-gradient(ellipse 50% 60% at 50% 100%, rgba(235, 97, 0, .16), rgba(235, 97, 0, 0) 70%);
+  background: none;   /* 5차 수정(고객 10/27): 제품 아래 그림자 삭제 */
   pointer-events: none;
 }
 .g-sc__item { position: absolute; left: 50%; bottom: 8%; width: 0; height: 0; will-change: transform, opacity; }
 .g-sc__item img {
   position: absolute; left: 0; bottom: 0; transform: translateX(-50%);
   max-width: none; height: auto;
-  filter: drop-shadow(0 22px 22px rgba(58, 32, 12, .22));
   -webkit-user-drag: none; user-select: none;
 }
 .g-sc__foot { display: flex; align-items: center; gap: 1.2vw; margin-top: clamp(10px, 1vw, 20px); padding: 0 5.2vw; font-family: "Montserrat", sans-serif; font-size: clamp(11px, .73vw, 15px); font-weight: 700; letter-spacing: .24em; color: var(--ink-2); }
