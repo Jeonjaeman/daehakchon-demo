@@ -111,6 +111,17 @@ body.is-sub { margin: 0; background: #fff; overflow-x: clip; }
 .sp-manifesto .w.is-on { color: var(--ink); }
 .sp-manifesto .w.is-on.hl { color: var(--orange); }
 .sp-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 5vw; align-items: center; }
+.sp-intro__t { font-size: clamp(18px, 1.3vw, 26px); font-weight: 500; line-height: 1.85; letter-spacing: -0.03em; color: var(--ink); word-break: keep-all; }   /* 6차: 학교기업 소개 문안 */
+.sp-intro__t strong { font-weight: 800; color: var(--orange); }
+/* 6차: 대학촌 BI (로고 + 색 의미) */
+.sp-bi { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 5vw; align-items: center; }
+.sp-bi__logo { margin: 0; display: grid; place-items: center; aspect-ratio: 4 / 3; border-radius: var(--r-lg); background: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+.sp-bi__logo img { width: 72%; height: auto; }
+.sp-bi__colors { display: grid; gap: 0; margin-top: clamp(20px, 1.6vw, 32px); border-top: 1.5px solid var(--ink); }
+.sp-bi__colors li { display: grid; grid-template-columns: 44px 4.5em minmax(0, 1fr); align-items: center; gap: 1em; padding: 1em 0; border-bottom: 1px solid var(--line); }
+.sp-bi__colors i { width: 44px; height: 28px; border-radius: 6px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
+.sp-bi__colors b { font-weight: 800; }
+.sp-bi__colors span { color: var(--ink-2); }
 .sp-intro__fig { position: relative; border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 4 / 5; }
 .sp-intro__fig > img:first-child { width: 100%; height: 118%; object-fit: cover; }
 .sp-intro__fig .sp-intro__badge { position: absolute; right: 1.6vw; bottom: 1.6vw; width: clamp(64px, 4.6vw, 92px); height: auto; padding: 14px; border-radius: 50%; background: #fff; box-sizing: content-box; box-shadow: var(--shadow); }
@@ -156,7 +167,7 @@ body.is-sub { margin: 0; background: #fff; overflow-x: clip; }
 .sp-color[style*="#fff6e9"] { box-shadow: inset 0 0 0 1.5px var(--line); background: #fff !important; }
 .sp-color code { margin-top: .5em; font-family: var(--en); font-size: var(--fs-sm); letter-spacing: .08em; }
 .sp-color span { margin-top: .6em; font-size: var(--fs-sm); opacity: .8; }
-.sp-logos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4vw; }
+.sp-logos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4vw; }
 .sp-logos figure { margin: 0; }
 .sp-logos__box { display: grid; place-items: center; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--r-lg); }   /* 칸을 꽉 채운다(5차) */
 .sp-logos__box img { width: 72%; height: auto; }
@@ -488,7 +499,7 @@ body.is-sub { margin: 0; background: #fff; overflow-x: clip; }
   .sp-tabs__list { overflow-x: auto; scrollbar-width: none; }
   .sp-tabs__list::-webkit-scrollbar { display: none; }
   .sp-tabs__list a { flex: none; height: 56px; padding: 0 20px; }
-  .sp-intro, .sp-quote, .sp-ci, .sp-hist, .sp-map, .sp-own, .sp-pd, .sp-contact, .sp-news-feature, .sp-steps__pin { grid-template-columns: 1fr; }
+  .sp-bi, .sp-intro, .sp-quote, .sp-ci, .sp-hist, .sp-map, .sp-own, .sp-pd, .sp-contact, .sp-news-feature, .sp-steps__pin { grid-template-columns: 1fr; }
   .sp-intro__badge { right: 12px; bottom: 12px; width: 96px; }
   .sp-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sp-fact:nth-child(3) { padding-left: 0; border-left: 0; }

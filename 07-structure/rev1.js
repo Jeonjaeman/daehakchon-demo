@@ -113,7 +113,7 @@
     var ratio = imgs.map(function (im) { return (+im.getAttribute('width')) / (+im.getAttribute('height')); });
     var pos = { v: 0 }, target = 0;                       // target: 지금 가고 있는 칸(연달아 눌러도 한 칸씩 더 간다)
     var shown = -1, timer = 0, inView = false, hover = false, drag = null, tween = null;
-    var STEP = 0.95, DUR = 0.55;                      // 고객 10/22 "속도를 조금 더 빠르게" (1차 수정본 2.6 / 1.05)
+    var STEP = 0.62, DUR = 0.42;                      // 6차 수정(고객 11/02) "지나가는 시간 텀을 좀더 빠르게" (3차 0.95 / 0.55)
 
     var mod = function (n) { return ((n % N) + N) % N; };
     var sizes = { sw: 0, hb: 0 };

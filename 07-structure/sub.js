@@ -305,9 +305,9 @@
     var tl = gsap.timeline({ scrollTrigger: { trigger: ex, start: 'top top', end: '+=' + (window.innerHeight * 0.9), pin: $('.sp-expand__pin', ex), scrub: 1, anticipatePin: 1, invalidateOnRefresh: true,
       onEnter: function () { if (exv) { var pp = exv.play(); if (pp && pp.catch) pp.catch(function () {}); } } } });
     tl.to(box, { width: function () { return window.innerWidth; }, height: function () { return window.innerHeight; }, borderRadius: 0, ease: 'power2.inOut', duration: .7 }, 0)
-      .to($('.sp-expand__dim', ex), { opacity: 1, duration: .4 }, .3)
-      .to($('.sp-expand__copy', ex), { autoAlpha: 1, y: 0, duration: .35 }, .55)
-      .to({}, { duration: .15 });
+      .to($('.sp-expand__dim', ex), { opacity: 1, duration: .4 }, .3);
+    if ($('.sp-expand__copy', ex)) tl.to($('.sp-expand__copy', ex), { autoAlpha: 1, y: 0, duration: .35 }, .55);   // 6차: 오시는 길은 사진 위 글자 없음
+    tl.to({}, { duration: .15 });
   }
   /* 숫자 교체 핀(shipnergy) */
   var sw = $('#spSwap');

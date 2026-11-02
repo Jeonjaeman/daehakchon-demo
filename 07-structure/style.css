@@ -2453,7 +2453,12 @@ html.intro-done .g-intro { display: none; }
   --orange: #eb6100; --pink: #f29b87; --ivory: #fff6e9; --ink: #2b1d12; --ink-2: #7d6b5b;
   position: relative; overflow: hidden;
   padding: clamp(72px, 6.8vw, 140px) 0 clamp(36px, 3vw, 60px);
-  background: linear-gradient(180deg, #fff 0%, var(--ivory) 100%);
+  /* 6차 수정(고객 11/02): 어두운 브라운 바탕의 오래된 기록물 느낌(종이 결 + 가장자리 어둡게), 제품·글씨는 선명하게 */
+  --ink: #f6ead8; --ink-2: rgba(246, 234, 216, .62);
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 62%, rgba(0, 0, 0, 0) 40%, rgba(10, 6, 3, .55) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .9 0 0 0 0 .75 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, #2a1c12 0%, #33231a 55%, #261910 100%);
   color: var(--ink);
   font-family: "Pretendard Variable", Pretendard, -apple-system, "Malgun Gothic", sans-serif;
 }
@@ -2467,7 +2472,7 @@ html.intro-done .g-intro { display: none; }
 .g-sc__count b { color: var(--ink); font-weight: 800; }
 .g-sc__btn {
   display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
-  border: 1.5px solid rgba(43, 29, 18, .2); background: #fff; color: var(--ink); cursor: pointer;
+  border: 1.5px solid rgba(246, 234, 216, .28); background: transparent; color: var(--ink); cursor: pointer;
   transition: background .25s, color .25s, border-color .25s;
 }
 .g-sc__btn:hover, .g-sc__btn:focus-visible { background: var(--orange); border-color: var(--orange); color: #fff; }
@@ -2484,7 +2489,7 @@ html.intro-done .g-intro { display: none; }
 .g-sc__spot {                                        /* 가운데 조명 */
   position: absolute; left: 50%; bottom: 6%; width: clamp(280px, 26vw, 500px); height: 80%;
   transform: translateX(-50%);
-  background: none;   /* 5차 수정(고객 10/27): 제품 아래 그림자 삭제 */
+  background: radial-gradient(ellipse 50% 55% at 50% 70%, rgba(255, 226, 180, .16), rgba(255, 226, 180, 0) 70%);   /* 5차: 그림자 삭제, 6차: 어두운 바탕에서 가운데 제품이 보이도록 뒤쪽만 옅게 밝힌다 */
   pointer-events: none;
 }
 .g-sc__item { position: absolute; left: 50%; bottom: 8%; width: 0; height: 0; will-change: transform, opacity; }
@@ -2494,7 +2499,7 @@ html.intro-done .g-intro { display: none; }
   -webkit-user-drag: none; user-select: none;
 }
 .g-sc__foot { display: flex; align-items: center; gap: 1.2vw; margin-top: clamp(10px, 1vw, 20px); padding: 0 5.2vw; font-family: "Montserrat", sans-serif; font-size: clamp(11px, .73vw, 15px); font-weight: 700; letter-spacing: .24em; color: var(--ink-2); }
-.g-sc__foot i { position: relative; flex: 1; height: 1px; background: rgba(43, 29, 18, .12); }
+.g-sc__foot i { position: relative; flex: 1; height: 1px; background: rgba(246, 234, 216, .16); }
 .g-sc__foot i b { position: absolute; left: 0; top: -1px; height: 3px; width: calc(var(--prog, 0) * 100%); background: var(--orange); transition: width .5s; }
 
 /* ── 6. 파트너사 로고 마키 ── */
