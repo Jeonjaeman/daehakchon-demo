@@ -250,9 +250,15 @@
     if (curA && isMobile) curA.parentNode.scrollLeft = curA.offsetLeft - 24;
     window.addEventListener('resize', function () { placeBar(curA); });
     ScrollTrigger.create({
-      trigger: tabs, start: function () { return 'top ' + (hd.classList.contains('nav-hide') ? 0 : hdH()); }, endTrigger: 'main', end: function () { return 'bottom ' + ((hd.classList.contains('nav-hide') ? 0 : hdH()) + tabs.offsetHeight); },   // 본문 끝이 탭 아래선에 닿으면 풀린다(하단 문의 단락을 덮지 않게, 10/24)
+      trigger: tabs, start: function () { return 'top ' + hdH(); }, endTrigger: 'main', end: function () { return 'bottom ' + (hdH() + tabs.offsetHeight); },   // 본문 끝이 탭 아래선에 닿으면 풀린다(하단 문의 단락을 덮지 않게, 10/24)
       pin: true, pinSpacing: false, toggleClass: { targets: tabs, className: 'is-stuck' }
     });
+    // 7차 수정(11/03): PC에서 헤더가 위로 사라지면 고정된 탭도 그만큼 올라가 맨 위에 붙는다
+    if (hd) {
+      var syncHd = function () { tabs.style.setProperty('--hdh', hdH() + 'px'); tabs.classList.toggle('is-hdhide', hd.classList.contains('nav-hide') && !hd.classList.contains('is-mega')); };
+      new MutationObserver(syncHd).observe(hd, { attributes: true, attributeFilter: ['class'] });
+      syncHd();
+    }
   }
 
   /* 공통 등장 */
@@ -548,4 +554,27 @@
   };
   window.addEventListener('load', function () { ScrollTrigger.refresh(); setTimeout(hashGo, 60); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+})();
+
+/* 7차 수정(고객 11/03): 제품 상세 이미지 펼치기 · 접기 */
+(function () {
+  var d = document.getElementById('spDetail');
+  if (!d) return;
+  var img = d.querySelector('.sp-detail__img'), btn = d.querySelector('.sp-detail__more button');
+  btn.addEventListener('click', function () {
+    var open = !d.classList.contains('is-open');
+    if (open) {
+      img.querySelectorAll('img').forEach(function (x) { x.loading = 'eager'; });
+      img.style.maxHeight = img.scrollHeight + 'px';
+    } else {
+      img.style.maxHeight = '';
+      d.scrollIntoView({ block: 'start' });
+    }
+    d.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.textContent = open ? '상세 정보 접기' : '상세 정보 펼쳐 보기';
+    setTimeout(function () { if (window.ScrollTrigger) ScrollTrigger.refresh(); }, 850);
+  });
+  // 펼친 뒤 아래 조각이 늦게 불러와져도 높이를 맞춘다
+  img.addEventListener('load', function () { if (d.classList.contains('is-open')) img.style.maxHeight = img.scrollHeight + 'px'; }, true);
 })();

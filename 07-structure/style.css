@@ -2625,3 +2625,9 @@ html.mnav-open .s05 .qm { opacity: 0; visibility: hidden; }   /* 모바일 퀵�
   .s01 .hd { z-index: 100; }
   .s01 .hd__panel { display: none; }
 }
+
+/* 7차 수정(고객 11/03): 로고가 스크롤을 따라오지 않게. 내릴 때는 메뉴와 함께 헤더 전체가 위로 사라지고, 올리면 다시 나타난다(PC) */
+@media (min-width: 901px) {
+  .js-anim .s01 .hd.hd, .s01 .hd.hd { transition: transform .45s cubic-bezier(.2, .7, .2, 1), background .35s, color .35s, box-shadow .35s; }
+  .s01 .hd.hd.nav-hide:not(.is-mega) { transform: translateY(-100%); }
+}

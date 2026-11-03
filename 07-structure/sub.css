@@ -667,3 +667,16 @@ body.is-sub { margin: 0; background: #fff; overflow-x: clip; }
   .sp-travel__photo { position: relative; left: auto; top: auto; order: 2; width: 78%; margin: 32px 0 0 auto; border-width: 5px; }
   .sp-travel__photo figcaption { left: -12px; top: -12px; font-size: 12px; }
 }
+
+/* 7차 수정(고객 11/03): 제품 상세 — 기존 홈페이지 상세 이미지. 처음엔 일부만 보이고 버튼으로 펼친다 */
+.sp-detail { position: relative; max-width: 860px; margin: 0 auto; }
+.sp-detail__img { max-height: 1500px; overflow: hidden; border-radius: var(--r-lg, 20px); transition: max-height .8s cubic-bezier(.2, .7, .2, 1); }
+.sp-detail__img img { display: block; width: 100%; height: auto; }
+.sp-detail__more { position: relative; display: flex; justify-content: center; margin-top: -260px; padding-top: 200px; background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, .85) 45%, #fff 75%); }
+.sp-detail.is-open .sp-detail__more { margin-top: 28px; padding-top: 0; background: none; }
+@media (max-width: 900px) { .sp-detail__img { max-height: 900px; border-radius: 14px; } .sp-detail__more { margin-top: -120px; padding-top: 80px; } }
+/* 7차 수정(11/03): 헤더가 사라질 때 고정 탭도 함께 올라간다(PC, nav.css 헤더 숨김과 같은 속도) */
+@media (min-width: 901px) {
+  .sp-tabs__in { transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
+  .sp-tabs.is-stuck.is-hdhide .sp-tabs__in { transform: translateY(calc(-1 * var(--hdh, 0px))); }
+}
