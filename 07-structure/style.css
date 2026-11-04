@@ -2631,3 +2631,16 @@ html.mnav-open .s05 .qm { opacity: 0; visibility: hidden; }   /* 모바일 퀵�
   .js-anim .s01 .hd.hd, .s01 .hd.hd { transition: transform .45s cubic-bezier(.2, .7, .2, 1), background .35s, color .35s, box-shadow .35s; }
   .s01 .hd.hd.nav-hide:not(.is-mega) { transform: translateY(-100%); }
 }
+
+/* 다국어(11/04): KR/EN/CN 이 실제 링크. 지금 언어는 span.is-on, 나머지는 a */
+.s01 .hd__lang a, .mnav__lang a { color: inherit; text-decoration: none; opacity: .5; transition: opacity .25s; }
+.s01 .hd__lang a:hover, .s01 .hd__lang a:focus-visible, .mnav__lang a:hover { opacity: 1; }
+/* 중문 페이지: 한글 글꼴(Pretendard·Paperlogy)에 없는 한자는 Noto Sans SC 로(cn/ 페이지만 이 글꼴을 불러온다) */
+html:lang(zh-CN) .s01, html:lang(zh-CN) .s03, html:lang(zh-CN) .s05, html:lang(zh-CN) .s06, html:lang(zh-CN) .sp {
+  --ko: "Pretendard Variable", Pretendard, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --en: "Montserrat", "Noto Sans SC", "PingFang SC", sans-serif;
+}
+html:lang(zh-CN) .g-sc, html:lang(zh-CN) .mnav, html:lang(zh-CN) body { font-family: "Pretendard Variable", Pretendard, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; }
+html:lang(zh-CN) .mnav__t .en, html:lang(zh-CN) .mnav__lang { font-family: "Montserrat", "Noto Sans SC", sans-serif; }
+/* 중문은 글자 사이에서 줄을 바꾼다(국문용 word-break: keep-all 이면 중문 한 문장이 한 줄로 넘친다) */
+html:lang(zh-CN) body, html:lang(zh-CN) body * { word-break: normal !important; line-break: strict; }

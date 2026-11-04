@@ -23,6 +23,9 @@
   })(document.documentElement);
 </script>
 <script>if (!/[?&](nomotion=1|intro=0)/.test(location.search)) document.documentElement.classList.add('has-intro');</script>
+<link rel="alternate" hreflang="ko" href="index.html">
+<link rel="alternate" hreflang="en" href="en/index.html">
+<link rel="alternate" hreflang="zh-CN" href="cn/index.html">
 </head>
 <body>
 <!-- G 고객 선택안(1차 수정 반영): 인트로 · 01 HERO(고객 영상) · 01 RESEARCH · 01 PRODUCT FILM · OEM·ODM 쇼케이스 · 05 퀵메뉴·파트너 로고·소식·CTA -->
@@ -101,8 +104,8 @@
     </div>
   </nav>
   <div class="hd__util">
-    <p class="hd__lang" aria-label="언어 선택 (데모에서는 표시만)">
-      <span class="is-on">KR</span><i>/</i><span>EN</span><i>/</i><span>CN</span>
+    <p class="hd__lang" aria-label="언어 선택">
+      <span class="is-on">KR</span><i>/</i><a href="en/index.html" hreflang="en" lang="en">EN</a><i>/</i><a href="cn/index.html" hreflang="zh-CN" lang="zh-CN">CN</a>
     </p>
     <button type="button" class="hd__burger" id="hdBurger" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mnav"><i></i><i></i></button>
   </div>
@@ -130,7 +133,7 @@
     </li>
   </ul>
   <div class="mnav__foot">
-    <p class="mnav__lang"><span class="is-on">KR</span><span>EN</span><span>CN</span></p>
+    <p class="mnav__lang"><span class="is-on">KR</span><a href="en/index.html" hreflang="en" lang="en">EN</a><a href="cn/index.html" hreflang="zh-CN" lang="zh-CN">CN</a></p>
     <a class="mnav__tel" href="tel:0549729721">054-972-9721</a>
   </div>
   </div>
