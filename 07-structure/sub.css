@@ -656,7 +656,7 @@ body.is-sub { margin: 0; background: #fff; overflow-x: clip; }
   .sp-travel__lead { font-size: 15px; }
   .sp-travel__facts li { font-size: 13px; }
   .sp-travel__map--desk { display: none; }
-  .sp-travel__map--mob { display: block; position: relative; inset: auto; order: 3; width: 100%; aspect-ratio: 400 / 640; margin-top: 24px; }
+  .sp-travel__map--mob { display: block; position: relative; inset: auto; order: 3; width: 100%; aspect-ratio: 400 / 720; margin-top: 24px; }
   .sp-travel__map--mob .sp-travel__path { stroke-width: 3; stroke-dasharray: 10 9; }
   .sp-travel__city > i { left: -5px; top: -5px; width: 10px; height: 10px; box-shadow: 0 0 0 4px rgba(235, 97, 0, .22); }
   .sp-travel__tag { bottom: 12px; }
