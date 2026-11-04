@@ -172,8 +172,10 @@
     $$('[data-sc]', sec).forEach(function (b) {
       b.addEventListener('click', function () { next(+b.dataset.sc); loop(); });
     });
-    stage.addEventListener('mouseenter', function () { hover = true; loop(); });
-    stage.addEventListener('mouseleave', function () { hover = false; loop(); });
+    // 마우스를 올리면 멈춤은 PC만. 9차 수정(고객 11/04): 모바일은 터치해도 계속 자동으로 넘어간다
+    //   (터치하면 브라우저가 mouseenter 를 흉내 내 hover 가 켜진 채로 남던 것)
+    stage.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hover = true; loop(); } });
+    stage.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { hover = false; loop(); } });
 
     // 끌어서 넘기기
     stage.addEventListener('pointerdown', function (e) {
@@ -188,6 +190,13 @@
       if (Math.abs(dx) > 4) drag.moved = true;
       pos.v = drag.v - dx / (sizes.sw * 1.4);
       layout();
+    });
+    // 터치로 세로 스크롤을 시작하면 브라우저가 pointercancel 을 보낸다: 끌기를 풀고 자동 재생을 이어 간다(전에는 drag 가 남아 멈춰 있었다)
+    window.addEventListener('pointercancel', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      drag = null;
+      go(Math.round(pos.v), 0.6);
+      loop();
     });
     window.addEventListener('pointerup', function (e) {
       if (!drag || e.pointerId !== drag.id) return;
