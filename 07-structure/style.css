@@ -2472,11 +2472,11 @@ html.intro-done .g-intro { display: none; }
 .g-sc__count b { color: var(--ink); font-weight: 800; }
 .g-sc__btn {
   display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
-  border: 1.5px solid rgba(246, 234, 216, .28); background: transparent; color: var(--ink); cursor: pointer;
+  border: 0; background: #fff; color: #2b1d12; cursor: pointer; box-shadow: 0 6px 18px rgba(0, 0, 0, .35);   /* 12차(11/05): 어두운 바탕에서 잘 보이게 */
   transition: background .25s, color .25s, border-color .25s;
 }
 .g-sc__btn:hover, .g-sc__btn:focus-visible { background: var(--orange); border-color: var(--orange); color: #fff; }
-.g-sc__btn svg { width: 18px; height: 18px; }
+.g-sc__btn svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2.4; fill: none; }
 .g-sc__list { list-style: none; margin: 0; padding: 0; }
 .g-sc__stage { position: relative; height: clamp(420px, 34vw, 660px); margin-top: clamp(8px, 1vw, 20px); touch-action: pan-y; cursor: grab; }
 .g-sc__stage:active { cursor: grabbing; }
@@ -2581,13 +2581,16 @@ html.intro-done .g-intro { display: none; }
 .js-anim .s01 .hd.is-mega .hd__logo--real .l-w, .s01 .hd.is-mega .hd__logo--real .l-w { opacity: 0; }
 .s01 .hd.is-mega.nav-hide .hd__nav, .s01 .hd.is-mega.nav-hide .hd__lang { opacity: 1; visibility: visible; transform: none; }
 
+/* 12차(11/05): PC 메인도 첫 화면을 지나 위로 올리면 흰 바탕(어두운 구간에서 메뉴 글자가 묻히지 않게) */
+.s01 .hd.is-solid { background: rgba(255, 255, 255, .96); color: var(--ink); box-shadow: 0 1px 0 rgba(43, 29, 18, .08); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.s01 .hd.is-solid, .s01 .hd.is-solid .hd__nav, .s01 .hd.is-solid .hd__lang { color: var(--ink) !important; }
+.js-anim .s01 .hd.is-solid .hd__logo--real .l-c, .s01 .hd.is-solid .hd__logo--real .l-c { opacity: 1 !important; }
+.js-anim .s01 .hd.is-solid .hd__logo--real .l-w, .s01 .hd.is-solid .hd__logo--real .l-w { opacity: 0 !important; }
+
 @media (max-width: 900px) {
   .s01 .hd__util { display: flex; }
   /* 모바일: 헤더를 고정하고, 내려가면 흰 바탕(메뉴 버튼이 늘 보이게) */
   .js-anim .s01 .hd, .s01 .hd { position: fixed; transition: background .3s, color .3s, box-shadow .3s; }
-  .s01 .hd.is-solid { background: rgba(255, 255, 255, .96); color: var(--ink); box-shadow: 0 1px 0 rgba(43, 29, 18, .08); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
-  .js-anim .s01 .hd.is-solid .hd__logo--real .l-c, .s01 .hd.is-solid .hd__logo--real .l-c { opacity: 1; }
-  .js-anim .s01 .hd.is-solid .hd__logo--real .l-w, .s01 .hd.is-solid .hd__logo--real .l-w { opacity: 0; }
   .s01 .hd { z-index: 100; }
   .s01 .hd__panel { display: none; }
 }
@@ -2689,3 +2692,8 @@ html.cv-open, html.cv-open body { overflow: hidden; }
   .cv__nav { width: 42px; height: 42px; margin-top: -21px; font-size: 20px; opacity: .92; }
   .cv__thumbs { justify-content: flex-start; }
 }
+
+/* 12차(11/05): 더 보기·문의 버튼을 실제 링크로 */
+.s05 a.more, .s05 a.btn { text-decoration: none; }
+.s05 a.more { color: var(--ink); }
+.s05 a.more:hover, .s05 a.more:focus-visible { color: var(--white); }

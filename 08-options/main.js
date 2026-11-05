@@ -281,7 +281,7 @@
       { dir: 'turntable_vermont', still: 'pr2_vermont_pouch' },
       { dir: 'turntable_jinhongsam', still: 'pr3_jinhongsam_pouch' },
       { dir: 'turntable_hongsam', still: 'pr4_hongsam_pouch' }
-    ].map(function (s) { s.frames = new Array(TOTAL); s.img = null; s.mode = 'pending'; return s; });
+    ].map(function (s) { s.frames = new Array(TOTAL); s.asked = []; s.img = null; s.mode = 'pending'; return s; });
     var LAST = scenes.length - 1;
 
     // [조합] 장면 시간표 — 아래 callout 타임라인(T0·GAP)과 같은 박자. 설명이 위로 사라질 때(s+0.155~0.21) 제품도 떠오르며 사라지고,
@@ -295,7 +295,9 @@
     var ease = function (t) { return t * t * (3 - 2 * t); };
 
     var pad = function (n) { return ('000' + n).slice(-4); };
-    var srcOf = function (s, i) { return SEQ + s.dir + '/' + pad(i * STEP + 1) + '.webp'; };
+    // 12차(11/05): 화면이 크지 않으면 1100px 판(원본 1600px의 절반 용량, 해독도 빠르다)
+    var SIZE = '';
+    var srcOf = function (s, i) { return SEQ + s.dir + SIZE + '/' + pad(i * STEP + 1) + '.webp'; };
 
     function resize() {
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -310,9 +312,11 @@
     function pick(k, p) {
       var s = scenes[k], q = clamp01((p - vFrom(k)) / (vTo(k) - vFrom(k)));
       if (s.mode === 'frames') {
-        var want = Math.round(ease(clamp01(q / SPIN)) * (TOTAL - 1)), i;
-        for (i = want; i >= 0; i--) if (s.frames[i]) return { img: s.frames[i], key: k + 'f' + i, zoom: 1, pan: 0 };
-        for (i = want + 1; i < TOTAL; i++) if (s.frames[i]) return { img: s.frames[i], key: k + 'f' + i, zoom: 1, pan: 0 };
+        var want = Math.round(ease(clamp01(q / SPIN)) * (TOTAL - 1)), d, i;
+        for (d = 0; d < TOTAL; d++) {                                // 아직 안 온 프레임은 가장 가까운 프레임으로
+          i = want - d; if (i >= 0 && s.frames[i]) return { img: s.frames[i], key: k + 'f' + i, zoom: 1, pan: 0 };
+          i = want + d; if (i < TOTAL && s.frames[i]) return { img: s.frames[i], key: k + 'f' + i, zoom: 1, pan: 0 };
+        }
       }
       if (s.img) return { img: s.img, key: k + 's' + q.toFixed(4), zoom: 1 + 0.08 * q, pan: 0 };
       return null;
@@ -372,22 +376,35 @@
       img.src = IMG + s.still + '.webp';
     }
 
-    // 나머지 프레임은 보는 순서대로(01 → 04) 받는다
+    // 12차(11/05): 첫 방문에도 돌게. 01을 다 받고 02로 넘어가면 그 전에 스크롤한 제품은 멈춰 있었다.
+    // 네 제품 모두 띄엄띄엄 먼저 받아 한 바퀴를 확보하고(8칸 → 4 → 2 → 1) 사이를 채운다. 같은 단계에서는 지금 보는 제품이 먼저.
+    var LEVELS = [8, 4, 2, 1];
+    function nextJob() {
+      var k = 0, l, o, s, i;
+      while (k < LAST && st.p >= xAt(k + 1)) k++;
+      for (l = 0; l < LEVELS.length; l++) {
+        for (o = 0; o < scenes.length; o++) {
+          s = scenes[(k + o) % scenes.length];
+          if (s.mode !== 'frames') continue;
+          for (i = 0; i < TOTAL; i += LEVELS[l]) if (!s.asked[i]) { s.asked[i] = true; return [s, i]; }
+        }
+      }
+      return null;
+    }
     function loadRest() {
-      var queue = [];
-      scenes.forEach(function (s) { if (s.mode === 'frames') for (var i = 1; i < TOTAL; i++) queue.push([s, i]); });
-      var next = 0, active = 0, MAX = 6;
+      var active = 0, MAX = 8;
       (function pump() {
-        while (active < MAX && next < queue.length) {
+        var job;
+        while (active < MAX && (job = nextJob())) {
           (function (s, i) {
             active++;
             var img = new Image();
+            var done = function () { s.frames[i] = img; active--; render(); pump(); };   // 해독을 미리 끝내 스크롤 중 그릴 때 끊기지 않게
             img.decoding = 'async';
-            img.onload = function () { s.frames[i] = img; active--; lastKey = ''; render(); pump(); };
+            img.onload = function () { if (img.decode) img.decode().then(done, done); else done(); };
             img.onerror = function () { active--; pump(); };
             img.src = srcOf(s, i);
-          })(queue[next][0], queue[next][1]);
-          next++;
+          })(job[0], job[1]);
         }
       })();
     }
@@ -395,10 +412,12 @@
     function start() {
       if (started) return;
       started = true;
+      var need = canvas.width / canvas.height < 0.8 ? canvas.width * 1.2 : canvas.height;
+      if (need <= 1250) SIZE = '_1100';
       var left = scenes.length;
       scenes.forEach(function (s) {                                  // 장면마다 첫 프레임부터(실패하면 스틸 폴백)
         var first = new Image();
-        first.onload = function () { s.frames[0] = first; s.mode = 'frames'; lastKey = ''; render(); if (--left === 0) loadRest(); };
+        first.onload = function () { s.frames[0] = first; s.asked[0] = true; s.mode = 'frames'; lastKey = ''; render(); if (--left === 0) loadRest(); };
         first.onerror = function () { loadStill(s); if (--left === 0) loadRest(); };
         first.src = srcOf(s, 0);
       });

@@ -45,14 +45,14 @@
   window.addEventListener('resize', setHdH);
   setHdH();
 
-  /* 흰 바탕 헤더 — 모바일은 첫 화면을 지나면, 서브페이지는 데스크톱도 히어로를 지나면(히어로 없는 상세는 처음부터) */
+  /* 흰 바탕 헤더 — 모바일은 첫 화면을 지나면, 서브페이지는 데스크톱도 히어로를 지나면(히어로 없는 상세는 처음부터), PC 메인은 첫 화면을 지나 위로 올릴 때 */
   var ticking = false;
   var isSub = document.body.classList.contains('is-sub');
   var subHero = document.querySelector('.sp-hero');
   function solid() {
     ticking = false;
     var y = window.pageYOffset || root.scrollTop;
-    var limit = !desk.matches ? (isSub && !subHero ? -1 : 40) : isSub ? (subHero ? subHero.offsetHeight - hd.offsetHeight - 10 : -1) : Infinity;
+    var limit = !desk.matches ? (isSub && !subHero ? -1 : 40) : isSub ? (subHero ? subHero.offsetHeight - hd.offsetHeight - 10 : -1) : window.innerHeight * 0.6;   // PC 메인: 내릴 때 헤더가 사라지는 지점과 같다. 올려서 다시 나타나는 헤더는 늘 흰 바탕
     hd.classList.toggle('is-solid', y > limit);
   }
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(solid); } }, { passive: true });
