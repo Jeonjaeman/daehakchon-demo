@@ -7,14 +7,11 @@
   var nav = hd.querySelector('.hd__nav');
   var desk = window.matchMedia('(min-width: 901px)');
 
-  /* 메가메뉴: 메뉴에 올리면 열고, 헤더에서 벗어나면 닫는다. 키보드 포커스도 같다. */
+  /* 메뉴에 올리면 헤더를 흰 바탕으로, 벗어나면 되돌린다(드롭다운 표시는 nav.css). 키보드 포커스도 같다. */
   var closeT = 0;
   function open() {
     if (!desk.matches) return;
     clearTimeout(closeT);
-    var subs = hd.querySelectorAll('.hd__sub'), h = 0;
-    subs.forEach(function (s) { h = Math.max(h, s.scrollHeight); });
-    hd.style.setProperty('--mega-h', (h + 64) + 'px');
     hd.classList.add('is-mega');
   }
   function close() { clearTimeout(closeT); closeT = setTimeout(function () { hd.classList.remove('is-mega'); }, 120); }

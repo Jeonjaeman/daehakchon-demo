@@ -232,35 +232,6 @@
     });
   }
 
-  /* 탭 — 히어로 아래에 붙어 있다가 내려가면 헤더 아래 고정(gigavis), 현재 탭 밑줄 */
-  var tabs = $('#spTabs');
-  if (tabs) {
-    var bar = $('.sp-tabs__bar', tabs), curA = $('a[aria-current]', tabs);
-    var placeBar = function (a) {
-      if (!a) return;
-      var r = a.getBoundingClientRect(), pr = a.parentNode.getBoundingClientRect();
-      bar.style.width = r.width + 'px';
-      bar.style.transform = 'translateX(' + (r.left - pr.left + a.parentNode.scrollLeft) + 'px)';
-    };
-    placeBar(curA);
-    $$('.sp-tabs__list a', tabs).forEach(function (a) {
-      a.addEventListener('mouseenter', function () { placeBar(a); });
-      a.addEventListener('mouseleave', function () { placeBar(curA); });
-    });
-    if (curA && isMobile) curA.parentNode.scrollLeft = curA.offsetLeft - 24;
-    window.addEventListener('resize', function () { placeBar(curA); });
-    ScrollTrigger.create({
-      trigger: tabs, start: function () { return 'top ' + hdH(); }, endTrigger: 'main', end: function () { return 'bottom ' + (hdH() + tabs.offsetHeight); },   // 본문 끝이 탭 아래선에 닿으면 풀린다(하단 문의 단락을 덮지 않게, 10/24)
-      pin: true, pinSpacing: false, toggleClass: { targets: tabs, className: 'is-stuck' }
-    });
-    // 7차 수정(11/03): PC에서 헤더가 위로 사라지면 고정된 탭도 그만큼 올라가 맨 위에 붙는다
-    if (hd) {
-      var syncHd = function () { tabs.style.setProperty('--hdh', hdH() + 'px'); tabs.classList.toggle('is-hdhide', hd.classList.contains('nav-hide') && !hd.classList.contains('is-mega')); };
-      new MutationObserver(syncHd).observe(hd, { attributes: true, attributeFilter: ['class'] });
-      syncHd();
-    }
-  }
-
   /* 공통 등장 */
   $$('[data-rv]').forEach(function (el) {
     var kind = el.dataset.rv;
