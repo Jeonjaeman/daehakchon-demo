@@ -2697,3 +2697,6 @@ html.cv-open, html.cv-open body { overflow: hidden; }
 .s05 a.more, .s05 a.btn { text-decoration: none; }
 .s05 a.more { color: var(--ink); }
 .s05 a.more:hover, .s05 a.more:focus-visible { color: var(--white); }
+
+/* 13차(11/05): 메인 소식 항목을 실제 글로 연결 */
+.s05 a.notice__item, .s05 a.press__card { color: inherit; text-decoration: none; }

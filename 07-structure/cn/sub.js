@@ -80,23 +80,6 @@
     });
   }
 
-  // 뉴스 상세: ?no= 로 글 채우기(데모 — 실제는 서버에서)
-  var nd = $('#newsData');
-  if (nd) {
-    var list = JSON.parse(nd.textContent), no = +(qs.get('no') || list[0].no);
-    var i = Math.max(0, list.findIndex(function (x) { return x.no === no; })), it = list[i];
-    var art = $('#spArticle');
-    $('[data-a="title"]', art).textContent = it.title;
-    $('[data-a="date"]', art).textContent = it.date;
-    $('[data-a="cat"]', art).textContent = it.cat;
-    $('[data-a="img"]', art).src = it.img;
-    document.title = it.title + ' | 庆北科学大学食品工厂 大学村';
-    var prev = list[i + 1], next = list[i - 1];
-    var pa = $('[data-a="prev"]', art), na = $('[data-a="next"]', art);
-    if (prev) { pa.href = 'news-view.html?no=' + prev.no; pa.children[1].textContent = prev.title; pa.children[2].textContent = prev.date; } else pa.style.display = 'none';
-    if (next) { na.href = 'news-view.html?no=' + next.no; na.children[1].textContent = next.title; na.children[2].textContent = next.date; } else na.style.display = 'none';
-  }
-
   // 인증서 라이트박스
   var lb = $('#spLb');
   if (lb) {
