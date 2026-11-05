@@ -2644,3 +2644,74 @@ html:lang(zh-CN) .g-sc, html:lang(zh-CN) .mnav, html:lang(zh-CN) body { font-fam
 html:lang(zh-CN) .mnav__t .en, html:lang(zh-CN) .mnav__lang { font-family: "Montserrat", "Noto Sans SC", sans-serif; }
 /* 중문은 글자 사이에서 줄을 바꾼다(국문용 word-break: keep-all 이면 중문 한 문장이 한 줄로 넘친다) */
 html:lang(zh-CN) body, html:lang(zh-CN) body * { word-break: normal !important; line-break: strict; }
+
+/* 10차 수정(고객 11/05): 메인 모바일 헤더에 항상 보이는 메뉴 4개 */
+.hd__quick { display: none; }
+@media (max-width: 900px) {
+  .s01 .hd:has(.hd__quick) { flex-wrap: wrap; height: auto; }
+  .hd__quick { display: flex; order: 9; justify-content: space-between; width: 100%; margin: 10px 0 0; padding: 0; list-style: none; }
+  .hd__quick a { display: block; padding: 8px 4px; color: inherit; font-size: 16px; font-weight: 700; letter-spacing: -0.03em; text-decoration: none; }
+  .s01 .hd:not(.is-solid) .hd__quick a { text-shadow: 0 1px 8px rgba(0, 0, 0, .55); }
+  html.mnav-open .hd__quick { visibility: hidden; }
+}
+a.qm__btn { color: #fff; text-decoration: none; }
+
+/* 10차 수정(고객 11/05): 카탈로그 웹진 뷰어. 동작은 nav.js */
+html.cv-open, html.cv-open body { overflow: hidden; }
+.cv { position: fixed; inset: 0; z-index: 1000; display: none; flex-direction: column; background: #17100b; color: #fff; font-family: inherit; }
+.cv.is-on { display: flex; }
+.cv__top { flex: none; display: flex; align-items: center; gap: 16px; height: 64px; padding: 0 clamp(14px, 2vw, 32px); border-bottom: 1px solid rgba(255, 255, 255, .1); }
+.cv__title { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -0.03em; white-space: nowrap; }
+.cv__count { margin: 0; font: 700 14px/1 "Montserrat", sans-serif; color: #f29b87; white-space: nowrap; }
+.cv__acts { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.cv__btn { display: inline-flex; align-items: center; justify-content: center; height: 42px; min-width: 42px; padding: 0 14px; border: 1px solid rgba(255, 255, 255, .28); border-radius: 99px; background: none; color: #fff; font: inherit; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background .2s, border-color .2s; }
+.cv__btn:hover { background: rgba(255, 255, 255, .12); }
+.cv__btn--main { border-color: #eb6100; background: #eb6100; }
+.cv__btn--main:hover { background: #cf5500; }
+.cv__btn:focus-visible, .cv__nav:focus-visible, .cv__th:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.cv__stage { position: relative; flex: 1; min-height: 0; display: flex; overflow: hidden; padding: 14px 0; perspective: 2800px; touch-action: pan-y pinch-zoom; }
+.cv.is-zoom .cv__stage { overflow: auto; touch-action: auto; }
+.cv__book { --h: min(calc(var(--cv-vh, 100vh) - 186px), calc((100vw - 190px) * .707)); position: relative; flex: none; margin: auto; height: calc(var(--h) * var(--z, 1)); width: calc(var(--h) * var(--z, 1) * 1.414); transform-style: preserve-3d; transition: transform .55s cubic-bezier(.45, .05, .25, 1); }
+.cv:not(.is-zoom) .cv__book.is-front { transform: translateX(-25%); }
+.cv:not(.is-zoom) .cv__book.is-back { transform: translateX(25%); }
+.cv__pg, .cv__f, .cv__b { position: absolute; top: 0; height: 100%; background: #fff; overflow: hidden; }
+.cv__pg { width: 50%; }
+.cv__pg--l { left: 0; }
+.cv__pg--r { left: 50%; }
+.cv__pg.is-empty { background: none; }
+.cv__pg img, .cv__f img, .cv__b img { display: block; width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+.cv__pg.is-empty img { visibility: hidden; }
+.cv__pg--l::after, .cv__b::after { content: ""; position: absolute; inset: 0 0 0 auto; width: 9%; background: linear-gradient(to left, rgba(0, 0, 0, .16), transparent); pointer-events: none; }
+.cv__pg--r::after, .cv__f::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 9%; background: linear-gradient(to right, rgba(0, 0, 0, .16), transparent); pointer-events: none; }
+.cv__pg.is-empty::after { display: none; }
+.cv__leaf { position: absolute; top: 0; left: 50%; display: none; width: 50%; height: 100%; transform-origin: left center; transform-style: preserve-3d; }
+.cv__leaf.is-on { display: block; }
+.cv__leaf.is-run { transition: transform .8s cubic-bezier(.45, .05, .25, 1); }
+.cv__f, .cv__b { inset: 0; width: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.cv__b { transform: rotateY(180deg); }
+.cv__nav { position: fixed; top: 50%; z-index: 3; display: grid; place-items: center; width: 54px; height: 54px; margin-top: -27px; border: 0; border-radius: 50%; background: #eb6100; color: #fff; font-size: 26px; line-height: 1; cursor: pointer; transition: opacity .2s, background .2s; }
+.cv__nav:hover { background: #cf5500; }
+.cv__nav:disabled { opacity: .25; cursor: default; }
+.cv__nav--p { left: clamp(10px, 1.6vw, 30px); }
+.cv__nav--n { right: clamp(10px, 1.6vw, 30px); }
+.cv__thumbs { flex: none; display: flex; justify-content: center; gap: 8px; height: 80px; padding: 8px 12px; overflow-x: auto; border-top: 1px solid rgba(255, 255, 255, .1); scrollbar-width: none; }
+.cv__th { flex: none; width: 45px; height: 64px; padding: 0; border: 2px solid transparent; border-radius: 3px; background: none; opacity: .5; cursor: pointer; transition: opacity .2s, border-color .2s; }
+.cv__th img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cv__th:hover { opacity: .85; }
+.cv__th.is-on { border-color: #eb6100; opacity: 1; }
+/* 한 쪽 보기: 휴대폰·세로 화면 */
+.cv.is-one .cv__book { --h: min(calc(var(--cv-vh, 100vh) - 176px), calc((100vw - 24px) / .707)); width: calc(var(--h) * var(--z, 1) * .707); }
+.cv.is-one .cv__pg { left: 0; width: 100%; }
+.cv.is-one .cv__pg--l, .cv.is-one .cv__leaf { display: none; }
+.cv.is-one .cv__pg--r::after { display: none; }
+.cv.is-one .cv__pg--r.go-n { animation: cvN .34s cubic-bezier(.2, .7, .2, 1); }
+.cv.is-one .cv__pg--r.go-p { animation: cvP .34s cubic-bezier(.2, .7, .2, 1); }
+@keyframes cvN { from { opacity: .2; transform: translateX(14%); } to { opacity: 1; transform: none; } }
+@keyframes cvP { from { opacity: .2; transform: translateX(-14%); } to { opacity: 1; transform: none; } }
+@media (max-width: 900px) {
+  .cv__top { gap: 10px; height: 58px; }
+  .cv__title { display: none; }
+  .cv__btn { height: 40px; padding: 0 12px; font-size: 13px; }
+  .cv__nav { width: 42px; height: 42px; margin-top: -21px; font-size: 20px; opacity: .92; }
+  .cv__thumbs { justify-content: flex-start; }
+}

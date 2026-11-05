@@ -148,6 +148,8 @@ body.is-sub { margin: 0; background: #fff; overflow-x: clip; }
 .sp-quote { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4vw; align-items: start; }
 .sp-quote__mark { font-family: Georgia, serif; font-size: clamp(120px, 10vw, 220px); line-height: .7; color: var(--orange); }
 .sp-quote__t { font-size: clamp(22px, 1.8vw, 38px); font-weight: 600; line-height: 1.55; letter-spacing: -0.04em; }
+/* 10차 수정(고객 11/05): 끝내는 따옴표 */
+.sp-quote__t::after { content: "\201D"; display: inline-block; margin-left: .12em; font-family: Georgia, serif; font-size: 2.6em; line-height: 0; vertical-align: -.42em; color: var(--orange); }
 .sp-quote__by { margin-top: 2em; font-size: var(--fs-sm); color: var(--ink-2); }
 .sp-quote__by b { margin-left: .6em; font-size: 1.3em; color: var(--ink); }
 
@@ -291,7 +293,9 @@ body.is-sub { margin: 0; background: #fff; overflow-x: clip; }
 .sp-lb__x { right: 3vw; top: 3vh; }
 .sp-lb__nav--p { left: 3vw; top: 50%; transform: translateY(-50%); }
 .sp-lb__nav--n { right: 3vw; top: 50%; transform: translateY(-50%); }
-.sp-badges { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.4vw; }
+.sp-badges { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.2vw; }
+@media (min-width: 901px) and (max-width: 1500px) { .sp-badges { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; } .sp-badge { grid-column: span 2; } .sp-badge:nth-child(n+4) { grid-column: span 3; } }
+.sp-badge__tag { display: inline-block; margin-top: .7em; padding: .28em .8em; border-radius: 99px; background: rgba(235, 97, 0, .18); color: #ff9a55; font-size: var(--fs-xs, 13px); font-style: normal; font-weight: 700; }
 .sp-badge { padding: clamp(26px, 2.2vw, 44px); border-radius: var(--r-lg); background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .1); }
 .sp-badge b { display: block; font-family: var(--en); font-size: clamp(28px, 2.2vw, 46px); font-weight: 800; letter-spacing: -0.03em; color: var(--orange); }
 .sp-badge strong { display: block; margin-top: .5em; font-size: var(--fs-h3); }
