@@ -1,4 +1,4 @@
-/* 대학촌 공통 내비게이션 — 메가메뉴(데스크톱) · 전체 화면 메뉴(모바일) · 모바일 헤더 바탕. 원본 _compose/nav.js (메인·서브 공통) */
+/* 대학촌 공통 내비게이션 — 드롭다운 메뉴(데스크톱·모바일) · 모바일 헤더 바탕. 원본 _compose/nav.js (메인·서브 공통) */
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -23,29 +23,27 @@
     window.addEventListener('keydown', function (e) { if (e.key === 'Escape') hd.classList.remove('is-mega'); });
   }
 
-  /* 모바일 전체 화면 메뉴 */
-  var burger = document.getElementById('hdBurger'), mnav = document.getElementById('mnav');
-  function setMenu(on) {
-    root.classList.toggle('mnav-open', on);
-    if (burger) { burger.setAttribute('aria-expanded', on ? 'true' : 'false'); burger.setAttribute('aria-label', on ? '关闭菜单' : '打开菜单'); }
-    if (mnav) mnav.setAttribute('aria-hidden', on ? 'false' : 'true');
-    var lenis = window.__g && window.__g.lenis;
-    if (lenis) { if (on) lenis.stop(); else lenis.start(); }
+  /* 11차 수정(고객 11/05): 모바일은 상단 메뉴 4개가 항상 보이고, 터치한 메뉴의 하위 항목만 연다(터치 태블릿도 같다) */
+  var noHover = window.matchMedia('(hover: none)');
+  function closeItems() {
+    hd.querySelectorAll('.hd__item.is-open').forEach(function (x) { x.classList.remove('is-open'); x.querySelector('.hd__top').setAttribute('aria-expanded', 'false'); });
   }
-  if (burger && mnav) {
-    burger.addEventListener('click', function () { setMenu(!root.classList.contains('mnav-open')); });
-    mnav.querySelectorAll('.mnav__t').forEach(function (b) {
-      b.addEventListener('click', function () {
-        var g = b.parentNode, on = !g.classList.contains('is-open');
-        mnav.querySelectorAll('.mnav__g').forEach(function (x) { x.classList.remove('is-open'); x.querySelector('.mnav__t').setAttribute('aria-expanded', 'false'); });
-        g.classList.toggle('is-open', on);
-        b.setAttribute('aria-expanded', on ? 'true' : 'false');
-      });
+  hd.querySelectorAll('.hd__top').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      if (desk.matches && !noHover.matches) return;
+      e.preventDefault();
+      var it = a.parentNode, on = !it.classList.contains('is-open');
+      closeItems();
+      it.classList.toggle('is-open', on);
+      a.setAttribute('aria-expanded', on ? 'true' : 'false');
     });
-    mnav.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
-    window.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
-    desk.addEventListener('change', function () { if (desk.matches) setMenu(false); });
-  }
+  });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.hd__item')) closeItems(); });
+  window.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeItems(); });
+  desk.addEventListener('change', closeItems);
+  function setHdH() { root.style.setProperty('--hd-h', hd.offsetHeight + 'px'); }
+  window.addEventListener('resize', setHdH);
+  setHdH();
 
   /* 흰 바탕 헤더 — 모바일은 첫 화면을 지나면, 서브페이지는 데스크톱도 히어로를 지나면(히어로 없는 상세는 처음부터) */
   var ticking = false;
@@ -54,7 +52,7 @@
   function solid() {
     ticking = false;
     var y = window.pageYOffset || root.scrollTop;
-    var limit = !desk.matches ? 40 : isSub ? (subHero ? subHero.offsetHeight - hd.offsetHeight - 10 : -1) : Infinity;
+    var limit = !desk.matches ? (isSub && !subHero ? -1 : 40) : isSub ? (subHero ? subHero.offsetHeight - hd.offsetHeight - 10 : -1) : Infinity;
     hd.classList.toggle('is-solid', y > limit);
   }
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(solid); } }, { passive: true });

@@ -502,6 +502,8 @@ body.is-sub { margin: 0; background: #fff; overflow-x: clip; }
   .sp-util { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sp-util li:nth-child(odd) { padding-left: 0; border-left: 0; }
   .sp-steps__pin { height: auto; padding: 72px var(--gut); gap: 28px; }
+  .sp-steps__stage { order: -1; position: sticky; top: calc(var(--hd-h, 100px) + 8px); z-index: 3; }
+  .sp-steps__list li.is-cur span { color: var(--orange); }
   .sp-certs, .sp-prods, .sp-related { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; }
   .sp-logowall { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .sp-logowall li img { filter: none; opacity: 1; }

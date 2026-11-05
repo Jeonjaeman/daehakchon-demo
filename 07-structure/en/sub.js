@@ -370,21 +370,30 @@
 
   /* 생산공정 — 단계 핀(9단계가 스크롤로 진행) */
   var steps = $('#spSteps');
-  if (steps && !isMobile) {
+  if (steps) {
     var sli = $$('.sp-steps__list li', steps), simg = $$('.sp-steps__stage img', steps), sno = $('#stepNo'), sbar = $('#stepBar'), scur = 0;
     var sset = function (k) {
       if (k === scur) return;
-      sli.forEach(function (li, i) { li.classList.toggle('is-on', i === k); });
+      sli.forEach(function (li, i) { li.classList.toggle(isMobile ? 'is-cur' : 'is-on', i === k); });
       simg.forEach(function (im, i) { im.classList.toggle('is-on', i === k); im.classList.toggle('is-past', i < k); });
       sno.textContent = ('0' + (k + 1)).slice(-2);
       scur = k;
     };
-    ScrollTrigger.create({
-      trigger: steps, start: 'top top', end: '+=' + (sli.length * 45) + '%', pin: $('.sp-steps__pin', steps), anticipatePin: 1,
-      onUpdate: function (s) { sset(Math.min(sli.length - 1, Math.floor(s.progress * sli.length * 0.999))); sbar.style.transform = 'scaleX(' + s.progress + ')'; }
-    });
-  } else if (steps) {
-    $$('.sp-steps__list li', steps).forEach(function (li) { li.classList.add('is-on'); });
+    if (!isMobile) {
+      ScrollTrigger.create({
+        trigger: steps, start: 'top top', end: '+=' + (sli.length * 45) + '%', pin: $('.sp-steps__pin', steps), anticipatePin: 1,
+        onUpdate: function (s) { sset(Math.min(sli.length - 1, Math.floor(s.progress * sli.length * 0.999))); sbar.style.transform = 'scaleX(' + s.progress + ')'; }
+      });
+    } else {
+      // 11차 수정(고객 11/05): 모바일에서 1번 사진만 보이던 문제. 사진을 위에 붙이고 화면 가운데를 지나는 단계의 사진으로 바꾼다. 단계를 터치해도 바뀐다
+      sli.forEach(function (li, i) {
+        li.classList.add('is-on');
+        li.addEventListener('click', function () { sset(i); });
+        ScrollTrigger.create({ trigger: li, start: 'top 62%', end: 'bottom 62%', onToggle: function (st) { if (st.isActive) sset(i); } });
+      });
+      sli[0].classList.add('is-cur');
+      ScrollTrigger.create({ trigger: $('.sp-steps__list', steps), start: 'top 62%', end: 'bottom 62%', onUpdate: function (st) { sbar.style.transform = 'scaleX(' + st.progress + ')'; } });
+    }
   }
 
   /* ODM 수출 경로 (4번 초안 연출, 10/24): 데스크톱은 핀 + 스크럽, 모바일은 핀 없이 지나가며.
