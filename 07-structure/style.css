@@ -2539,6 +2539,32 @@ html.intro-done .g-intro { display: none; }
 .s01 .ch--1 .ch__en { font-weight: 800; }
 
 
+/* ═════════ 14차(11/09, 총장님 회의 전 수정) ═════════ */
+/* 1. 시작 화면: 밝은 회색 바탕, 학교 영문 표기 삭제, 엠블럼은 한글 학교명과 균형 맞게 작게, 식품공장 로고는 컬러판 */
+html.has-intro .g-intro { background: #f3f1ee; color: #2b1d12; }
+.g-intro__emb { width: clamp(96px, 7.4vw, 150px); filter: drop-shadow(0 10px 22px rgba(43, 29, 18, .12)); }
+.g-intro__name b { font-size: clamp(24px, 1.9vw, 38px); }
+.g-intro__skip { border-color: rgba(43, 29, 18, .25); color: rgba(43, 29, 18, .6); }
+.g-intro__skip:hover, .g-intro__skip:focus-visible { border-color: #2b1d12; color: #2b1d12; }
+/* 2. 영상 구간: 검은 막을 걷고 밝은 화이트 톤. 글씨는 그림자로만 읽히게 */
+.s01 .hero--side .hero__shade,
+.s01 .hero__shade {
+  background:
+    linear-gradient(90deg, rgba(26, 15, 8, .26) 0%, rgba(26, 15, 8, .08) 38%, rgba(26, 15, 8, 0) 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, .14) 0%, rgba(255, 255, 255, .1) 60%, rgba(26, 15, 8, .16) 100%);
+}
+.s01 .hero__video { filter: brightness(1.14) saturate(1.06) contrast(.97); }
+.s01 .hero--side .hero__title, .s01 .hero--side .hero__sub { text-shadow: 0 2px 18px rgba(20, 12, 6, .45), 0 1px 3px rgba(20, 12, 6, .35); }
+/* 4. 모바일: 제품 슬라이드가 위 메뉴·아래 버튼을 덮지 않게(제품 z-index를 이 구간 안에 가둔다) */
+.g-sc { isolation: isolate; }
+@media (max-width: 767px) {
+  .s01 .hero--side .hero__shade { background: linear-gradient(180deg, rgba(26, 15, 8, .12) 0%, rgba(255, 255, 255, .08) 45%, rgba(26, 15, 8, .3) 100%); }
+  /* QUALITY: 두 사진이 겹치며 설명 글자를 가리던 배치 → 나란히 */
+  .s01 .ch--1 .fig--b { grid-column: 1 / 4; grid-row: 3; margin-top: 28px; }
+  .s01 .ch--1 .fig--c { grid-column: 4 / 7; grid-row: 3; margin-top: 0; align-self: end; }
+  .s01 .ch--1 .fig__cap { font-size: 10px; letter-spacing: .16em; }
+}
+
 /* ── 공통 내비게이션 (_compose/nav.css) ── */
 /* ═════════ 대학촌 공통 내비게이션 (메인 G · 서브페이지) — _compose/site_nav.py 마크업 + _compose/nav.js ═════════
    데스크톱: 메뉴에 올리면 그 메뉴의 하위 항목만 드롭다운

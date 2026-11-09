@@ -309,8 +309,11 @@
     // 장면 k의 그림 — 원본 pick 그대로(가까운 로드된 프레임 → 없으면 스틸 줌). 진행도만 바꿨다: 보이는 구간 앞 SPIN 동안 한 바퀴 돌고
     // 나머지는 정면에 멈춘다(고르게 돌리면 설명을 읽는 한가운데에 제품 뒷면이 온다).
     var SPIN = 0.62;
+    // 14차(11/09, 총장님 의견): 회전 없이 정면(첫 프레임)에 고정하고, 스크롤에 따라 아주 천천히 다가오는 정도의 움직임만 둔다
+    var FIXED = true;
     function pick(k, p) {
       var s = scenes[k], q = clamp01((p - vFrom(k)) / (vTo(k) - vFrom(k)));
+      if (FIXED && s.mode === 'frames' && s.frames[0]) return { img: s.frames[0], key: k + 'z' + q.toFixed(3), zoom: 1 + 0.05 * ease(q), pan: 0 };
       if (s.mode === 'frames') {
         var want = Math.round(ease(clamp01(q / SPIN)) * (TOTAL - 1)), d, i;
         for (d = 0; d < TOTAL; d++) {                                // 아직 안 온 프레임은 가장 가까운 프레임으로
@@ -417,8 +420,8 @@
       var left = scenes.length;
       scenes.forEach(function (s) {                                  // 장면마다 첫 프레임부터(실패하면 스틸 폴백)
         var first = new Image();
-        first.onload = function () { s.frames[0] = first; s.asked[0] = true; s.mode = 'frames'; lastKey = ''; render(); if (--left === 0) loadRest(); };
-        first.onerror = function () { loadStill(s); if (--left === 0) loadRest(); };
+        first.onload = function () { s.frames[0] = first; s.asked[0] = true; s.mode = 'frames'; lastKey = ''; render(); if (--left === 0 && !FIXED) loadRest(); };
+        first.onerror = function () { loadStill(s); if (--left === 0 && !FIXED) loadRest(); };
         first.src = srcOf(s, 0);
       });
     }
