@@ -311,11 +311,16 @@
     var eraNames = btns.map(function (b) { return b.textContent; });
     var caps = ['시작', '성장', '신뢰', '도약'];
     var setYear = function (y) { String(y).split('').forEach(function (d, k) { if (digits[k]) digits[k].style.transform = 'translateY(' + (-d) + 'em)'; }); };
-    var curEra = -1;
+    var curEra = -1, curYear = '';
+    // 15차(11/13): 연도 사진(data-year)이 있으면 그 사진, 없으면 시대 사진(data-era)
+    var showFig = function () {
+      var hit = figs.filter(function (f) { return f.dataset.year === curYear; })[0];
+      figs.forEach(function (f) { f.classList.toggle('is-on', hit ? f === hit : (f.dataset.era !== undefined && +f.dataset.era === curEra)); });
+    };
     var setEra = function (k) {
       if (k === curEra) return;
       curEra = k;
-      figs.forEach(function (f, i) { f.classList.toggle('is-on', i === k); });
+      showFig();
       btns.forEach(function (b, i) { b.classList.toggle('is-on', i === k); });
       if (eraEl) eraEl.textContent = eraNames[k];
       if (capEl) capEl.textContent = caps[k] || '';
@@ -325,7 +330,7 @@
     rows.forEach(function (r) {
       ScrollTrigger.create({
         trigger: r, start: 'top 55%', end: 'bottom 55%',
-        onToggle: function (s) { if (s.isActive) { rows.forEach(function (x) { x.classList.toggle('is-on', x === r); }); setYear(r.dataset.year); setEra(+r.dataset.era); } }
+        onToggle: function (s) { if (s.isActive) { rows.forEach(function (x) { x.classList.toggle('is-on', x === r); }); setYear(r.dataset.year); curYear = r.dataset.year; showFig(); setEra(+r.dataset.era); } }
       });
     });
     gsap.to('#histLine', { height: '100%', ease: 'none', scrollTrigger: { trigger: '.sp-hist__list', start: 'top 55%', end: 'bottom 55%', scrub: true } });
