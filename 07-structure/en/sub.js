@@ -312,9 +312,17 @@
     var caps = ['Beginnings', 'Growth', 'Trust', 'Leap'];
     var setYear = function (y) { String(y).split('').forEach(function (d, k) { if (digits[k]) digits[k].style.transform = 'translateY(' + (-d) + 'em)'; }); };
     var curEra = -1, curYear = '';
+    var yearEra = {};
+    rows.forEach(function (r) { yearEra[r.dataset.year] = +r.dataset.era; });
     // 15차(11/13): 연도 사진(data-year)이 있으면 그 사진, 없으면 시대 사진(data-era)
     var showFig = function () {
-      var hit = figs.filter(function (f) { return f.dataset.year === curYear; })[0];
+      // 11/13 16:43: 연도 사진은 같은 시대 안에서 다음 사진이 나올 때까지 이어서 보여 준다(앞 사진으로 되돌아가지 않게)
+      var hit = null;
+      figs.forEach(function (f) {
+        var y = f.dataset.year;
+        if (!y || +y > +curYear || yearEra[y] !== curEra) return;
+        if (!hit || +y > +hit.dataset.year) hit = f;
+      });
       figs.forEach(function (f) { f.classList.toggle('is-on', hit ? f === hit : (f.dataset.era !== undefined && +f.dataset.era === curEra)); });
     };
     var setEra = function (k) {
@@ -330,7 +338,7 @@
     rows.forEach(function (r) {
       ScrollTrigger.create({
         trigger: r, start: 'top 55%', end: 'bottom 55%',
-        onToggle: function (s) { if (s.isActive) { rows.forEach(function (x) { x.classList.toggle('is-on', x === r); }); setYear(r.dataset.year); curYear = r.dataset.year; showFig(); setEra(+r.dataset.era); } }
+        onToggle: function (s) { if (s.isActive) { rows.forEach(function (x) { x.classList.toggle('is-on', x === r); }); setYear(r.dataset.year); curYear = r.dataset.year; curEra === +r.dataset.era ? showFig() : setEra(+r.dataset.era); } }
       });
     });
     gsap.to('#histLine', { height: '100%', ease: 'none', scrollTrigger: { trigger: '.sp-hist__list', start: 'top 55%', end: 'bottom 55%', scrub: true } });
