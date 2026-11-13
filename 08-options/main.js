@@ -325,6 +325,23 @@
       return null;
     }
 
+    // 15차(11/12 고객): 제품을 지금의 약 70% 크기로, 마우스를 올리면 약 85%까지 자연스럽게 커진다(PC). hv = 0(기본) ~ 1(확대)
+    var SC_BASE = 0.70, SC_HOVER = 0.85, hv = 0, hvTo = 0, hvRaf = 0, box = null;
+    function hvTick() {
+      hv += (hvTo - hv) * 0.12;
+      if (Math.abs(hvTo - hv) < 0.002) hv = hvTo;
+      lastKey = ''; render();
+      hvRaf = hv === hvTo ? 0 : requestAnimationFrame(hvTick);
+    }
+    if (!isMobile) window.addEventListener('pointermove', function (e) {
+      var r = canvas.getBoundingClientRect(), on = false;
+      if (box && e.clientY >= r.top && e.clientY <= r.bottom) {
+        var d = canvas.width / r.width, x = (e.clientX - r.left) * d, y = (e.clientY - r.top) * d;
+        on = x >= box.x && x <= box.x + box.w && y >= box.y && y <= box.y + box.h;
+      }
+      if (on !== (hvTo === 1)) { hvTo = on ? 1 : 0; canvas.style.cursor = on ? 'zoom-in' : ''; if (!hvRaf) hvRaf = requestAnimationFrame(hvTick); }
+    }, { passive: true });
+
     function draw(f, alpha, dy) {
       var cw = canvas.width, ch = canvas.height;
       var img = f.img, iw = img.naturalWidth, ih = img.naturalHeight;
@@ -334,7 +351,8 @@
       if (portrait) { w = cw * 1.2; h = w / ir; cy = 0.36; }
       else if (ir > cr) { w = cw; h = w / ir; }
       else { h = ch; w = h * ir; }
-      w *= f.zoom; h *= f.zoom;
+      var sc = SC_BASE + (SC_HOVER - SC_BASE) * ease(hv);
+      w *= f.zoom * sc; h *= f.zoom * sc;
       var x = (cw - w) / 2 + f.pan * cw, y = ch * cy - h / 2 + dy * ch;
       var r = Math.floor(x + w), b = Math.floor(y + h);
       ctx.globalAlpha = alpha;
@@ -342,8 +360,14 @@
       if (r < cw) ctx.drawImage(img, iw - 2, 0, 2, ih, r - 1, y, cw - r + 1, h);
       if (y > 0) ctx.drawImage(img, 0, 0, iw, 2, x, 0, w, Math.ceil(y) + 1);
       if (b < ch) ctx.drawImage(img, 0, ih - 2, iw, 2, x, b - 1, w, ch - b + 1);
+      // 15차: 제품을 줄이면 네 모서리가 비어 아이보리 사각형이 보인다. 모서리 픽셀로 채운다
+      if (x > 0 && y > 0) ctx.drawImage(img, 0, 0, 2, 2, 0, 0, Math.ceil(x) + 1, Math.ceil(y) + 1);
+      if (r < cw && y > 0) ctx.drawImage(img, iw - 2, 0, 2, 2, r - 1, 0, cw - r + 1, Math.ceil(y) + 1);
+      if (x > 0 && b < ch) ctx.drawImage(img, 0, ih - 2, 2, 2, 0, b - 1, Math.ceil(x) + 1, ch - b + 1);
+      if (r < cw && b < ch) ctx.drawImage(img, iw - 2, ih - 2, 2, 2, r - 1, b - 1, cw - r + 1, ch - b + 1);
       ctx.drawImage(img, x, y, w, h);
       ctx.globalAlpha = 1;
+      box = alpha > 0.5 ? { x: x + w * 0.3, y: y + h * 0.08, w: w * 0.4, h: h * 0.84 } : null;   // 제품이 놓인 가운데 부분만 확대 반응
     }
 
     function render() {
@@ -364,7 +388,7 @@
         a = 1; dy = 0;
       }
       if (!f) return;
-      var key = f.key + '@' + a.toFixed(3) + '/' + dy.toFixed(4) + '|' + canvas.width + 'x' + canvas.height;
+      var key = f.key + '~' + hv.toFixed(3) + '@' + a.toFixed(3) + '/' + dy.toFixed(4) + '|' + canvas.width + 'x' + canvas.height;
       if (key === lastKey) return;
       lastKey = key;
       ctx.fillStyle = IVORY;

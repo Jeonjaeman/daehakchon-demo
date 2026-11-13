@@ -2565,6 +2565,13 @@ html.has-intro .g-intro { background: #f3f1ee; color: #2b1d12; }
   .s01 .ch--1 .fig__cap { font-size: 10px; letter-spacing: .16em; }
 }
 
+/* ═════════ 15차(고객 11/12 숨고) ═════════
+   2 상단 로고: 오른쪽으로 조금 옮기고 크게, 마우스를 올리면 자연스럽게 확대 (PC만. 모바일 헤더는 4메뉴 자리 때문에 그대로) */
+@media (min-width: 768px) {
+  .s01 .hd__logo--real { height: clamp(48px, 3.6vw, 72px); margin-left: 1.6vw; transform-origin: left center; transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+  .s01 .hd__logo--real:hover, .s01 .hd__logo--real:focus-visible { transform: scale(1.08); }
+}
+
 /* ── 공통 내비게이션 (_compose/nav.css) ── */
 /* ═════════ 대학촌 공통 내비게이션 (메인 G · 서브페이지) — _compose/site_nav.py 마크업 + _compose/nav.js ═════════
    데스크톱: 메뉴에 올리면 그 메뉴의 하위 항목만 드롭다운

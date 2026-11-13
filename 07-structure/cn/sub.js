@@ -475,7 +475,7 @@
     }
     size();
     window.addEventListener('resize', size);
-    var auto = gsap.to({ v: 0 }, { v: 1, duration: 9, repeat: -1, ease: 'none', onUpdate: function () { idx = (idx + .5) % N; draw(); } });
+    var auto = gsap.to({ v: 0 }, { v: 1, duration: 9, repeat: -1, ease: 'none', onUpdate: function () { idx = (idx + .22) % N; draw(); } });   // 15차(11/12 고객): 회전을 더 느리게(한 바퀴 약 4초 → 약 9초)
     var drag = null;
     spin.addEventListener('pointerdown', function (e) { drag = { x: e.clientX, i: idx }; auto.pause(); spin.setPointerCapture(e.pointerId); spin.style.cursor = 'grabbing'; });
     spin.addEventListener('pointermove', function (e) { if (!drag) return; idx = ((drag.i - (e.clientX - drag.x) / spin.clientWidth * N * 1.2) % N + N) % N; draw(); });
