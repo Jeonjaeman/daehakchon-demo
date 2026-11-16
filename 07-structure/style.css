@@ -2572,6 +2572,10 @@ html.has-intro .g-intro { background: #f3f1ee; color: #2b1d12; }
   .s01 .hd__logo--real:hover, .s01 .hd__logo--real:focus-visible { transform: scale(1.08); }
 }
 
+/* 16차(11/16): 인트로 학교 이름은 학교 공식 로고타입(국문+영문) 이미지, 언어와 상관없이 같은 모양 */
+.g-intro__name .g-intro__type { display: block; width: clamp(220px, 19vw, 380px); height: auto; margin: 0 auto; }
+@media (max-width: 767px) { .g-intro__name .g-intro__type { width: min(68vw, 280px); } }
+
 /* ── 공통 내비게이션 (_compose/nav.css) ── */
 /* ═════════ 대학촌 공통 내비게이션 (메인 G · 서브페이지) — _compose/site_nav.py 마크업 + _compose/nav.js ═════════
    데스크톱: 메뉴에 올리면 그 메뉴의 하위 항목만 드롭다운

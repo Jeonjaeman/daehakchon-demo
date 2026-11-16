@@ -679,3 +679,12 @@ html:lang(en) .sp-prod { overflow-wrap: anywhere; }
 .sp-article__video { position: relative; aspect-ratio: 16 / 9; margin: 0 0 2em; border-radius: var(--r-lg); overflow: hidden; background: #000; }
 .sp-article__video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .sp-article__body a { color: var(--orange); text-decoration: underline; overflow-wrap: anywhere; }
+
+/* 16차(11/16 고객): PC 연혁 왼쪽(연도·사진·시대 버튼)을 화면 높이에 맞춰 고정. 올리고 내려도 사진이 잘리지 않고 오른쪽 연혁만 스크롤된다 */
+@media (min-width: 901px) {
+  .sp-hist__aside { top: calc(var(--hd, 90px) + 28px); height: calc(100vh - var(--hd, 90px) - 56px); height: calc(100svh - var(--hd, 90px) - 56px); display: flex; flex-direction: column; }
+  .sp-hist__year { font-size: clamp(72px, min(9.4vw, 16vh), 200px); }
+  .sp-hist__cap { margin-top: .4em; }
+  .sp-hist__fig { flex: 0 1 auto; min-height: 140px; margin-top: min(2vw, 2.4vh); }
+  .sp-hist__nav { flex: none; margin-top: min(1.6vw, 2vh); }
+}

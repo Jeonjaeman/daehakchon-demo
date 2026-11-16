@@ -326,7 +326,8 @@
     }
 
     // 15차(11/12 고객): 제품을 지금의 약 70% 크기로, 마우스를 올리면 약 85%까지 자연스럽게 커진다(PC). hv = 0(기본) ~ 1(확대)
-    var SC_BASE = 0.70, SC_HOVER = 0.85, hv = 0, hvTo = 0, hvRaf = 0, box = null;
+    // 16차(11/16 고객): 변화가 잘 안 느껴진다고 해서 극과 극으로. 기본 58%, 마우스를 올리면 100%(원래 크기)
+    var SC_BASE = 0.58, SC_HOVER = 1.0, hv = 0, hvTo = 0, hvRaf = 0, box = null;
     function hvTick() {
       hv += (hvTo - hv) * 0.12;
       if (Math.abs(hvTo - hv) < 0.002) hv = hvTo;
